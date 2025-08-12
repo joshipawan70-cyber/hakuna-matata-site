@@ -1,290 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Hakuna Matata Gaming Cafe</title>
-  <meta name="description" content="Hakuna Matata Gaming Cafe - Play. Eat. Repeat.">
-  <style>
-    :root{
-      --bg:#0b0f14;
-      --card:#0f1720;
-      --muted:#98a0ab;
-      --accent:#7c3aed; /* modern purple accent */
-      --accent-2:#06b6d4; /* cyan accent */
-      --glass: rgba(255,255,255,0.03);
-      --radius:16px;
-      --maxw:1100px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hakuna Matata Gaming Cafe</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #121212;
+        color: #fff;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:linear-gradient(180deg,#050608 0%, #071027 60%);
-      color:#e6eef8;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      padding:32px 16px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      font-size:16px;
+    header {
+        background-color: #1f1f1f;
+        padding: 20px;
+        text-align: center;
     }
-    .container{width:100%;max-width:var(--maxw)}
-
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:28px;
+    header h1 {
+        margin: 0;
+        font-size: 2em;
+        color: #ffcc00;
     }
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo{
-      width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;align-items:center;justify-content:center;font-weight:700;color:#071027;font-size:22px;box-shadow:0 6px 18px rgba(30,41,59,0.6)
+    section {
+        padding: 20px;
+        max-width: 1000px;
+        margin: auto;
     }
-    .title{font-size:20px;font-weight:700}
-    .tag{color:var(--muted);font-size:13px}
-
-    nav a{color:var(--muted);text-decoration:none;margin-left:14px}
-
-    .hero{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--radius);
-      padding:28px;
-      display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center;
-      box-shadow:0 6px 30px rgba(2,6,23,0.7);
+    .menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
     }
-    .hero-left h1{margin:0;font-size:28px}
-    .hero-left p{color:var(--muted);margin-top:8px}
-
-    .cta{margin-top:18px;display:flex;gap:12px}
-    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:10px 16px;border-radius:12px;color:#071027;font-weight:700;text-decoration:none}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-
-    .card{background:var(--card);padding:18px;border-radius:12px}
-
-    /* Menu grid */
-    .menu{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .menu .item{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;background:var(--glass);border-radius:12px}
-    .menu .left{display:flex;gap:12px;align-items:center}
-    .thumb{width:68px;height:48px;border-radius:8px;background:linear-gradient(90deg,#111827,#0b1220);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px}
-    .price{font-weight:700}
-    .pay{margin-left:12px}
-    .pay a{display:inline-block;padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#111827, rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);text-decoration:none;color:var(--muted);font-weight:700}
-
-    .about{margin-top:18px;color:var(--muted)}
-    .contact{margin-top:18px}
-
-    footer{margin-top:24px;color:var(--muted);font-size:13px;text-align:center}
-
-    /* Responsive */
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr}
-      .menu{grid-template-columns:1fr}
-      .brand .logo{width:52px;height:52px}
+    .menu-item {
+        background-color: #1f1f1f;
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
     }
-
-    /* small helper */
-    .muted{color:var(--muted)}
-    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);margin:16px 0;border-radius:2px}
-  </style>
+    .menu-item img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+    .menu-item h3 {
+        margin: 10px 0 5px;
+        color: #ffcc00;
+    }
+    .menu-item p {
+        margin: 0 0 10px;
+    }
+    .btn {
+        background-color: #ffcc00;
+        color: #000;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+    .btn:hover {
+        background-color: #e6b800;
+    }
+    footer {
+        background-color: #1f1f1f;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    footer h3 {
+        color: #ffcc00;
+    }
+    footer p {
+        font-size: 0.9em;
+        line-height: 1.4em;
+        color: #ccc;
+    }
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">HM</div>
-        <div>
-          <div class="title">Hakuna Matata Gaming Cafe</div>
-          <div class="tag">Play. Eat. Repeat.</div>
+
+<header>
+    <h1>Hakuna Matata Gaming Cafe</h1>
+    <p>Food • Beverages • PS5 • PS4 • Pool Table • Snooker • Private Theatre • Board Games</p>
+</header>
+
+<section>
+    <h2>Our Menu</h2>
+    <div class="menu">
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a" alt="Maggie">
+            <h3>Maggie</h3>
+            <p>₹50</p>
+            <button class="btn">Order Now</button>
         </div>
-      </div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#menu">Menu</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <div class="hero-left">
-        <h1>Welcome to Hakuna Matata Gaming Cafe</h1>
-        <p class="about">Enjoy food & beverages while you play on PS5, PS4, relax at the pool table and snooker, watch movies in a private theatre, or play classic board games.</p>
-        <div class="cta">
-          <a class="btn" href="#menu">View Menu</a>
-          <a class="btn secondary" href="#contact">Contact Us</a>
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f" alt="Noodles">
+            <h3>Noodles</h3>
+            <p>₹100</p>
+            <button class="btn">Order Now</button>
         </div>
-
-        <div class="card about" id="about">
-          <strong>Facilities</strong>
-          <p style="margin:8px 0">PS5 • PS4 • Pool table • Snooker • Private theatre • Board games • Food & Beverages</p>
-          <p class="muted">Location: No 42, Christ Lane, Beside Mekeba Restaurant, Hosur Main Road, SG Palya</p>
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1572449043416-55f4685c9bbf" alt="Fried Rice">
+            <h3>Fried Rice</h3>
+            <p>₹90</p>
+            <button class="btn">Order Now</button>
         </div>
-      </div>
-
-      <aside class="card">
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="font-weight:700">Contact</div>
-          <div class="muted">📞 9348091035</div>
-          <div class="muted">✉️ joshipawan70@gmail.com</div>
-
-          <div class="divider"></div>
-
-          <div style="font-weight:700">Opening Hours</div>
-          <div class="muted">Mon–Sun: 11:00 AM — 12:00 AM</div>
-
-          <div class="divider"></div>
-
-          <div style="font-weight:700">Quick Links</div>
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <a class="btn" href="#menu">Order</a>
-            <a class="btn secondary" href="#contact">Get Directions</a>
-          </div>
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1604908812446-0985d4c9a3f4" alt="Manchurian">
+            <h3>Manchurian</h3>
+            <p>₹90</p>
+            <button class="btn">Order Now</button>
         </div>
-      </aside>
-    </section>
-
-    <main style="margin-top:18px">
-      <section class="card" id="menu">
-        <h2 style="margin:0 0 8px 0">Menu</h2>
-        <p class="muted" style="margin:0 0 12px 0">Tap "Pay Now" to pay (dummy buttons — replace links with PhonePe/UPI later).</p>
-
-        <div class="menu">
-          <!-- Food Column 1 -->
-          <div>
-            <div class="item">
-              <div class="left">
-                <div class="thumb">Img</div>
-                <div>
-                  <div style="font-weight:700">Maggie</div>
-                  <div class="muted" style="font-size:13px">50</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center">
-                <div class="price">₹50</div>
-                <div class="pay"><a href="#" data-product="Maggie" data-price="50">Pay Now</a></div>
-              </div>
-            </div>
-
-            <div class="item" style="margin-top:12px">
-              <div class="left">
-                <div class="thumb">Img</div>
-                <div>
-                  <div style="font-weight:700">Noodles</div>
-                  <div class="muted" style="font-size:13px">₹100</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center">
-                <div class="price">₹100</div>
-                <div class="pay"><a href="#" data-product="Noodles" data-price="100">Pay Now</a></div>
-              </div>
-            </div>
-
-            <div class="item" style="margin-top:12px">
-              <div class="left">
-                <div class="thumb">Img</div>
-                <div>
-                  <div style="font-weight:700">Fried Rice</div>
-                  <div class="muted" style="font-size:13px">₹90</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center">
-                <div class="price">₹90</div>
-                <div class="pay"><a href="#" data-product="Fried Rice" data-price="90">Pay Now</a></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Food Column 2 -->
-          <div>
-            <div class="item">
-              <div class="left">
-                <div class="thumb">Img</div>
-                <div>
-                  <div style="font-weight:700">Manchurian</div>
-                  <div class="muted" style="font-size:13px">₹90</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center">
-                <div class="price">₹90</div>
-                <div class="pay"><a href="#" data-product="Manchurian" data-price="90">Pay Now</a></div>
-              </div>
-            </div>
-
-            <div class="item" style="margin-top:12px">
-              <div class="left">
-                <div class="thumb">Img</div>
-                <div>
-                  <div style="font-weight:700">Milkshake</div>
-                  <div class="muted" style="font-size:13px">₹80</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center">
-                <div class="price">₹80</div>
-                <div class="pay"><a href="#" data-product="Milkshake" data-price="80">Pay Now</a></div>
-              </div>
-            </div>
-
-            <div class="item" style="margin-top:12px">
-              <div class="left">
-                <div class="thumb">Img</div>
-                <div>
-                  <div style="font-weight:700">Masala Soda</div>
-                  <div class="muted" style="font-size:13px">₹50</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center">
-                <div class="price">₹50</div>
-                <div class="pay"><a href="#" data-product="Masala Soda" data-price="50">Pay Now</a></div>
-              </div>
-            </div>
-          </div>
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31b" alt="Milkshake">
+            <h3>Milkshake</h3>
+            <p>₹80</p>
+            <button class="btn">Order Now</button>
         </div>
-
-        <div style="margin-top:14px;color:var(--muted);font-size:13px">Note: Prices shown are INR. "Pay Now" buttons are placeholders — you'll replace their links with your PhonePe/UPI/Razorpay links later.</div>
-      </section>
-
-      <section class="card contact" id="contact">
-        <h2 style="margin:0 0 8px 0">Contact & Location</h2>
-        <p class="muted">No 42, Christ Lane, Beside Mekeba Restaurant, Hosur Main Road, SG Palya</p>
-        <p class="muted">Phone: 9348091035 • Email: joshipawan70@gmail.com</p>
-
-        <div style="margin-top:12px">
-          <strong>Find us</strong>
-          <div style="margin-top:8px">
-            <!-- Google Maps embed using search query for your address. Replace src if you want an exact place id -->
-            <iframe
-              src="https://www.google.com/maps?q=No%2042%20Christ%20Lane%20Beside%20Mekeba%20Restaurant%20Hosur%20Main%20Road%20SG%20Palya&output=embed"
-              style="width:100%;height:220px;border:0;margin-top:8px;border-radius:10px;"
-              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1617196039897-6e178e5bb6a6" alt="Masala Soda">
+            <h3>Masala Soda</h3>
+            <p>₹50</p>
+            <button class="btn">Order Now</button>
         </div>
+    </div>
+</section>
 
-      </section>
+<footer>
+    <h3>Terms & Conditions</h3>
+    <p>All services and products provided by Hakuna Matata Gaming Cafe are subject to availability. Customers are responsible for their belongings while on the premises. Outside food and beverages are not allowed. Management reserves the right to deny service in case of misconduct or violation of cafe rules. Prices are subject to change without prior notice.</p>
 
-      <footer>
-        © <span id="year"></span> Hakuna Matata Gaming Cafe — Built with ❤️
-      </footer>
-    </main>
-  </div>
+    <h3>Refund Policy</h3>
+    <p>Payments for food and beverages are non-refundable once the order has been prepared. For gaming and entertainment bookings, cancellations made at least 2 hours before the scheduled time are eligible for a full refund. No refunds will be issued for no-shows or late arrivals. Refunds will be processed within 5–7 business days to the original payment method.</p>
 
-  <script>
-    // footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <h3>Privacy Policy</h3>
+    <p>We respect your privacy and are committed to protecting your personal information. Customer details such as name, phone number, and email will only be used for booking confirmations and important service updates. We do not sell, share, or distribute your personal information to third parties without your consent, except where required by law.</p>
+</footer>
 
-    // Demo: attach click handlers to "Pay Now" buttons so they show a small modal confirming product and price
-    document.querySelectorAll('.pay a').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const product = a.dataset.product || 'Item';
-        const price = a.dataset.price || '0';
-        alert(product + ' — ₹' + price + '\n\nThis is a demo button. Replace this link with your PhonePe/UPI or payment gateway link.');
-      })
-    })
-  </script>
 </body>
 </html>
