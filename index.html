@@ -1,143 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hakuna Matata Gaming Cafe</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #121212;
-        color: #fff;
-    }
-    header {
-        background-color: #1f1f1f;
-        padding: 20px;
-        text-align: center;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 2em;
-        color: #ffcc00;
-    }
-    section {
-        padding: 20px;
-        max-width: 1000px;
-        margin: auto;
-    }
-    .menu {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-    .menu-item {
-        background-color: #1f1f1f;
-        border-radius: 10px;
-        overflow: hidden;
-        text-align: center;
-        box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
-    }
-    .menu-item img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-    }
-    .menu-item h3 {
-        margin: 10px 0 5px;
-        color: #ffcc00;
-    }
-    .menu-item p {
-        margin: 0 0 10px;
-    }
-    .btn {
-        background-color: #ffcc00;
-        color: #000;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }
-    .btn:hover {
-        background-color: #e6b800;
-    }
-    footer {
-        background-color: #1f1f1f;
-        padding: 20px;
-        margin-top: 20px;
-    }
-    footer h3 {
-        color: #ffcc00;
-    }
-    footer p {
-        font-size: 0.9em;
-        line-height: 1.4em;
-        color: #ccc;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #333;
+        }
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        }
+        .item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .item:hover img {
+            transform: scale(1.05);
+        }
+        .item h3 {
+            margin: 10px 0;
+            font-size: 1.2rem;
+            color: #444;
+        }
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        footer h2 {
+            margin-top: 0;
+        }
+        footer p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
-
-<header>
-    <h1>Hakuna Matata Gaming Cafe</h1>
-    <p>Food • Beverages • PS5 • PS4 • Pool Table • Snooker • Private Theatre • Board Games</p>
-</header>
-
-<section>
-    <h2>Our Menu</h2>
+    <h1>Our Menu</h1>
     <div class="menu">
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a" alt="Maggie">
-            <h3>Maggie</h3>
-            <p>₹50</p>
-            <button class="btn">Order Now</button>
+        <div class="item">
+            <img src="al (39).jpg" alt="Burger">
+            <h3>Burger</h3>
         </div>
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f" alt="Noodles">
-            <h3>Noodles</h3>
-            <p>₹100</p>
-            <button class="btn">Order Now</button>
+        <div class="item">
+            <img src="Untitled design (9).png" alt="Pizza">
+            <h3>Pizza</h3>
         </div>
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1572449043416-55f4685c9bbf" alt="Fried Rice">
-            <h3>Fried Rice</h3>
-            <p>₹90</p>
-            <button class="btn">Order Now</button>
+        <div class="item">
+            <img src="Veg Maggi.JPG" alt="Veg Maggi">
+            <h3>Veg Maggi</h3>
         </div>
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1604908812446-0985d4c9a3f4" alt="Manchurian">
-            <h3>Manchurian</h3>
-            <p>₹90</p>
-            <button class="btn">Order Now</button>
+        <div class="item">
+            <img src="Choco Haze.jpg" alt="Choco Haze">
+            <h3>Choco Haze</h3>
         </div>
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31b" alt="Milkshake">
+        <div class="item">
+            <img src="Veg Noodles.JPG" alt="Veg Noodles">
+            <h3>Veg Noodles</h3>
+        </div>
+        <div class="item">
+            <img src="momos.jpg" alt="Momos">
+            <h3>Momos</h3>
+        </div>
+        <div class="item">
+            <img src="milkshake.jpg" alt="Milkshake">
             <h3>Milkshake</h3>
-            <p>₹80</p>
-            <button class="btn">Order Now</button>
-        </div>
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1617196039897-6e178e5bb6a6" alt="Masala Soda">
-            <h3>Masala Soda</h3>
-            <p>₹50</p>
-            <button class="btn">Order Now</button>
         </div>
     </div>
-</section>
 
-<footer>
-    <h3>Terms & Conditions</h3>
-    <p>All services and products provided by Hakuna Matata Gaming Cafe are subject to availability. Customers are responsible for their belongings while on the premises. Outside food and beverages are not allowed. Management reserves the right to deny service in case of misconduct or violation of cafe rules. Prices are subject to change without prior notice.</p>
+    <footer>
+        <h2>Terms & Conditions</h2>
+        <p>All prices are inclusive of applicable taxes. Menu items and prices are subject to change without prior notice.</p>
 
-    <h3>Refund Policy</h3>
-    <p>Payments for food and beverages are non-refundable once the order has been prepared. For gaming and entertainment bookings, cancellations made at least 2 hours before the scheduled time are eligible for a full refund. No refunds will be issued for no-shows or late arrivals. Refunds will be processed within 5–7 business days to the original payment method.</p>
+        <h2>Refund Policy</h2>
+        <p>Refunds are only applicable if the order is cancelled within 10 minutes of placing it. Once food preparation has begun, no refunds will be issued.</p>
 
-    <h3>Privacy Policy</h3>
-    <p>We respect your privacy and are committed to protecting your personal information. Customer details such as name, phone number, and email will only be used for booking confirmations and important service updates. We do not sell, share, or distribute your personal information to third parties without your consent, except where required by law.</p>
-</footer>
-
+        <h2>Privacy Policy</h2>
+        <p>We respect your privacy. Customer details will never be shared with third parties without consent, except when required by law.</p>
+    </footer>
 </body>
 </html>
