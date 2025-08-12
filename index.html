@@ -78,6 +78,8 @@
     }
     .muted{color:var(--muted)}
     .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);margin:16px 0;border-radius:2px}
+    h2{margin-top:0}
+    section.policy-section p{margin:8px 0;color:var(--muted)}
   </style>
 </head>
 <body>
@@ -93,6 +95,7 @@
       <nav>
         <a href="#about">About</a>
         <a href="#menu">Menu</a>
+        <a href="#policies">Policies</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -131,11 +134,9 @@
 
     <main style="margin-top:18px">
       <section class="card" id="menu">
-        <h2 style="margin:0 0 8px 0">Menu</h2>
-        <p class="muted" style="margin:0 0 12px 0">Tap "Pay Now" to pay (dummy buttons — replace links with PhonePe/UPI later).</p>
-
+        <h2>Menu</h2>
+        <p class="muted">Tap "Pay Now" to pay (dummy buttons — replace links with PhonePe/UPI later).</p>
         <div class="menu">
-          <!-- Food Column 1 -->
           <div>
             <div class="item">
               <div class="left">
@@ -159,8 +160,6 @@
               <div style="display:flex;align-items:center"><div class="price">₹90</div><div class="pay"><a href="#" data-product="Fried Rice" data-price="90">Pay Now</a></div></div>
             </div>
           </div>
-
-          <!-- Food Column 2 -->
           <div>
             <div class="item">
               <div class="left">
@@ -185,12 +184,29 @@
             </div>
           </div>
         </div>
+      </section>
 
-        <div style="margin-top:14px;color:var(--muted);font-size:13px">Note: Prices shown are INR. "Pay Now" buttons are placeholders — you'll replace their links with your PhonePe/UPI/Razorpay links later.</div>
+      <!-- Policies Section -->
+      <section class="card policy-section" id="policies" style="margin-top:18px">
+        <details>
+          <summary><strong>View Policies</strong></summary>
+          <h2>Privacy Policy</h2>
+          <p>We respect your privacy and are committed to protecting your personal data. We only collect the minimum necessary details for order processing and customer support, such as your name, contact number, and payment details. We do not share your information with third parties except for payment processing or as required by law.</p>
+          <p>All online transactions are processed securely using encrypted connections. We recommend that you keep your payment information confidential and avoid sharing it with anyone.</p>
+
+          <h2 style="margin-top:18px">Terms & Conditions</h2>
+          <p>By using our services, you agree to abide by our cafe rules and policies. Menu prices may change without prior notice. The facilities (PS5, PS4, pool table, theatre, etc.) are subject to availability. Management reserves the right to refuse service to anyone violating rules or causing disruption.</p>
+          <p>All images and content on this website are the property of Hakuna Matata Gaming Cafe and may not be reproduced without permission.</p>
+
+          <h2 style="margin-top:18px">Refund Policy</h2>
+          <p>Refunds are only issued in cases of incorrect or damaged orders, provided the issue is reported immediately upon receipt. Digital and gameplay services are non-refundable once the service has begun. Refunds for online payments will be processed within 5-7 working days to the original payment method.</p>
+          <p>If you encounter an issue, please contact us promptly at 📞 9348091035 or ✉️ joshipawan70@gmail.com.</p>
+        </details>
       </section>
 
       <footer>
-        © <span id="year"></span> Hakuna Matata Gaming Cafe — Built with ❤️
+        © <span id="year"></span> Hakuna Matata Gaming Cafe — Built with ❤️ | All Rights Reserved.  
+        <br>Copyright Hakuna Matata Gaming Cafe
       </footer>
     </main>
   </div>
