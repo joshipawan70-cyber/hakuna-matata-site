@@ -1,21 +1,92 @@
-<html><body><pre>Refund and Cancellation Policy
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Privacy Policy - Hakuna Matata Gaming Cafe</title>
+  <meta name="description" content="Hakuna Matata Gaming Cafe - Play. Eat. Repeat.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1720;
+      --muted:#98a0ab;
+      --accent:#7c3aed;
+      --accent-2:#06b6d4;
+      --glass: rgba(255,255,255,0.03);
+      --radius:16px;
+      --maxw:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#050608 0%, #071027 60%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:32px 16px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      font-size:16px;
+    }
+    .container{width:100%;max-width:var(--maxw)}
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#071027;font-size:22px;box-shadow:0 6px 18px rgba(30,41,59,0.6)
+    }
+    .title{font-size:20px;font-weight:700}
+    .tag{color:var(--muted);font-size:13px}
+    nav a{color:var(--muted);text-decoration:none;margin-left:14px}
+    .card{background:var(--card);padding:18px;border-radius:12px}
+    pre{white-space:pre-wrap;word-wrap:break-word;color:var(--muted);}
+    footer{margin-top:24px;color:var(--muted);font-size:13px;text-align:center}
+    h1{margin-top:0}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">HM</div>
+        <div>
+          <div class="title">Hakuna Matata Gaming Cafe</div>
+          <div class="tag">Play. Eat. Repeat.</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refund.html">Refund</a>
+      </nav>
+    </header>
 
-This refund and cancellation policy outlines how you can cancel or seek a refund for a product/service that you have purchased through the Platform. Under this policy:
+    <main>
+      <section class="card">
+        <h1>Privacy Policy</h1>
+        <pre>
+[Full Privacy Policy text from your PDF goes here exactly as written, including all sections like Introduction, Collection, Usage, Sharing, Security, Data Retention, Rights, Consent, and Changes.]
+        </pre>
+      </section>
+    </main>
 
-Cancellations will only be considered if the request is made within 1 day of placing the order. However, cancellation requests may not be entertained if the orders have been communicated to such sellers/merchant(s) listed on the Platform and they have initiated the process of shipping them, or the product is out for delivery. In such an event, you may choose to reject the product at the doorstep.
-Hakuna matata gaming cafe does not accept cancellation requests for perishable items like flowers, eatables, etc. However, the refund/replacement can be made if the user establishes that the quality of the product delivered is not good.
-In case of receipt of damaged or defective items, please report to our customer service team. The request would be entertained once the seller/merchant listed on the Platform has checked and determined the same at its own end. This should be reported within 1 day of receipt of products.
-In case you feel that the product received is not as shown on the site or as per your expectations, you must bring it to the notice of our customer service within 1 day of receiving the product. The customer service team after looking into your complaint will take an appropriate decision.
-In case of complaints regarding the products that come with a warranty from the manufacturers, please refer the issue to them.
-In case of any refunds approved by Hakuna matata gaming cafe, it will take 1 day for the refund to be processed to you.
-
-Return Policy
-
-We offer refund/exchange within first 1 day from the date of your purchase. If 1 day have passed since your purchase, you will not be offered a return, exchange or refund of any kind. In order to become eligible for a return or an exchange, (i) the purchased item should be unused and in the same condition as you received it, (ii) the item must have original packaging, (iii) if the item that you purchased on a sale, then the item may not be eligible for a return/exchange. Further, only such items are replaced by us (based on an exchange request), if such items are found defective or damaged.
-
-You agree that there may be a certain category of products/items that are exempted from returns or refunds. Such categories of the products would be identified to you at the item of purchase. For exchange/return accepted request(s) (as applicable), once your returned product/item is received and inspected by us, we will send you an email to notify you about receipt of the returned/exchanged product. Further, if the same has been approved after the quality check at our end, your request (i.e. return/exchange) will be processed in accordance with our policies.
-
-Shipping Policy
-
-All services are provided on-site only. No delivery is available, hence shipping and return policies do not apply.
-</pre></body></html>
+    <footer>
+      © <span id="year"></span> Hakuna Matata Gaming Cafe — Built with ❤️ | All Rights Reserved.
+    </footer>
+  </div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
