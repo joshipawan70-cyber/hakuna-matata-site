@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  // --- Validate env vars early (don’t log secrets) ---
+  // --- Validate env vars early ---
   const required = [
     "PHONEPE_CLIENT_ID",
     "PHONEPE_CLIENT_SECRET",
@@ -42,7 +42,6 @@ export default async function handler(req, res) {
       }
     );
 
-    // Parse body safely even if it isn't JSON
     const tokenText = await tokenResp.text();
     let tokenData;
     try {
@@ -56,6 +55,10 @@ export default async function handler(req, res) {
         message: "Failed to get PhonePe access token",
         httpStatus: tokenResp.status,
         tokenResponse: tokenData,
+        sent: {
+          client_id: clientId,
+          client_version: clientVersion,
+        },
       });
     }
 
