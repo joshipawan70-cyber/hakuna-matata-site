@@ -1,3 +1,8 @@
+// ✅ Force Node.js runtime (NOT Edge)
+export const config = {
+  runtime: "nodejs",
+};
+
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import crypto from "crypto";
@@ -36,8 +41,8 @@ export default async function handler(request, response) {
       amount: amount,
       redirectUrl: redirectUrl,
       redirectMode: "REDIRECT",
-      callbackUrl: redirectUrl,
-      mobileNumber: "9999999999", // TODO: replace with real number from user
+      callbackUrl: redirectUrl, // later we’ll replace with a real callback API
+      mobileNumber: "9999999999",
       paymentInstrument: {
         type: "PAY_PAGE",
       },
@@ -71,7 +76,7 @@ export default async function handler(request, response) {
 
     response.status(200).json({ redirectUrl: paymentUrl });
   } catch (error) {
-    console.error(error);
+    console.error("PhonePe API error:", error);
     response
       .status(500)
       .json({ message: "Error processing payment", error: error.message });
