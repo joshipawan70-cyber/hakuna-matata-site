@@ -1,6 +1,9 @@
-const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
-const crypto = require("crypto");
+
+// ✅ Force Node.js runtime
+export const config = {
+  runtime: "nodejs",
+};
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -10,48 +13,69 @@ module.exports = async function handler(req, res) {
   try {
     const { amount } = req.body;
 
-    // 🔑 Replace with your actual values
+    // 🔑 Environment variables from Vercel
+    const clientId = process.env.PHONEPE_CLIENT_ID;
+    const clientVersion = process.env.PHONEPE_CLIENT_VERSION;
+    const clientSecret = process.env.PHONEPE_CLIENT_SECRET;
     const merchantId = process.env.PHONEPE_MERCHANT_ID;
-    const saltKey = process.env.PHONEPE_SALT_KEY;
-    const saltIndex = process.env.PHONEPE_SALT_INDEX || "1";
-    const callbackUrl = process.env.PHONEPE_CALLBACK_URL;
 
-    const transactionId = uuidv4();
-
-    const payload = {
-      merchantId,
-      transactionId,
-      merchantUserId: "MUID123",
-      amount: amount * 100, // convert to paise
-      redirectUrl: callbackUrl,
-      redirectMode: "POST",
-      callbackUrl,
-      paymentInstrument: {
-        type: "PAY_PAGE",
-      },
-    };
-
-    const payloadString = JSON.stringify(payload);
-    const base64Payload = Buffer.from(payloadString).toString("base64");
-
-    const stringToHash = base64Payload + "/pg/v1/pay" + saltKey;
-    const sha256 = crypto.createHash("sha256").update(stringToHash).digest("hex");
-    const checksum = sha256 + "###" + saltIndex;
-
-    const phonePeResponse = await axios.post(
-      "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
-      { request: base64Payload },
+    // 1️⃣ Step 1: Get Access Token
+    const tokenResponse = await fetch(
+      "https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token",
       {
+        method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "X-VERIFY": checksum,
-          accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
+        body: new URLSearchParams({
+          client_id: clientId,
+          client_version: clientVersion,
+          client_secret: clientSecret,
+          grant_type: "client_credentials",
+        }),
       }
     );
 
-    const result = phonePeResponse.data;
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData.access_token;
 
+    if (!accessToken) {
+      console.error("Failed to get access token:", tokenData);
+      return res.status(500).json({
+        message: "Failed to get PhonePe access token",
+        details: tokenData,
+      });
+    }
+
+    // 2️⃣ Step 2: Create Payment Request
+    const transactionId = uuidv4();
+    const redirectUrl = "https://hakunamatatagamingcafe.site/success.html";
+    const callbackUrl = "https://<your-vercel-domain>/api/phonepe-callback";
+
+    const paymentResponse = await fetch(
+      "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `O-Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          merchantId,
+          transactionId,
+          merchantUserId: "MUID123",
+          amount: amount * 100, // convert rupees → paise
+          redirectUrl,
+          redirectMode: "REDIRECT",
+          callbackUrl,
+          paymentInstrument: { type: "PAY_PAGE" },
+        }),
+      }
+    );
+
+    const result = await paymentResponse.json();
+
+    // ✅ Handle success/failure safely
     if (
       result &&
       result.data &&
@@ -61,17 +85,17 @@ module.exports = async function handler(req, res) {
       const redirectUrl = result.data.instrumentResponse.redirectInfo.url;
       return res.status(200).json({ redirectUrl });
     } else {
-      console.error("PhonePe error response:", JSON.stringify(result, null, 2));
+      console.error("PhonePe error response:", result);
       return res.status(400).json({
         message: "Payment creation failed",
         details: result,
       });
     }
   } catch (error) {
-    console.error("PhonePe API error:", error.response?.data || error.message);
+    console.error("PhonePe API error:", error);
     return res.status(500).json({
       message: "Error processing payment",
-      error: error.response?.data || error.message,
+      error: error.message,
     });
   }
 };
