@@ -1,12 +1,8 @@
-export const config = {
-  runtime: "nodejs",
-};
+const axios = require("axios");
+const { v4: uuidv4 } = require("uuid");
+const crypto = require("crypto");
 
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import crypto from "crypto";
-
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
@@ -39,4 +35,43 @@ export default async function handler(req, res) {
     const base64Payload = Buffer.from(payloadString).toString("base64");
 
     const stringToHash = base64Payload + "/pg/v1/pay" + saltKey;
-    const sha256 = crypto.createHash("sha256").update(str
+    const sha256 = crypto.createHash("sha256").update(stringToHash).digest("hex");
+    const checksum = sha256 + "###" + saltIndex;
+
+    const phonePeResponse = await axios.post(
+      "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
+      { request: base64Payload },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-VERIFY": checksum,
+          accept: "application/json",
+        },
+      }
+    );
+
+    const result = phonePeResponse.data;
+
+    if (
+      result &&
+      result.data &&
+      result.data.instrumentResponse &&
+      result.data.instrumentResponse.redirectInfo
+    ) {
+      const redirectUrl = result.data.instrumentResponse.redirectInfo.url;
+      return res.status(200).json({ redirectUrl });
+    } else {
+      console.error("PhonePe error response:", JSON.stringify(result, null, 2));
+      return res.status(400).json({
+        message: "Payment creation failed",
+        details: result,
+      });
+    }
+  } catch (error) {
+    console.error("PhonePe API error:", error.response?.data || error.message);
+    return res.status(500).json({
+      message: "Error processing payment",
+      error: error.response?.data || error.message,
+    });
+  }
+};
