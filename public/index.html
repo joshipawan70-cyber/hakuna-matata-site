@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-t">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Hakuna Matata Gaming Cafe</title>
   <meta name="description" content="Hakuna Matata Gaming Cafe - Play. Eat. Repeat.">
@@ -67,7 +67,7 @@
     .thumb{width:68px;height:48px;border-radius:8px;background:linear-gradient(90deg,#111827,#0b1220);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px}
     .price{font-weight:700}
     .pay{margin-left:12px}
-    .pay a{display:inline-block;padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#111827, rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);text-decoration:none;color:var(--muted);font-weight:700; cursor:pointer;}
+    .pay a{display:inline-block;padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#111827, rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);text-decoration:none;color:var(--muted);font-weight:700;cursor:pointer}
     .about{margin-top:18px;color:var(--muted)}
     .contact{margin-top:18px}
     footer{margin-top:24px;color:var(--muted);font-size:13px;text-align:center}
@@ -127,12 +127,13 @@
           
           <div style="display:flex;gap:8px;margin-top:8px">
             <a class="btn" href="#menu">Order</a>
-            <a class="btn secondary" href="https://maps.app.goo.gl/95a5135Nqv8CrFkFA" target="_blank">Get Directions</a>
+            <a class="btn secondary" href="https://www.google.com/maps?q=No+42,+Christ+Lane,+Beside+Mekeba+Restaurant,+Hosur+Main+Road,+SG+Palya" target="_blank">Get Directions</a>
           </div>
 
+          <!-- Embedded Google Map -->
           <div style="margin-top:18px; border-radius:12px; overflow:hidden;">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.490795493126!2d77.61481107489816!3d12.94038898736939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1446c572506b%3A0x70b2d3855079a4ad!2sHakuna%20Matata%20Gaming%20Cafe!5e0!3m2!1sen!2sin!4v1723702581977!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.987918979828!2d77.61017047447586!3d12.926880187385919!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15e408fb1a91%3A0x9b0f415d2c61b9d2!2sNo%2042%2C%20Christ%20Lane%2C%20Beside%20Mekeba%20Restaurant%2C%20Hosur%20Main%20Rd%2C%20SG%20Palya%2C%20Bengaluru%2C%20Karnataka%20560029!5e0!3m2!1sen!2sin!4v1692100000000!5m2!1sen!2sin"
               width="100%"
               height="200"
               style="border:0;"
@@ -141,7 +142,6 @@
               referrerpolicy="no-referrer-when-downgrade">
             </iframe>
           </div>
-
         </div>
       </aside>
     </section>
@@ -149,7 +149,7 @@
     <main style="margin-top:18px">
       <section class="card" id="menu">
         <h2>Menu</h2>
-        <p class="muted">Tap "Pay Now" to place your order.</p>
+        <p class="muted">Tap "Pay Now" to pay.</p>
         <div class="menu">
           <div>
             <div class="item">
@@ -157,21 +157,21 @@
                 <div class="thumb"><img src="image/maggie.jpg" alt="Maggie" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
                 <div><div style="font-weight:700">Maggie</div><div class="muted" style="font-size:13px">₹50</div></div>
               </div>
-              <div style="display:flex;align-items:center"><div class="price">₹50</div><div class="pay"><a data-product="Maggie" data-price="50">Pay Now</a></div></div>
+              <div style="display:flex;align-items:center"><div class="price">₹50</div><div class="pay"><a href="#" data-product="Maggie" data-price="50">Pay Now</a></div></div>
             </div>
             <div class="item" style="margin-top:12px">
               <div class="left">
                 <div class="thumb"><img src="image/noodles.jpg" alt="Noodles" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
                 <div><div style="font-weight:700">Noodles</div><div class="muted" style="font-size:13px">₹100</div></div>
               </div>
-              <div style="display:flex;align-items:center"><div class="price">₹100</div><div class="pay"><a data-product="Noodles" data-price="100">Pay Now</a></div></div>
+              <div style="display:flex;align-items:center"><div class="price">₹100</div><div class="pay"><a href="#" data-product="Noodles" data-price="100">Pay Now</a></div></div>
             </div>
             <div class="item" style="margin-top:12px">
               <div class="left">
                 <div class="thumb"><img src="image/friedrice.jpg" alt="Fried Rice" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
                 <div><div style="font-weight:700">Fried Rice</div><div class="muted" style="font-size:13px">₹90</div></div>
               </div>
-              <div style="display:flex;align-items:center"><div class="price">₹90</div><div class="pay"><a data-product="Fried Rice" data-price="90">Pay Now</a></div></div>
+              <div style="display:flex;align-items:center"><div class="price">₹90</div><div class="pay"><a href="#" data-product="Fried Rice" data-price="90">Pay Now</a></div></div>
             </div>
           </div>
           <div>
@@ -180,101 +180,28 @@
                 <div class="thumb"><img src="image/manchurian.jpg" alt="Manchurian" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
                 <div><div style="font-weight:700">Manchurian</div><div class="muted" style="font-size:13px">₹90</div></div>
               </div>
-              <div style="display:flex;align-items:center"><div class="price">₹90</div><div class="pay"><a data-product="Manchurian" data-price="90">Pay Now</a></div></div>
+              <div style="display:flex;align-items:center"><div class="price">₹90</div><div class="pay"><a href="#" data-product="Manchurian" data-price="90">Pay Now</a></div></div>
             </div>
             <div class="item" style="margin-top:12px">
               <div class="left">
                 <div class="thumb"><img src="image/milkshake.jpg" alt="Milkshake" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
                 <div><div style="font-weight:700">Milkshake</div><div class="muted" style="font-size:13px">₹80</div></div>
               </div>
-              <div style="display:flex;align-items:center"><div class="price">₹80</div><div class="pay"><a data-product="Milkshake" data-price="80">Pay Now</a></div></div>
+              <div style="display:flex;align-items:center"><div class="price">₹80</div><div class="pay"><a href="#" data-product="Milkshake" data-price="80">Pay Now</a></div></div>
             </div>
             <div class="item" style="margin-top:12px">
               <div class="left">
                 <div class="thumb"><img src="image/masalasoda.jpg" alt="Masala Soda" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
                 <div><div style="font-weight:700">Masala Soda</div><div class="muted" style="font-size:13px">₹50</div></div>
               </div>
-              <div style="display:flex;align-items:center"><div class="price">₹50</div><div class="pay"><a data-product="Masala Soda" data-price="50">Pay Now</a></div></div>
+              <div style="display:flex;align-items:center"><div class="price">₹50</div><div class="pay"><a href="#" data-product="Masala Soda" data-price="50">Pay Now</a></div></div>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- Policies Section -->
       <section class="card policy-section" id="policies" style="margin-top:18px">
         <h2>Policies</h2>
         <ul>
-          <li><a href="terms.html" target="_blank">Terms & Conditions</a></li>
-          <li><a href="privacy.html" target="_blank">Privacy Policy</a></li>
-          <li><a href="refund.html" target="_blank">Refund & Cancellation Policy</a></li>
-        </ul>
-        <h3>Shipping & Returns</h3>
-        <p>All services are provided on-site only. No delivery is available, hence shipping and return policies do not apply.</p>
-      </section>
-
-      <section class="card contact" id="contact" style="margin-top:18px">
-        <h2>Contact</h2>
-        <p class="muted">📞 9348091035</p>
-        <p class="muted">✉️ joshipawan70@gmail.com</p>
-        <p class="muted">Owner: Pawan Kumar Joshi</p>
-        <div class="divider"></div>
-        <h3>Opening Hours</h3>
-        <p class="muted">Mon–Sun: 11:00 AM — 12:00 AM</p>
-      </section>
-
-      <footer>
-        © <span id="year"></span> Pawan Kumar Joshi — Built with ❤️ | All Rights Reserved.  
-        <br>Copyright Pawan Kumar Joshi
-      </footer>
-    </main>
-  </div>
-
-  <script>
-    // Sets the copyright year in the footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Select all "Pay Now" links
-    document.querySelectorAll('.pay a').forEach(payButton => {
-      payButton.addEventListener('click', async (e) => {
-        e.preventDefault(); // Prevent the link from navigating
-
-        const originalButtonText = payButton.innerHTML;
-        const price = payButton.dataset.price;
-
-        // 1. Provide user feedback and prevent multiple clicks
-        payButton.innerHTML = "Processing...";
-        payButton.style.pointerEvents = 'none'; // Disable the button
-
-        try {
-          // 2. Call your secure backend function
-          const response = await fetch('/api/create-phonepe-payment', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              amount: price // Send the price from the button to the backend
-            }),
-          });
-
-          const data = await response.json();
-
-          // 3. If the backend call is successful, redirect to PhonePe
-          if (response.ok) {
-            window.location.href = data.redirectUrl;
-          } else {
-            // If there's an error from our backend, show it
-            throw new Error(data.message || 'Payment initiation failed.');
-          }
-
-        } catch (error) {
-          // 4. Handle any errors and re-enable the button
-          console.error('Payment Error:', error);
-          alert(`Error: ${error.message}`);
-          payButton.innerHTML = originalButtonText;
-          payButton.style.pointerEvents = 'auto'; // Re-enable the button
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+          <li><a href="ter
