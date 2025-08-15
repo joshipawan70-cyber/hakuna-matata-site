@@ -1,13 +1,7 @@
 {
   "name": "hakuna-matata-site",
-  "version": "1.0.0",
-  "description": "PhonePe pyment integration",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "private": true,
+  "type": "module",
   "dependencies": {
     "uuid": "^9.0.1"
   }
