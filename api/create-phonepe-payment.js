@@ -1,14 +1,10 @@
-// ✅ Force Node.js runtime (NOT Edge)
-export const config = {
-  runtime: "nodejs",
-};
+// ✅ Force Node.js runtime
+export const runtime = "nodejs";
 
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import crypto from "crypto";
 
 export default async function handler(request, response) {
-  // Only handle POST requests
   if (request.method !== "POST") {
     return response.status(405).json({ message: "Method Not Allowed" });
   }
@@ -19,29 +15,26 @@ export default async function handler(request, response) {
     const saltKey = process.env.PHONEPE_SALT_KEY;
     const saltIndex = process.env.PHONEPE_SALT_INDEX;
 
-    // PhonePe UAT (sandbox) endpoint
     const phonepeEndpoint =
       "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
 
     // --- DATA FROM FRONTEND ---
     const amount = parseInt(request.body.amount) * 100; // convert to paise
-    const userId = "MUID123"; // unique user ID (can come from frontend)
-
-    // --- TRANSACTION DATA ---
+    const userId = "MUID123";
     const merchantTransactionId = uuidv4();
 
     // --- REDIRECT URL ---
     const redirectUrl = "https://hakunamatatagamingcafe.site/success.html";
 
-    // Main payload for PhonePe
+    // --- PAYLOAD ---
     const payload = {
-      merchantId: merchantId,
-      merchantTransactionId: merchantTransactionId,
+      merchantId,
+      merchantTransactionId,
       merchantUserId: userId,
-      amount: amount,
-      redirectUrl: redirectUrl,
+      amount,
+      redirectUrl,
       redirectMode: "REDIRECT",
-      callbackUrl: redirectUrl, // later we’ll replace with a real callback API
+      callbackUrl: redirectUrl,
       mobileNumber: "9999999999",
       paymentInstrument: {
         type: "PAY_PAGE",
@@ -54,30 +47,25 @@ export default async function handler(request, response) {
     const sha256 = crypto.createHash("sha256").update(stringToHash).digest("hex");
     const checksum = sha256 + "###" + saltIndex;
 
-    // --- API REQUEST ---
-    const options = {
-      method: "post",
-      url: phonepeEndpoint,
+    // --- MAKE API REQUEST USING fetch ---
+    const phonepeResponse = await fetch(phonepeEndpoint, {
+      method: "POST",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
         "X-VERIFY": checksum,
       },
-      data: {
-        request: base64Payload,
-      },
-    };
+      body: JSON.stringify({ request: base64Payload }),
+    });
 
-    const phonepeResponse = await axios.request(options);
+    const data = await phonepeResponse.json();
 
     // --- RESPONSE TO FRONTEND ---
-    const paymentUrl =
-      phonepeResponse.data.data.instrumentResponse.redirectInfo.url;
-
-    response.status(200).json({ redirectUrl: paymentUrl });
+    const paymentUrl = data.data.instrumentResponse.redirectInfo.url;
+    return response.status(200).json({ redirectUrl: paymentUrl });
   } catch (error) {
     console.error("PhonePe API error:", error);
-    response
+    return response
       .status(500)
       .json({ message: "Error processing payment", error: error.message });
   }
