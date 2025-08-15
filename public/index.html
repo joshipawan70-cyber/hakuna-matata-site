@@ -1,74 +1,151 @@
-import { v4 as uuidv4 } from "uuid";
-
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method Not Allowed" });
-  }
-
-  try {
-    const clientId = process.env.PHONEPE_CLIENT_ID;
-    const clientSecret = process.env.PHONEPE_CLIENT_SECRET;
-    const clientVersion = process.env.PHONEPE_CLIENT_VERSION;
-    const merchantId = process.env.PHONEPE_MERCHANT_ID;
-
-    // Step 1: Get access token using fetch
-    const tokenResp = await fetch("https://api.phonepe.com/apis/pg/v1/oauth/token", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        grant_type: "client_credentials",
-        client_id: clientId,
-        client_secret: clientSecret,
-        client_version: clientVersion,
-      }),
-    });
-
-    const tokenData = await tokenResp.json();
-    const accessToken = tokenData.access_token;
-
-    if (!accessToken) {
-      return res.status(500).json({ message: "Failed to get PhonePe access token", details: tokenData });
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hakuna Matata Gaming Cafe</title>
+  <meta name="description" content="Hakuna Matata Gaming Cafe - Play. Eat. Repeat.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1720;
+      --muted:#98a0ab;
+      --accent:#7c3aed;
+      --accent-2:#06b6d4;
+      --glass: rgba(255,255,255,0.03);
+      --radius:16px;
+      --maxw:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
-
-    // Step 2: Create payment payload
-    const amount = parseInt(req.body.amount) * 100; // paise
-    const transactionId = uuidv4();
-    const redirectUrl = "https://hakunamatatagamingcafe.site/success.html";
-
-    const payload = {
-      merchantId,
-      merchantTransactionId: transactionId,
-      merchantUserId: "USER123",
-      amount,
-      redirectUrl,
-      redirectMode: "REDIRECT",
-      callbackUrl: redirectUrl,
-      paymentInstrument: { type: "PAY_PAGE" },
-    };
-
-    const base64Payload = Buffer.from(JSON.stringify(payload)).toString("base64");
-
-    // Step 3: Call PhonePe pay API with fetch
-    const payResp = await fetch("https://api.phonepe.com/apis/pg/v1/pay", {
-      method: "POST",
-      headers: {
-        Authorization: `O-Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ request: base64Payload }),
-    });
-
-    const payData = await payResp.json();
-    const redirectInfo = payData?.data?.instrumentResponse?.redirectInfo;
-
-    if (!redirectInfo?.url) {
-      return res.status(500).json({ message: "Payment creation failed", details: payData });
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#050608 0%, #071027 60%);
+      color:#e6eef8;
+      line-height:1.5;
+      padding:32px 16px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      font-size:16px;
     }
+    .container{width:100%;max-width:var(--maxw)}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#071027;font-size:22px;box-shadow:0 6px 18px rgba(30,41,59,0.6)}
+    .title{font-size:20px;font-weight:700}
+    .tag{color:var(--muted);font-size:13px}
+    nav a{color:var(--muted);text-decoration:none;margin-left:14px}
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);padding:28px;display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center;box-shadow:0 6px 30px rgba(2,6,23,0.7);}
+    .hero-left h1{margin:0;font-size:28px}
+    .hero-left p{color:var(--muted);margin-top:8px}
+    .cta{margin-top:18px;display:flex;gap:12px}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:10px 16px;border-radius:12px;color:#071027;font-weight:700;text-decoration:none}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .card{background:var(--card);padding:18px;border-radius:12px}
+    .menu{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .menu .item{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;background:var(--glass);border-radius:12px}
+    .menu .left{display:flex;gap:12px;align-items:center}
+    .thumb{width:68px;height:48px;border-radius:8px;background:linear-gradient(90deg,#111827,#0b1220);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px}
+    .price{font-weight:700}
+    .pay a{display:inline-block;padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#111827, rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.04);text-decoration:none;color:var(--muted);font-weight:700;cursor:pointer}
+    footer{margin-top:24px;color:var(--muted);font-size:13px;text-align:center}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.menu{grid-template-columns:1fr}.brand .logo{width:52px;height:52px}}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">HM</div>
+        <div>
+          <div class="title">Hakuna Matata Gaming Cafe</div>
+          <div class="tag">Play. Eat. Repeat.</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-    return res.status(200).json({ redirectUrl: redirectInfo.url });
-  } catch (err) {
-    console.error("PhonePe API error:", err);
-    return res.status(500).json({ message: "Error processing payment", details: err.message });
-  }
-}
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Welcome to Hakuna Matata Gaming Cafe</h1>
+        <p>Enjoy food & beverages while you play and relax.</p>
+        <div class="cta">
+          <a class="btn" href="#menu">View Menu</a>
+        </div>
+      </div>
+    </section>
+
+    <main style="margin-top:18px">
+      <section class="card" id="menu">
+        <h2>Menu</h2>
+        <p class="muted">Tap "Pay Now" to pay.</p>
+        <div class="menu">
+          <div class="item">
+            <div class="left">
+              <div class="thumb"><img src="image/maggie.jpg" alt="Maggie" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+              <div><div style="font-weight:700">Maggie</div><div class="muted" style="font-size:13px">₹50</div></div>
+            </div>
+            <div><div class="price">₹50</div><div class="pay"><a href="#" data-product="Maggie" data-price="50">Pay Now</a></div></div>
+          </div>
+
+          <div class="item">
+            <div class="left">
+              <div class="thumb"><img src="image/milkshake.jpg" alt="Milkshake" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+              <div><div style="font-weight:700">Milkshake</div><div class="muted" style="font-size:13px">₹80</div></div>
+            </div>
+            <div><div class="price">₹80</div><div class="pay"><a href="#" data-product="Milkshake" data-price="80">Pay Now</a></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="contact" style="margin-top:18px">
+        <h2>Contact</h2>
+        <p class="muted">📞 9348091035</p>
+        <p class="muted">✉️ joshipawan70@gmail.com</p>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Hakuna Matata Gaming Cafe — All Rights Reserved
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.querySelectorAll('.pay a').forEach(a => {
+      a.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const product = a.dataset.product;
+        const price = a.dataset.price;
+
+        try {
+          const response = await fetch("/api/create-phonepe-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: price, product })
+          });
+
+          const data = await response.json();
+          console.log("API Response:", data);
+
+          if (data.redirectUrl) {
+            window.location.href = data.redirectUrl; // redirect to PhonePe checkout
+          } else {
+            alert("Payment failed: " + (data.message || "No redirect URL"));
+          }
+        } catch (err) {
+          console.error("Error:", err);
+          alert("Something went wrong. Please try again.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
