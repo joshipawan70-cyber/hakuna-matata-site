@@ -1,101 +1,80 @@
-const { v4: uuidv4 } = require("uuid");
+import axios from "axios";
+import crypto from "crypto";
+import { v4 as uuidv4 } from "uuid";
 
-// ✅ Force Node.js runtime
-export const config = {
-  runtime: "nodejs",
-};
-
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ message: "Method Not Allowed" });
   }
 
   try {
-    const { amount } = req.body;
-
-    // 🔑 Environment variables from Vercel
     const clientId = process.env.PHONEPE_CLIENT_ID;
-    const clientVersion = process.env.PHONEPE_CLIENT_VERSION;
     const clientSecret = process.env.PHONEPE_CLIENT_SECRET;
+    const clientVersion = process.env.PHONEPE_CLIENT_VERSION;
     const merchantId = process.env.PHONEPE_MERCHANT_ID;
 
-    // 1️⃣ Step 1: Get Access Token
-    const tokenResponse = await fetch(
-      "https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          client_id: clientId,
-          client_version: clientVersion,
-          client_secret: clientSecret,
-          grant_type: "client_credentials",
-        }),
-      }
+    // Step 1: Get access token
+    const tokenResp = await axios.post(
+      "https://api.phonepe.com/apis/pg/v1/oauth/token",
+      new URLSearchParams({
+        grant_type: "client_credentials",
+        client_id: clientId,
+        client_secret: clientSecret,
+        client_version: clientVersion,
+      }),
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
 
-    const tokenData = await tokenResponse.json();
-    const accessToken = tokenData.access_token;
+    const accessToken = tokenResp.data.access_token;
 
     if (!accessToken) {
-      console.error("Failed to get access token:", tokenData);
-      return res.status(500).json({
-        message: "Failed to get PhonePe access token",
-        details: tokenData,
-      });
+      return res.status(500).json({ message: "Failed to get PhonePe access token" });
     }
 
-    // 2️⃣ Step 2: Create Payment Request
+    // Step 2: Create payment payload
+    const amount = parseInt(req.body.amount) * 100; // paise
     const transactionId = uuidv4();
     const redirectUrl = "https://hakunamatatagamingcafe.site/success.html";
-    const callbackUrl = "https://<your-vercel-domain>/api/phonepe-callback";
 
-    const paymentResponse = await fetch(
-      "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
+    const payload = {
+      merchantId,
+      merchantTransactionId: transactionId,
+      merchantUserId: "USER123",
+      amount,
+      redirectUrl,
+      redirectMode: "REDIRECT",
+      callbackUrl: redirectUrl,
+      paymentInstrument: { type: "PAY_PAGE" },
+    };
+
+    // Step 3: Make payment request with access token
+    const payResp = await axios.post(
+      "https://api.phonepe.com/apis/pg/v1/pay",
+      { request: Buffer.from(JSON.stringify(payload)).toString("base64") },
       {
-        method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `O-Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify({
-          merchantId,
-          transactionId,
-          merchantUserId: "MUID123",
-          amount: amount * 100, // convert rupees → paise
-          redirectUrl,
-          redirectMode: "REDIRECT",
-          callbackUrl,
-          paymentInstrument: { type: "PAY_PAGE" },
-        }),
       }
     );
 
-    const result = await paymentResponse.json();
+    const redirectInfo = payResp.data?.data?.instrumentResponse?.redirectInfo;
 
-    // ✅ Handle success/failure safely
-    if (
-      result &&
-      result.data &&
-      result.data.instrumentResponse &&
-      result.data.instrumentResponse.redirectInfo
-    ) {
-      const redirectUrl = result.data.instrumentResponse.redirectInfo.url;
-      return res.status(200).json({ redirectUrl });
-    } else {
-      console.error("PhonePe error response:", result);
-      return res.status(400).json({
+    if (!redirectInfo?.url) {
+      return res.status(500).json({
         message: "Payment creation failed",
-        details: result,
+        details: payResp.data,
       });
     }
-  } catch (error) {
-    console.error("PhonePe API error:", error);
-    return res.status(500).json({
+
+    res.status(200).json({ redirectUrl: redirectInfo.url });
+  } catch (err) {
+    console.error("PhonePe API error:", err.response?.data || err.message);
+    res.status(500).json({
       message: "Error processing payment",
-      error: error.message,
+      details: err.response?.data || err.message,
     });
   }
-};
+}
