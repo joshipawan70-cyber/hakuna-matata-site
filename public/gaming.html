@@ -3,202 +3,243 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hakuna Matata Gaming - Gaming Section</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
-
+  <title>Booking Calendar</title>
   <style>
-    :root {
-      --primary-glow: #00ffff;
-      --secondary-glow: #be00ff;
-      --dark-bg: #0d0d1a;
-      --card-bg: rgba(20, 20, 40, 0.6);
-      --text-color: #f0f0f0;
-      --border-color: rgba(255, 255, 255, 0.2);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background-color: var(--dark-bg);
-      background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
-                        radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
-      background-size: 200% 200%;
-      animation: background-pan 20s ease-in-out infinite;
-      color: var(--text-color);
-      font-family: 'Poppins', sans-serif;
+      background-color: #0a0a0a;
+      color: #f5f5f5;
+      font-family: Arial, sans-serif;
     }
-    @keyframes background-pan {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    h1, h2, h3, h4 {
-      font-family: 'Orbitron', sans-serif;
-      color: #fff;
-      text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
-    }
-    h1 { text-align: center; padding: 40px 20px 20px; font-size: 2.5rem; }
 
-    .main-layout {
+    /* Calendar */
+    .calendar-header {
       display: flex;
-      flex-wrap: wrap; 
-      gap: 30px;
-      padding: 20px 40px 40px 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .tiles-column { flex: 0 0 300px; }
-
-    .menu-display-panel {
-      flex: 1; 
-      min-height: 400px; 
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 25px;
-    }
-
-    .card {
-      background: rgba(20, 20, 40, 0.3);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      display: flex;
+      justify-content: space-between;
       align-items: center;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-    .card:hover {
-      border-color: var(--primary-glow);
-      transform: scale(1.02);
-    }
-    .card.active {
-        border-color: var(--primary-glow);
-        box-shadow: 0 0 20px var(--primary-glow);
+      margin-bottom: 10px;
     }
 
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      margin-right: 20px;
-      filter: drop-shadow(0 0 5px var(--primary-glow));
-      flex-shrink: 0;
+    .calendar-header button {
+      background: none;
+      border: none;
+      color: #00e0ff;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
-    .card h3 { font-size: 1.1rem; }
 
-    button { 
-      margin: 5px 5px 5px 0; 
-      padding: 8px 12px; 
-      border-radius: 6px; 
-      border: none; 
-      cursor: pointer; 
-      background-color: var(--primary-glow);
-      color: #000; 
+    #month-label {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #ff00ff;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin: 10px 0;
+    }
+
+    .calendar div {
+      padding: 8px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .calendar .day-name {
+      font-weight: bold;
+      color: #00e0ff;
+    }
+
+    .calendar div.disabled {
+      color: #555;
+      cursor: not-allowed;
+    }
+
+    .calendar div.today {
+      border: 1px solid #ff00ff;
+    }
+
+    .calendar div.selected {
+      background-color: #00e0ff;
+      color: black;
       font-weight: bold;
     }
-    button.selected { background-color: var(--secondary-glow); color: #fff; }
 
-    input, form { display: block; margin-bottom: 10px; padding: 8px; border-radius: 6px; border: 1px solid #ccc; width: 100%; }
+    /* Slots */
+    #time-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
 
-    h3, h4 { margin-top: 10px; }
+    #time-slots button {
+      background: transparent;
+      border: 1px solid #00e0ff;
+      color: #00e0ff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
+    #time-slots button:hover {
+      background: #00e0ff;
+      color: black;
+    }
+
+    #time-slots button.selected {
+      background: #ff00ff;
+      color: white;
+      font-weight: bold;
+    }
+
+    #time-slots button.booked {
+      background-color: rgba(255,255,255,0.1);
+      color: #888;
+      cursor: not-allowed;
+      border: 1px solid #333;
+    }
+
+    /* Form */
+    #booking-form {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #booking-form input {
+      padding: 8px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #111;
+      color: #f5f5f5;
+    }
+
+    #booking-form button {
+      background: #00e0ff;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      color: black;
+      transition: 0.3s;
+    }
+
+    #booking-form button:hover {
+      background: #ff00ff;
+      color: white;
+    }
   </style>
 </head>
 <body>
 
-  <h1>🎮 Hakuna Matata Gaming</h1>
-
-  <div class="main-layout">
-    
-    <div class="tiles-column">
-      <!-- PS5 Card -->
-      <div class="card" onclick="showMenu('ps5')">
-        <svg class="card-icon" ...>...</svg>
-        <h3>PS5</h3>
-      </div>
-      <!-- PS4 Card -->
-      <div class="card" onclick="showMenu('ps4')">
-        <svg class="card-icon" ...>...</svg>
-        <h3>PS4</h3>
-      </div>
-      <!-- PS5 Racing Wheel -->
-      <div class="card" onclick="showMenu('ps5rw')">
-        <svg class="card-icon" ...>...</svg>
-        <h3>PS5 Racing Wheel</h3>
-      </div>
-      <!-- PS4 Racing Wheel -->
-      <div class="card" onclick="showMenu('ps4rw')">
-        <svg class="card-icon" ...>...</svg>
-        <h3>PS4 Racing Wheel</h3>
-      </div>
-      <!-- Pool Table -->
-      <div class="card" onclick="showMenu('pool')">
-        <svg class="card-icon" ...>...</svg>
-        <h3>Pool & Snooker</h3>
-      </div>
-      <!-- Board Games -->
-      <div class="card" onclick="showMenu('board')">
-        <svg class="card-icon" ...>...</svg>
-        <h3>Board Games</h3>
-      </div>
-      <!-- Private Theatre -->
-      <div class="card" onclick="showMenu('theatre')">
-        <svg class="card-icon" ...>...</svg>
-        <h3>Private Theatre</h3>
-      </div>
+  <h3>Book Your Slot</h3>
+  <div id="booking-container">
+    <h4>Select Date:</h4>
+    <div class="calendar-header">
+      <button id="prev-month">◀</button>
+      <span id="month-label"></span>
+      <button id="next-month">▶</button>
     </div>
+    <div class="calendar" id="custom-calendar"></div>
 
-    <div class="menu-display-panel" id="menu-panel">
-        <!-- Booking Calendar and Slots will be injected here -->
-    </div>
+    <h4>Available Time Slots:</h4>
+    <div id="time-slots"></div>
 
+    <h4>Your Details:</h4>
+    <form id="booking-form">
+      <input type="text" id="name" name="name" placeholder="Full Name" required />
+      <input type="email" id="email" name="email" placeholder="Email" required />
+      <input type="tel" id="phone" name="phone" placeholder="Phone" required />
+      <button type="button" id="pay-button">Pay & Book (₹50)</button>
+    </form>
   </div>
 
+  <!-- ✅ Razorpay Checkout Script -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <script>
-    const menuPanel = document.getElementById('menu-panel');
-    const allCards = document.querySelectorAll('.card');
-    const slotPrice = 50 * 100; // ₹50 per slot in paise
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+    let selectedDate = null;
     let selectedSlot = "";
 
-    function showMenu(resourceId) {
-      menuPanel.innerHTML = `
-        <h3>${resourceId.replace(/-/g, ' ').toUpperCase()}</h3>
-        <div id="booking-container">
-          <label>Select Date:</label>
-          <input type="date" id="booking-date" min="" />
-          <h4>Available Time Slots:</h4>
-          <div id="time-slots"></div>
-          <h4>Your Details:</h4>
-          <form id="booking-form">
-            <input type="text" name="name" placeholder="Full Name" required />
-            <input type="email" name="email" placeholder="Email" required />
-            <input type="tel" name="phone" placeholder="Phone" required />
-            <button type="button" id="pay-button">Pay & Book</button>
-          </form>
-        </div>
-      `;
+    function renderCalendar() {
+      const calendar = document.getElementById("custom-calendar");
+      const monthLabel = document.getElementById("month-label");
+      calendar.innerHTML = "";
 
-      allCards.forEach(card => {
-        card.classList.toggle('active', card.getAttribute('onclick') === `showMenu('${resourceId}')`);
+      const today = new Date();
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+
+      const monthNames = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+      ];
+      monthLabel.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+      const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      dayNames.forEach(d => {
+        const cell = document.createElement("div");
+        cell.classList.add("day-name");
+        cell.innerText = d;
+        calendar.appendChild(cell);
       });
 
-      // Initialize date & slots
-      const bookingDate = document.getElementById("booking-date");
-      bookingDate.min = new Date().toISOString().split("T")[0];
-      bookingDate.addEventListener("change", () => generateSlots(resourceId));
-      generateSlots(resourceId);
+      // Empty cells
+      for(let i=0; i<firstDay.getDay(); i++){
+        const empty = document.createElement("div");
+        calendar.appendChild(empty);
+      }
 
-      // Razorpay payment button
-      document.getElementById("pay-button").onclick = () => payForSlot(resourceId);
+      // Dates
+      for(let d=1; d<=lastDay.getDate(); d++){
+        const cell = document.createElement("div");
+        const dateObj = new Date(currentYear, currentMonth, d);
+        cell.innerText = d;
+
+        if(dateObj < new Date().setHours(0,0,0,0)){
+          cell.classList.add("disabled");
+        } else {
+          cell.onclick = () => selectDate(dateObj, cell);
+        }
+
+        if(d === today.getDate() &&
+           currentMonth === today.getMonth() &&
+           currentYear === today.getFullYear()) {
+          cell.classList.add("today");
+        }
+
+        calendar.appendChild(cell);
+      }
+
+      document.getElementById("prev-month").onclick = () => {
+        if(currentMonth === 0) { currentMonth = 11; currentYear--; }
+        else currentMonth--;
+        renderCalendar();
+      };
+
+      document.getElementById("next-month").onclick = () => {
+        if(currentMonth === 11) { currentMonth = 0; currentYear++; }
+        else currentMonth++;
+        renderCalendar();
+      };
     }
 
-    function generateSlots(resource) {
-      const date = document.getElementById("booking-date").value;
+    function selectDate(dateObj, cell) {
+      document.querySelectorAll(".calendar div").forEach(c => c.classList.remove("selected"));
+      cell.classList.add("selected");
+      selectedDate = dateObj.toISOString().split("T")[0];
+      generateSlots(selectedDate);
+    }
+
+    function generateSlots(date) {
       if(!date) return;
 
       const day = new Date(date).getDay();
@@ -209,14 +250,23 @@
       slotsDiv.innerHTML = "";
       selectedSlot = "";
 
+      // Example booked slots (replace with API data)
+      const bookedSlots = ["14:00 - 15:00", "18:00 - 19:00"];
+
       for(let h=startHour; h<endHour; h++){
+        const slotText = `${h}:00 - ${h+1}:00`;
         const btn = document.createElement("button");
-        btn.innerText = `${h}:00 - ${h+1}:00`;
-        btn.onclick = () => selectSlot(btn);
+        btn.innerText = slotText;
+
+        if(bookedSlots.includes(slotText)){
+          btn.classList.add("booked");
+          btn.disabled = true;
+        } else {
+          btn.onclick = () => selectSlot(btn);
+        }
+
         slotsDiv.appendChild(btn);
       }
-
-      // TODO: fetch booked slots from backend and disable them
     }
 
     function selectSlot(button) {
@@ -225,38 +275,50 @@
       selectedSlot = button.innerText;
     }
 
-    function payForSlot(resource) {
-      const date = document.getElementById("booking-date").value;
-      const name = document.querySelector("#booking-form input[name='name']").value;
-      const email = document.querySelector("#booking-form input[name='email']").value;
-      const phone = document.querySelector("#booking-form input[name='phone']").value;
+    // ✅ Razorpay Payment Integration
+    document.getElementById("pay-button").addEventListener("click", () => {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
 
-      if(!date || !selectedSlot){
-        alert("Please select a date and slot!");
+      if(!selectedDate) {
+        alert("⚠️ Please select a date before booking.");
+        return;
+      }
+      if(!selectedSlot) {
+        alert("⚠️ Please select a time slot before booking.");
+        return;
+      }
+      if(!name || !email || !phone) {
+        alert("⚠️ Please fill in all your details.");
         return;
       }
 
       const options = {
-        key: "YOUR_RAZORPAY_KEY_ID",
-        amount: slotPrice,
-        currency: "INR",
-        name: "Hakuna Matata Gaming Cafe",
-        description: `Booking for ${resource} at ${selectedSlot}`,
-        handler: function(response){
-          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-          // TODO: send booking data to backend
+        "key": "rzp_test_1234567890", // 🔑 Replace with your Razorpay Key ID
+        "amount": 5000, // Amount in paise = ₹50
+        "currency": "INR",
+        "name": "Hakuna Matata Gaming Cafe",
+        "description": "Slot Booking",
+        "image": "https://your-logo-url.com/logo.png", // optional
+        "handler": function (response){
+            alert(`✅ Booking Confirmed!\n\nDate: ${selectedDate}\nTime: ${selectedSlot}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nPayment ID: ${response.razorpay_payment_id}`);
         },
-        prefill: { name, email, contact: phone },
-        theme: { color: "#4CAF50" }
+        "prefill": {
+            "name": name,
+            "email": email,
+            "contact": phone
+        },
+        "theme": {
+            "color": "#ff00ff"
+        }
       };
 
-      const rzp = new Razorpay(options);
-      rzp.open();
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        showMenu('ps5');
+      const rzp1 = new Razorpay(options);
+      rzp1.open();
     });
+
+    renderCalendar();
   </script>
 
 </body>
