@@ -39,25 +39,22 @@
     }
     h1 { text-align: center; padding: 40px 20px 20px; font-size: 2.5rem; }
     
-    /* NEW: Main container for the two-column layout */
     .main-layout {
       display: flex;
-      flex-wrap: wrap; /* Allows columns to stack on smaller screens */
+      flex-wrap: wrap; 
       gap: 30px;
       padding: 20px 40px 40px 40px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    /* NEW: Column for the vertical tiles */
     .tiles-column {
-      flex: 0 0 300px; /* Base width of 300px, doesn't grow, doesn't shrink */
+      flex: 0 0 300px; 
     }
 
-    /* NEW: Column where menu content will appear */
     .menu-display-panel {
-      flex: 1; /* Takes up the remaining available space */
-      min-height: 400px; /* Ensures it has a height even when empty */
+      flex: 1; 
+      min-height: 400px; 
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 16px;
@@ -66,7 +63,6 @@
       padding: 25px;
     }
     
-    /* MODIFIED: Card is now a horizontal list item */
     .card {
       background: rgba(20, 20, 40, 0.3);
       border: 1px solid var(--border-color);
@@ -82,7 +78,6 @@
       border-color: var(--primary-glow);
       transform: scale(1.02);
     }
-    /* NEW: Style for the currently active card */
     .card.active {
         border-color: var(--primary-glow);
         box-shadow: 0 0 20px var(--primary-glow);
@@ -99,12 +94,10 @@
       font-size: 1.1rem;
     }
     
-    /* NEW: This holds the menu data but is not visible */
     .menu-data {
       display: none;
     }
     
-    /* MODIFIED: Styling for items inside the display panel */
     .menu-item {
       background: rgba(0, 0, 0, 0.3);
       border-radius: 8px;
@@ -147,7 +140,7 @@
         <div class="menu-data" id="ps4-data">
           <div class="menu-item"><h4>1 Controller – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
           <div class="menu-item"><h4>2 Controllers – ₹150</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-          <div class="menu-item"><h4>3 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>3 Controllers – ₹200</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
           <div class="menu-item"><h4>4 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
         </div>
       </div>
@@ -160,6 +153,15 @@
           <div class="menu-item"><h4>Forza Horizon 5 – ₹500/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
         </div>
       </div>
+      
+      <div class="card" onclick="showMenu('ps4rw')">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M12 15a3 3 0 1 0-3-3"/><path d="M12 3V2"/><path d="M12 15v7"/><path d="M21.9 12.5h-2.1"/><path d="M4.2 12.5H2.1"/></svg>
+        <h3>PS4 Racing Wheel</h3>
+        <div class="menu-data" id="ps4rw-data">
+            <div class="menu-item"><h4>F1 (5 laps) – ₹50</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+            <div class="menu-item"><h4>1 Hour – ₹300</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        </div>
+      </div>
 
       <div class="card" onclick="showMenu('pool')">
         <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><circle cx="12" cy="12" r="10"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
@@ -169,14 +171,21 @@
             <div class="menu-item"><h4>Snooker Table – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
         </div>
       </div>
+      
+      <div class="card" onclick="showMenu('board')">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><path d="M12.5 22h-1c-2.2 0-4-1.8-4-4v-1.1c0-1 .8-1.9 1.9-1.9h5.2c1 0 1.9.8 1.9 1.9V18c0 2.2-1.8 4-4 4ZM10 13c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.4 3-3 3Zm5.6-5.4c.3-.3.4-.6.4-1 0-1-.8-1.6-1.6-1.6-.4 0-.7.1-1 .4-.3.2-.6.4-.8.7s-.3.5-.3.8c0 1 .7 1.7 1.6 1.7.4 0 .7-.2 1-.4Z"/></svg>
+        <h3>Board Games</h3>
+        <div class="menu-data" id="board-data">
+            <div class="menu-item"><h4>Board Games – ₹25/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        </div>
+      </div>
 
       <div class="card" onclick="showMenu('theatre')">
         <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><rect x="2" y="4" width="20" height="16" rx="2.18" ry="2.18"/><path d="M7 4V2m10 2V2m-5 18v-2"/></svg>
         <h3>Private Theatre</h3>
         <div class="menu-data" id="theatre-data">
-            <div class="menu-item"><h4>₹500/hr (up to 5 people)</h4></div>
+            <div class="menu-item"><h4>₹500/hr (up to 5 people)</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
             <div class="menu-item"><h4>+ ₹100/person (max 10 people)</h4></div>
-            <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form>
         </div>
       </div>
 
@@ -188,26 +197,20 @@
   </div>
   
   <script>
-    // --- NEW SCRIPT FOR VERTICAL LAYOUT ---
     const menuPanel = document.getElementById('menu-panel');
     const allCards = document.querySelectorAll('.card');
 
     function showMenu(dataId) {
-      // Find the hidden menu data using the provided ID
       const menuData = document.getElementById(dataId + '-data');
       if (!menuData) {
         console.error('Menu data not found for ID:', dataId);
         return;
       }
       
-      // Clear the panel of any previous content
       menuPanel.innerHTML = '';
-      // Copy the content from the hidden div into the panel
       menuPanel.innerHTML = menuData.innerHTML;
 
-      // Update the active state for the cards
       allCards.forEach(card => {
-        // Check if the card's onclick matches the current dataId
         if (card.getAttribute('onclick') === `showMenu('${dataId}')`) {
           card.classList.add('active');
         } else {
@@ -216,7 +219,6 @@
       });
     }
 
-    // Optional: Show the first item by default on page load
     document.addEventListener('DOMContentLoaded', () => {
         showMenu('ps5');
     });
