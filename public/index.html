@@ -1,112 +1,233 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hakuna Matata Gaming Cafe</title>
-  <meta name="description" content="Hakuna Matata Gaming Cafe - Food, Drinks and Fun Gaming Experience">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Inline CSS -->
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      color: #ffcc00;
+      margin: 10px 0;
+    }
+
+    a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background: #1a1a1a;
+      border-bottom: 2px solid #ffcc00;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #aaa;
+    }
+
+    /* Section: Facilities */
+    .facilities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+    }
+
+    /* Dropdown Menu Titles */
+    .menu-title {
+      cursor: pointer;
+      font-size: 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #222;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      color: #ffcc00;
+      transition: background 0.3s;
+    }
+
+    .menu-title:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    /* Dropdown Menu Content */
+    .menu-content {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #262626;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .menu-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 12px;
+    }
+
+    .menu-item .info {
+      flex: 1;
+      color: #fff;
+    }
+
+    .menu-item h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #ffcc00;
+    }
+
+    .menu-item p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: #1a1a1a;
+      padding: 40px;
+      text-align: center;
+      border-top: 2px solid #ffcc00;
+    }
+
+    .contact h2 {
+      margin-bottom: 20px;
+    }
+
+    .contact p {
+      margin: 8px 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      border-top: 2px solid #ffcc00;
+    }
+
+    footer p {
+      margin: 5px 0;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <div class="container">
-      <h1>Hakuna Matata Gaming Cafe</h1>
-      <p>Delicious food, cool drinks & fun gaming experience!</p>
-    </div>
+    <h1>Hakuna Matata Gaming Cafe</h1>
+    <p>Delicious food, cool drinks & fun gaming experience!</p>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h2>Welcome to Hakuna Matata</h2>
-      <p>Play, Eat & Enjoy with your friends in a fun-filled cafe!</p>
-    </div>
-  </section>
-
-  <!-- Facilities + Menu Items -->
   <section class="facilities">
-    <div class="container grid">
-      
-      <!-- Gaming -->
-      <div class="card">
-        <h3>🎮 Gaming</h3>
-        <p>Choose your gaming package:</p>
-        <div class="item">
-          <span>1 Hour PS5</span> <span>₹150</span>
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+    <!-- Gaming -->
+    <div class="card">
+      <h3 class="menu-title" onclick="toggleMenu('gamingMenu')">🎮 Gaming ▼</h3>
+      <div id="gamingMenu" class="menu-content">
+        <div class="menu-item">
+          <div class="info"><h4>1 Hour PS5</h4><p>₹150</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
-        <div class="item">
-          <span>1 Hour Xbox</span> <span>₹120</span>
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+        <div class="menu-item">
+          <div class="info"><h4>1 Hour Xbox</h4><p>₹120</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
-        <div class="item">
-          <span>2 Hour Combo</span> <span>₹250</span>
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+        <div class="menu-item">
+          <div class="info"><h4>2 Hour Combo</h4><p>₹250</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
       </div>
+    </div>
 
-      <!-- Food -->
-      <div class="card">
-        <h3>🍔 Food</h3>
-        <p>Tasty dishes served fresh:</p>
-        <div class="item">
-          <img src="image/maggie.jpg" alt="Maggie" class="thumb"> Maggie ₹50
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+    <!-- Food -->
+    <div class="card">
+      <h3 class="menu-title" onclick="toggleMenu('foodMenu')">🍔 Food ▼</h3>
+      <div id="foodMenu" class="menu-content">
+        <div class="menu-item">
+          <img src="image/maggie.jpg" alt="Maggie">
+          <div class="info"><h4>Maggie</h4><p>₹50</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
-        <div class="item">
-          <img src="image/friedrice.jpg" alt="Fried Rice" class="thumb"> Fried Rice ₹120
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+        <div class="menu-item">
+          <img src="image/friedrice.jpg" alt="Fried Rice">
+          <div class="info"><h4>Fried Rice</h4><p>₹120</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
-        <div class="item">
-          <img src="image/manchurian.jpg" alt="Manchurian" class="thumb"> Manchurian ₹90
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+        <div class="menu-item">
+          <img src="image/manchurian.jpg" alt="Manchurian">
+          <div class="info"><h4>Manchurian</h4><p>₹90</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
       </div>
+    </div>
 
-      <!-- Drinks -->
-      <div class="card">
-        <h3>☕ Drinks</h3>
-        <p>Refreshing beverages:</p>
-        <div class="item">
-          <img src="image/milkshake.jpg" alt="Milkshake" class="thumb"> Milkshake ₹80
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+    <!-- Drinks -->
+    <div class="card">
+      <h3 class="menu-title" onclick="toggleMenu('drinksMenu')">☕ Drinks ▼</h3>
+      <div id="drinksMenu" class="menu-content">
+        <div class="menu-item">
+          <img src="image/milkshake.jpg" alt="Milkshake">
+          <div class="info"><h4>Milkshake</h4><p>₹80</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
-        <div class="item">
-          <img src="image/masalasoda.jpg" alt="Masala Soda" class="thumb"> Masala Soda ₹50
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
+        <div class="menu-item">
+          <img src="image/masalasoda.jpg" alt="Masala Soda">
+          <div class="info"><h4>Masala Soda</h4><p>₹50</p></div>
+          <form><script src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_xxxxxx" async></script></form>
         </div>
       </div>
     </div>
@@ -114,40 +235,27 @@
 
   <!-- Contact -->
   <section class="contact">
-    <div class="container">
-      <h2>📞 Contact Us</h2>
-      <p>Phone: <a href="tel:+919348091035" style="color:#ffcc00;text-decoration:none;">+91 93480 91035</a></p>
-      <p>Email: <a href="mailto:hakunaxmatataper@gmail.com" style="color:#ffcc00;text-decoration:none;">hakunaxmatataper@gmail.com</a></p>
-      <p>Address: Hakuna matata gaming cafe, no 42 christ lane hosur main road near mekeba restaurant, sg palya, 560029</p>
-    </div>
-  </section>
-
-  <!-- Location -->
-  <section class="location">
-    <div class="container">
-      <h2>📍 Find Us</h2>
-      <iframe 
-        src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
-        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-      </iframe>
-      <p style="margin-top:8px;">
-        <a href="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029" target="_blank" rel="noopener" style="color:#ffcc00;">
-          Open in Google Maps
-        </a>
-      </p>
-    </div>
+    <h2>Contact Us</h2>
+    <p><strong>Phone:</strong> 9348091035</p>
+    <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+    <p><strong>Address:</strong> Hakuna Matata Gaming Cafe, No 42 Christ Lane, Hosur Main Road, Near Mekeba Restaurant, SG Palya, 560029</p>
+    <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2025 Hakuna Matata Gaming Cafe. All rights reserved.</p>
-      <p>
-        <a href="privacy.html">Privacy Policy</a> | 
-        <a href="terms.html">Terms & Conditions</a> | 
-        <a href="refund.html">Refund Policy</a>
-      </p>
-    </div>
+    <p>&copy; 2024 Hakuna Matata Gaming Cafe. All rights reserved.</p>
+    <p><a href="terms.html">Terms & Conditions</a> | 
+       <a href="privacy.html">Privacy Policy</a> | 
+       <a href="refund.html">Refund Policy</a></p>
   </footer>
+
+  <!-- Script for Dropdown -->
+  <script>
+    function toggleMenu(id) {
+      const menu = document.getElementById(id);
+      menu.style.display = menu.style.display === "none" ? "block" : "none";
+    }
+  </script>
 </body>
 </html>
