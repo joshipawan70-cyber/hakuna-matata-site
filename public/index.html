@@ -5,109 +5,180 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Hakuna Matata Gaming Cafe</title>
   <meta name="description" content="Hakuna Matata Gaming Cafe - Food, Drinks and Fun Gaming Experience">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fafafa;
-      color: #333;
-      text-align: center;
-    }
-    header {
-      background: #7c3aed;
-      color: white;
-      padding: 20px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2.5em;
-    }
-    .menu {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-    }
-    .item {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin: 15px;
-      padding: 15px;
-      width: 250px;
-      text-align: center;
-    }
-    .item img {
-      max-width: 100%;
-      border-radius: 12px;
-    }
-    .item h3 {
-      margin: 10px 0 5px;
-    }
-    .item p {
-      margin: 0 0 10px;
-    }
-    footer {
-      background: #f4f4f4;
-      padding: 15px;
-      font-size: 0.9em;
-      margin-top: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Hakuna Matata Gaming Cafe</h1>
-    <p>Delicious food & drinks with ultimate gaming fun!</p>
+    <div class="container">
+      <h1>Hakuna Matata Gaming Cafe</h1>
+      <p>Delicious food, cool drinks & fun gaming experience!</p>
+    </div>
   </header>
 
-  <div class="menu">
-    <!-- Manchurian -->
-    <div class="item">
-      <img src="manchurian.jpg" alt="Manchurian">
-      <h3>Manchurian</h3>
-      <p>₹90</p>
-      <form>
-        <script 
-          src="https://checkout.razorpay.com/v1/payment-button.js"
-          data-payment_button_id="pl_R5viAl9NAWaMRQ"
-          async>
-        </script>
-      </form>
+  <section class="hero">
+    <div class="container">
+      <h2>Welcome to Hakuna Matata</h2>
+      <p>Play, Eat & Enjoy with your friends in a fun-filled cafe!</p>
     </div>
+  </section>
 
-    <!-- Milkshake -->
-    <div class="item">
-      <img src="milkshake.jpg" alt="Milkshake">
-      <h3>Milkshake</h3>
-      <p>₹80</p>
-      <form>
-        <script 
-          src="https://checkout.razorpay.com/v1/payment-button.js"
-          data-payment_button_id="pl_R5viAl9NAWaMRQ"
-          async>
-        </script>
-      </form>
+  <section class="facilities">
+    <div class="container grid">
+      <div class="card">
+        <h3>🎮 Gaming</h3>
+        <p>PS5, PS4, Xbox, and more fun consoles to enjoy with your squad.</p>
+      </div>
+      <div class="card">
+        <h3>🍔 Food</h3>
+        <p>Tasty fast food, snacks & beverages served hot and fresh.</p>
+      </div>
+      <div class="card">
+        <h3>☕ Drinks</h3>
+        <p>Refreshing milkshakes, soft drinks and mocktails.</p>
+      </div>
     </div>
+  </section>
 
-    <!-- Masala Soda -->
-    <div class="item">
-      <img src="masalasoda.jpg" alt="Masala Soda">
-      <h3>Masala Soda</h3>
-      <p>₹50</p>
-      <form>
-        <script 
-          src="https://checkout.razorpay.com/v1/payment-button.js"
-          data-payment_button_id="pl_R5viAl9NAWaMRQ"
-          async>
-        </script>
-      </form>
+  <section class="menu">
+    <div class="container">
+      <h2>Our Menu</h2>
+
+      <!-- Maggie -->
+      <div class="item">
+        <div class="left">
+          <div class="thumb">
+            <img src="image/maggie.jpg" alt="Maggie" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+          </div>
+          <div>
+            <div style="font-weight:700">Maggie</div>
+            <div class="muted" style="font-size:13px">₹50</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div class="price">₹50</div>
+          <div class="pay">
+            <form>
+              <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                      data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                      async> 
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fried Rice -->
+      <div class="item">
+        <div class="left">
+          <div class="thumb">
+            <img src="image/friedrice.jpg" alt="Fried Rice" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+          </div>
+          <div>
+            <div style="font-weight:700">Fried Rice</div>
+            <div class="muted" style="font-size:13px">₹120</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div class="price">₹120</div>
+          <div class="pay">
+            <form>
+              <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                      data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                      async> 
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manchurian -->
+      <div class="item">
+        <div class="left">
+          <div class="thumb">
+            <img src="image/manchurian.jpg" alt="Manchurian" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+          </div>
+          <div>
+            <div style="font-weight:700">Manchurian</div>
+            <div class="muted" style="font-size:13px">₹90</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div class="price">₹90</div>
+          <div class="pay">
+            <form>
+              <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                      data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                      async> 
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Milkshake -->
+      <div class="item">
+        <div class="left">
+          <div class="thumb">
+            <img src="image/milkshake.jpg" alt="Milkshake" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+          </div>
+          <div>
+            <div style="font-weight:700">Milkshake</div>
+            <div class="muted" style="font-size:13px">₹80</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div class="price">₹80</div>
+          <div class="pay">
+            <form>
+              <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                      data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                      async> 
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Masala Soda -->
+      <div class="item">
+        <div class="left">
+          <div class="thumb">
+            <img src="image/masalasoda.jpg" alt="Masala Soda" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+          </div>
+          <div>
+            <div style="font-weight:700">Masala Soda</div>
+            <div class="muted" style="font-size:13px">₹50</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div class="price">₹50</div>
+          <div class="pay">
+            <form>
+              <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                      data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                      async> 
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </section>
+
+  <section class="location">
+    <div class="container">
+      <h2>📍 Find Us</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." 
+              width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+  </section>
 
   <footer>
-    <p>&copy; 2025 Hakuna Matata Gaming Cafe. All rights reserved.</p>
+    <div class="container">
+      <p>&copy; 2025 Hakuna Matata Gaming Cafe. All rights reserved.</p>
+    </div>
   </footer>
 </body>
 </html>
