@@ -4,47 +4,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hakuna Matata Gaming - Gaming Section</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      background-color: #111;
-      color: #fff;
-      font-family: Arial, sans-serif;
+    /* --- NEW: Color Palette & Global Styles --- */
+    :root {
+      --primary-glow: #00ffff; /* Neon Cyan/Blue */
+      --secondary-glow: #be00ff; /* Neon Purple */
+      --dark-bg: #0d0d1a; /* A very dark, deep blue */
+      --card-bg: rgba(20, 20, 40, 0.6); /* Semi-transparent dark blue for the "glass" effect */
+      --text-color: #f0f0f0;
+      --border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    h1, h2, h3, h4 {
-      color: #FFD700;
-    }
-
-    .container {
-      display: grid;
-      /* This is the key change: sets up a grid with 2 equal columns */
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      padding: 40px;
-      max-width: 900px; /* Optional: Constrains the width for a cleaner look on large screens */
-      margin: 0 auto;    /* Optional: Centers the container */
-    }
-
-    .card {
-      background: #1c1c1c;
-      border: 2px solid #FFD700;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-    }
-
-    .card h3, .card h4 {
+    body {
+      background-color: var(--dark-bg);
+      /* NEW: Subtle animated gradient background */
+      background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
+                        radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
+      background-size: 200% 200%;
+      animation: background-pan 20s ease-in-out infinite;
+      color: var(--text-color);
+      /* NEW: Using the imported fonts */
+      font-family: 'Poppins', sans-serif;
       margin: 0;
     }
 
+    /* NEW: Animation for the background */
+    @keyframes background-pan {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* --- NEW: Header Styles with Neon Glow --- */
+    h1, h2, h3, h4 {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
+    }
+    
+    h1 {
+      text-align: center;
+      padding: 40px 20px 20px;
+      font-size: 2.5rem;
+    }
+    
+    h2 {
+      text-align: center;
+    }
+
+    /* --- NEW: Modernized Card Container --- */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* --- NEW: The "Glassmorphism" Card with Glow on Hover --- */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      /* This is the magic for the "frosted glass" look */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-glow);
+      /* This creates the neon glow on hover */
+      box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    
     .menu {
       display: none;
       margin-top: 15px;
@@ -52,47 +105,57 @@
     }
 
     .menu-item {
-      background: #222;
+      background: rgba(0, 0, 0, 0.3);
       border-radius: 8px;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 10px;
     }
 
     .menu-item h4 {
-      margin: 0 0 5px 0;
-      color: #FFD700;
+      margin: 0;
+      font-size: 0.9rem;
+      text-shadow: none; /* Remove glow from smaller text for readability */
+      color: var(--primary-glow);
     }
 
-    /* Contact + Footer */
-    .contact, .footer {
-      padding: 30px;
-      background: #000;
+    /* --- General Sections --- */
+    .contact, .footer, .games-section {
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.3);
       text-align: center;
+    }
+    
+    .games-section {
+        background: transparent;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-color);
     }
 
     iframe {
-      border: none;
+      border: 1px solid var(--border-color);
       width: 100%;
+      max-width: 800px;
       height: 300px;
       border-radius: 12px;
       margin-top: 20px;
     }
 
-    .footer {
-      font-size: 14px;
-      color: #aaa;
-    }
-
     .footer a {
-      color: #FFD700;
+      color: var(--primary-glow);
       text-decoration: none;
       margin: 0 10px;
     }
+     .footer a:hover {
+      text-decoration: underline;
+    }
+    
   </style>
 </head>
 <body>
 
-  <h1 style="text-align:center; padding:20px;">🎮 Hakuna Matata Gaming</h1>
+  <h1>🎮 Hakuna Matata Gaming</h1>
 
   <div class="container">
 
@@ -101,18 +164,13 @@
       <div class="menu" id="ps5">
         <div class="menu-item"><h4>1 Controller – ₹150</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
         <div class="menu-item"><h4>2 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>3 Controllers – ₹300</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>4 Controllers – ₹350</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
       </div>
     </div>
-
     <div class="card" onclick="toggleMenu('ps4')">
       <h3>🎮 PS4 ▼</h3>
       <div class="menu" id="ps4">
         <div class="menu-item"><h4>1 Controller – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
         <div class="menu-item"><h4>2 Controllers – ₹150</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>3 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>4 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
       </div>
     </div>
 
@@ -123,7 +181,6 @@
         <div class="menu-item"><h4>Forza Horizon 5 – ₹500/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
       </div>
     </div>
-
     <div class="card" onclick="toggleMenu('ps4rw')">
       <h3>🏎️ PS4 Racing Wheel ▼</h3>
       <div class="menu" id="ps4rw">
@@ -139,7 +196,6 @@
         <div class="menu-item"><h4>Snooker Table – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
       </div>
     </div>
-
     <div class="card" onclick="toggleMenu('fuss')">
       <h3>⚽ Fussball ▼</h3>
       <div class="menu" id="fuss">
@@ -153,7 +209,6 @@
         <div class="menu-item"><h4>Board Games – ₹25/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
       </div>
     </div>
-
     <div class="card" onclick="toggleMenu('theatre')">
       <h3>📽️ Private Theatre ▼</h3>
       <div class="menu" id="theatre">
@@ -165,21 +220,21 @@
 
   </div>
 
-  <div style="padding:40px; background:#000;">
-    <h2 style="text-align:center; color:#FFD700;">🎮 Games Available</h2>
+  <div class="games-section">
+    <h2>🎮 Games Available</h2>
     
-    <h3 style="color:#FFD700; margin-top:30px;">PS5 Games</h3>
+    <h3 style="margin-top:30px;">PS5 Games</h3>
     <div class="container">
-      <div class="card"><h4>F1 24</h4><img src="f1-ps5.jpg" alt="F1 24" style="width:100%; border-radius:8px; margin-top:10px;"></div>
-      <div class="card"><h4>Spider-Man 2</h4><img src="spiderman2.jpg" alt="Spider-Man 2" style="width:100%; border-radius:8px; margin-top:10px;"></div>
-      <div class="card"><h4>Forza Horizon 5</h4><img src="forza5.jpg" alt="Forza Horizon 5" style="width:100%; border-radius:8px; margin-top:10px;"></div>
+      <div class="card"><h4>F1 24</h4><img src="f1-ps5.jpg" alt="F1 24" style="width:100%; border-radius:8px; margin-top:10px; opacity:0.8"></div>
+      <div class="card"><h4>Spider-Man 2</h4><img src="spiderman2.jpg" alt="Spider-Man 2" style="width:100%; border-radius:8px; margin-top:10px; opacity:0.8"></div>
+      <div class="card"><h4>Forza Horizon 5</h4><img src="forza5.jpg" alt="Forza Horizon 5" style="width:100%; border-radius:8px; margin-top:10px; opacity:0.8"></div>
     </div>
 
-    <h3 style="color:#FFD700; margin-top:40px;">PS4 Games</h3>
+    <h3 style="margin-top:40px;">PS4 Games</h3>
     <div class="container">
-      <div class="card"><h4>F1 23</h4><img src="f1-ps4.jpg" alt="F1 23" style="width:100%; border-radius:8px; margin-top:10px;"></div>
-      <div class="card"><h4>Forza Horizon 4</h4><img src="forza4.jpg" alt="Forza Horizon 4" style="width:100%; border-radius:8px; margin-top:10px;"></div>
-      <div class="card"><h4>God of War</h4><img src="gow.jpg" alt="God of War" style="width:100%; border-radius:8px; margin-top:10px;"></div>
+      <div class="card"><h4>F1 23</h4><img src="f1-ps4.jpg" alt="F1 23" style="width:100%; border-radius:8px; margin-top:10px; opacity:0.8"></div>
+      <div class="card"><h4>Forza Horizon 4</h4><img src="forza4.jpg" alt="Forza Horizon 4" style="width:100%; border-radius:8px; margin-top:10px; opacity:0.8"></div>
+      <div class="card"><h4>God of War</h4><img src="gow.jpg" alt="God of War" style="width:100%; border-radius:8px; margin-top:10px; opacity:0.8"></div>
     </div>
   </div>
 
