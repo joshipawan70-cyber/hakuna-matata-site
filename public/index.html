@@ -5,52 +5,150 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hakuna Matata Gaming Cafe</title>
 
-  <!-- Inline CSS (black + gold theme) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      --bg:#0f0f0f;--card:#1a1a1a;--soft:#222;--soft-2:#262626;
-      --text:#dddddd;--muted:#a9a9a9;--brand:#ffcc00;--brand-d:#d4a900;
+    /* --- NEW: Color Palette with Neon Green & Global Styles --- */
+    :root {
+      --primary-glow: #39ff14; /* Neon Green */
+      --secondary-glow: #0077ff; /* Electric Blue */
+      --dark-bg: #0d0d1a; /* A very dark, deep blue */
+      --card-bg: rgba(20, 30, 25, 0.6); /* Semi-transparent dark green for the "glass" effect */
+      --text-color: #f0f0f0;
+      --border-color: rgba(255, 255, 255, 0.2);
     }
-    *{box-sizing:border-box}body{margin:0;padding:0;
-      font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
-    a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
-    header{text-align:center;padding:40px 20px;background:var(--card);border-bottom:2px solid var(--brand);}
-    header h1{margin:0 0 8px;font-size:2.4rem;color:var(--brand);}
-    header p{margin:0;color:var(--muted)}
-    .intro{text-align:center;padding:28px 20px 10px;}
-    .intro h2{margin:0 0 6px;color:var(--brand);}
-    .facilities{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:20px;padding:26px 20px 40px;max-width:900px;margin:0 auto;}
-    .card-link{display:block}
-    .card{background:var(--card);border:1px solid #000;border-radius:16px;
-      padding:22px;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .18s,box-shadow .18s,border-color .18s;}
-    .card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.5);border-color:var(--brand-d);}
-    .card h3{margin:0 0 8px;font-size:1.4rem;color:var(--brand);}
-    .card p{margin:0;color:var(--muted);}
-    #contact{background:var(--card);border-top:2px solid var(--brand);padding:34px 20px;}
-    #contact h2{text-align:center;margin:0 0 12px;color:var(--brand);}
-    .contact-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1.4fr;gap:22px;}
-    .contact-box{background:var(--soft);border-radius:14px;padding:18px 20px;}
-    .contact-box p{margin:8px 0}
-    .map iframe{width:100%;height:300px;border:0;border-radius:12px;}
-    footer{text-align:center;padding:18px 20px 28px;border-top:2px solid var(--brand);background:var(--bg);color:var(--muted);}
-    footer p{margin:6px 0}
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--dark-bg);
+      /* NEW: Subtle animated gradient background */
+      background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
+                        radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
+      background-size: 200% 200%;
+      animation: background-pan 20s ease-in-out infinite;
+      color: var(--text-color);
+      /* NEW: Using the imported fonts */
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NEW: Animation for the background */
+    @keyframes background-pan {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    a {
+      color: var(--primary-glow);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- NEW: Header, Section, and Footer Styles --- */
+    header, #contact, footer, .intro {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .intro {
+      border: none;
+      padding-top: 28px;
+    }
+    #contact {
+      border-top: 1px solid var(--border-color);
+    }
+    footer {
+        padding: 20px;
+    }
+
+    /* --- NEW: Header Styles with Neon Glow --- */
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
+    }
+    header h1 { margin: 0 0 8px; font-size: 2.4rem; }
+    header p { margin: 0; color: #aaa; }
+    .intro h2, #contact h2 { margin: 0 0 12px; }
+    
+    /* --- NEW: Styling for Cards Container --- */
+    .facilities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 26px 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .card-link { display: block; }
+    
+    /* --- NEW: The "Glassmorphism" Card with Glow on Hover --- */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-glow);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+    .card h3 { font-size: 1.4rem; margin: 0 0 8px; }
+    .card p { margin: 0; color: #aaa; }
+    
+    /* --- NEW: Styling for Contact Section --- */
+    .contact-grid {
+      max-width: 1100px;
+      margin: 20px auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .contact-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: left;
+    }
+    .contact-box p { margin: 8px 0; }
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+      border: 0;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
     <h1>Hakuna Matata Gaming Cafe</h1>
     <p>Delicious food, cool drinks & fun gaming experience!</p>
   </header>
 
-  <!-- Intro -->
   <section class="intro">
     <h2>Welcome to Hakuna Matata</h2>
     <p>Play, Eat & Enjoy with your friends in a fun-filled cafe!</p>
   </section>
 
-  <!-- Two Tiles -->
   <section class="facilities">
     <a href="gaming.html" class="card-link">
       <div class="card">
@@ -66,7 +164,6 @@
     </a>
   </section>
 
-  <!-- Contact -->
   <section id="contact">
     <h2>Contact Us</h2>
     <div class="contact-grid">
@@ -82,17 +179,12 @@
       <div class="contact-box map">
         <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
           allowfullscreen loading="lazy"></iframe>
-        <p style="margin:8px 0 0;">
-          <a href="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029"
-             target="_blank" rel="noopener">Open in Google Maps ↗</a>
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
+    <p>© 2025 Hakuna Matata Gaming Cafe</p>
     <p><a href="privacy.html">Privacy Policy</a> | 
        <a href="terms.html">Terms & Conditions</a> | 
        <a href="refund.html">Refund Policy</a></p>
