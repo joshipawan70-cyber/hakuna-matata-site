@@ -1,10 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hakuna Matata Gaming Cafe</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Inline CSS (black + gold theme) -->
+  <style>
+    /* ===== Base ===== */
+    :root{
+      --bg:#0f0f0f;
+      --card:#1a1a1a;
+      --soft:#222;
+      --soft-2:#262626;
+      --text:#dddddd;
+      --muted:#a9a9a9;
+      --brand:#ffcc00;
+      --brand-d:#d4a900;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%;display:block}
+
+    /* ===== Header ===== */
+    header{
+      background: var(--card);
+      border-bottom: 2px solid var(--brand);
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1{
+      margin:0 0 8px;
+      font-size: 2.4rem;
+      color: var(--brand);
+      letter-spacing:.3px;
+    }
+    header p{margin:0;color:var(--muted)}
+
+    /* ===== Intro ===== */
+    .intro{
+      padding: 28px 20px 10px;
+      text-align:center;
+    }
+    .intro h2{
+      margin:0 0 6px;
+      color: var(--brand);
+    }
+    .intro p{margin:0;color:var(--muted)}
+
+    /* ===== Facilities tiles ===== */
+    .facilities{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+      padding: 26px 20px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card-link{display:block}
+    .card{
+      background: var(--card);
+      border:1px solid #000;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      min-height: 150px;
+      display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 1.4rem;
+      color: var(--brand);
+    }
+    .card p{margin:0;color:var(--muted)}
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px rgba(0,0,0,.5);
+      border-color: var(--brand-d);
+    }
+
+    /* ===== Contact / Map ===== */
+    #contact{
+      background: var(--card);
+      border-top: 2px solid var(--brand);
+      padding: 34px 20px;
+    }
+    #contact h2{
+      margin:0 0 12px;
+      text-align:center;
+      color: var(--brand);
+    }
+    .contact-grid{
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1.4fr;
+      gap: 22px;
+    }
+    .contact-box{
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .contact-box p{margin:8px 0}
+    .map iframe{
+      width:100%;
+      height: 300px;
+      border:0;
+      border-radius: 12px;
+    }
+    .cta-row{
+      margin-top:10px;
+      display:flex;gap:12px;flex-wrap:wrap
+    }
+    .pill{
+      background: var(--soft-2);
+      padding:8px 12px;
+      border-radius: 999px;
+      font-size:.95rem;
+    }
+
+    /* ===== Footer ===== */
+    footer{
+      text-align:center;
+      padding: 18px 20px 28px;
+      border-top: 2px solid var(--brand);
+      background: var(--bg);
+      color: var(--muted);
+    }
+    footer p{margin:6px 0}
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -13,58 +147,77 @@
     <p>Delicious food, cool drinks & fun gaming experience!</p>
   </header>
 
-  <!-- Intro Section -->
+  <!-- Intro -->
   <section class="intro">
     <h2>Welcome to Hakuna Matata</h2>
     <p>Play, Eat & Enjoy with your friends in a fun-filled cafe!</p>
   </section>
 
-  <!-- Main Tiles -->
+  <!-- Three Tiles -->
   <section class="facilities">
-    <a href="gaming.html" class="card-link">
+    <a class="card-link" href="gaming.html">
       <div class="card">
         <h3>🎮 Gaming</h3>
-        <p>Consoles, packages & fun for every gamer!</p>
+        <p>Consoles, hourly packages & tournaments.</p>
       </div>
     </a>
 
-    <a href="food.html" class="card-link">
+    <a class="card-link" href="food.html">
       <div class="card">
         <h3>🍔 Food</h3>
-        <p>Tasty dishes served fresh & hot!</p>
+        <p>Tasty snacks, fast food and more.</p>
       </div>
     </a>
 
-    <a href="drinks.html" class="card-link">
+    <a class="card-link" href="drinks.html">
       <div class="card">
         <h3>🍹 Drinks</h3>
-        <p>Refreshing beverages & mocktails!</p>
+        <p>Milkshakes, mocktails & cool refreshments.</p>
       </div>
     </a>
   </section>
 
-  <!-- Contact Section -->
+  <!-- Contact + Map -->
   <section id="contact">
     <h2>Contact Us</h2>
-    <p><strong>Phone:</strong> 9348091035</p>
-    <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
-    <p><strong>Address:</strong> Hakuna Matata Gaming Cafe,<br>
-       No 42 Christ Lane, Hosur Main Road, near Mekeba Restaurant,<br>
-       SG Palya, Bengaluru, 560029</p>
-    <div class="map">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.919796342387!2d77.6101!3d12.9336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15d123456789%3A0xabcdef!2sHakuna%20Matata%20Gaming%20Cafe!5e0!3m2!1sen!2sin!4v1692190000000"
-        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-      </iframe>
+    <div class="contact-grid">
+      <div class="contact-box">
+        <p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
+        <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+        <p><strong>Address:</strong><br>
+          Hakuna Matata Gaming Cafe,<br>
+          No 42 Christ Lane, Hosur Main Road,<br>
+          Near Mekeba Restaurant, SG Palya, 560029
+        </p>
+        <div class="cta-row">
+          <span class="pill">Open daily</span>
+          <span class="pill">Walk-in welcome</span>
+          <span class="pill">Card / UPI accepted</span>
+        </div>
+      </div>
+      <div class="contact-box map">
+        <!-- Simple q-based embed works without a Places key -->
+        <iframe
+          src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+        <p style="margin:8px 0 0;">
+          <a href="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029"
+             target="_blank" rel="noopener">Open in Google Maps ↗</a>
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
-    <p><a href="privacy.html">Privacy Policy</a> | 
-       <a href="terms.html">Terms & Conditions</a> | 
-       <a href="refund.html">Refund Policy</a></p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      <a href="terms.html">Terms & Conditions</a> &nbsp;|&nbsp;
+      <a href="refund.html">Refund Policy</a>
+    </p>
   </footer>
 </body>
 </html>
