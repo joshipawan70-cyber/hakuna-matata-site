@@ -38,192 +38,188 @@
       text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
     }
     h1 { text-align: center; padding: 40px 20px 20px; font-size: 2.5rem; }
-    h2 { text-align: center; }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 25px;
-      padding: 40px;
-      max-width: 1000px;
+    
+    /* NEW: Main container for the two-column layout */
+    .main-layout {
+      display: flex;
+      flex-wrap: wrap; /* Allows columns to stack on smaller screens */
+      gap: 30px;
+      padding: 20px 40px 40px 40px;
+      max-width: 1200px;
       margin: 0 auto;
     }
-    .card {
+
+    /* NEW: Column for the vertical tiles */
+    .tiles-column {
+      flex: 0 0 300px; /* Base width of 300px, doesn't grow, doesn't shrink */
+    }
+
+    /* NEW: Column where menu content will appear */
+    .menu-display-panel {
+      flex: 1; /* Takes up the remaining available space */
+      min-height: 400px; /* Ensures it has a height even when empty */
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      cursor: pointer;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      aspect-ratio: 1 / 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      /* MODIFIED: Align content to the top to allow for natural expansion */
-      justify-content: flex-start; 
-      padding: 20px 15px;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary-glow);
-      box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
-    }
-    .card-icon {
-      width: 35%; /* Slightly smaller to give more room */
-      height: auto;
-      margin-bottom: 15px;
-      filter: drop-shadow(0 0 5px var(--primary-glow));
-    }
-    .card h3 {
-      margin: 0;
-      font-size: 1.2rem;
-      text-align: center;
+      padding: 25px;
     }
     
-    /* --- MODIFIED: Dropdown Menu Styling --- */
-    .menu {
-      display: none; /* Initially hidden */
-      width: 100%; /* Take up the full width of the card */
-      margin-top: 20px; /* Add space between the title and the menu */
+    /* MODIFIED: Card is now a horizontal list item */
+    .card {
+      background: rgba(20, 20, 40, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .card:hover {
+      border-color: var(--primary-glow);
+      transform: scale(1.02);
+    }
+    /* NEW: Style for the currently active card */
+    .card.active {
+        border-color: var(--primary-glow);
+        box-shadow: 0 0 20px var(--primary-glow);
     }
 
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      margin-right: 20px;
+      filter: drop-shadow(0 0 5px var(--primary-glow));
+      flex-shrink: 0;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+    }
+    
+    /* NEW: This holds the menu data but is not visible */
+    .menu-data {
+      display: none;
+    }
+    
+    /* MODIFIED: Styling for items inside the display panel */
     .menu-item {
       background: rgba(0, 0, 0, 0.3);
       border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
     }
     .menu-item:last-child {
         margin-bottom: 0;
     }
     .menu-item h4 {
-      margin: 0 0 5px 0;
-      font-size: 0.9rem;
+      margin: 0 0 8px 0;
+      font-size: 1rem;
       text-shadow: none;
       color: var(--primary-glow);
     }
-    
-    /* General Sections */
-    .contact, .footer, .games-section { padding: 40px 20px; background: rgba(0, 0, 0, 0.3); text-align: center; }
-    .games-section { background: transparent; }
-    .footer { border-top: 1px solid var(--border-color); }
-    iframe { border: 1px solid var(--border-color); width: 100%; max-width: 800px; height: 300px; border-radius: 12px; margin-top: 20px; }
-    .footer a { color: var(--primary-glow); text-decoration: none; margin: 0 10px; }
-    .footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
   <h1>🎮 Hakuna Matata Gaming</h1>
 
-  <div class="container">
-
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-glow);"> <path d="M2.5 13.84V9.81c0-1.78.99-2.5 2.5-2.5h14c1.51 0 2.5.72 2.5 2.5v4.03c0 1.78-.99 2.5-2.5 2.5h-14c-1.51 0-2.5-.72-2.5-2.5Z"/><path d="M8.44 12H8.53m3.02 0h.09m-1.63-2.91v5.82m-1.5-5.82h-1.5v5.82h1.5m6.1-5.82h-1.7c-.94 0-1.4.52-1.4 1.43v2.96c0 .9.46 1.43 1.4 1.43h1.7v-5.82Z"/></svg>
-      <h3>PS5</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>1 Controller – ₹150</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>2 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>3 Controllers – ₹300</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>4 Controllers – ₹350</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-glow);"><path d="M21.4 12.3v-1c0-3.3-1.6-4.5-4.6-4.5h-10C3.7 6.8 2 8 2 11.3v1.3c0 3.3 1.6 4.5 4.6 4.5h10.1c3.1 0 4.7-1.2 4.7-4.5Z"/><path d="m8.8 14.5 3.3-2.5-3.3-2.5v5Z"/><path d="M14.2 14.2h-1.5V9.8h1.5l1.5 1.7v-1.7h1.4v4.4h-1.4l-1.5-1.9v1.9Z"/></svg>
-      <h3>PS4</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>1 Controller – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>2 Controllers – ₹150</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>3 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>4 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M12 15a3 3 0 1 0-3-3"/><path d="M12 3V2"/><path d="M12 15v7"/><path d="M21.9 12.5h-2.1"/><path d="M4.2 12.5H2.1"/></svg>
-      <h3>PS5 Racing Wheel</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>F1 (5 laps) – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>Forza Horizon 5 – ₹500/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M12 15a3 3 0 1 0-3-3"/><path d="M12 3V2"/><path d="M12 15v7"/><path d="M21.9 12.5h-2.1"/><path d="M4.2 12.5H2.1"/></svg>
-      <h3>PS4 Racing Wheel</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>F1 (5 laps) – ₹50</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>1 Hour – ₹300</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
+  <div class="main-layout">
     
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><circle cx="12" cy="12" r="10"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
-      <h3>Pool & Snooker</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>Pool Table – ₹200</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>Snooker Table – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+    <div class="tiles-column">
+      
+      <div class="card" onclick="showMenu('ps5')">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-glow);"> <path d="M2.5 13.84V9.81c0-1.78.99-2.5 2.5-2.5h14c1.51 0 2.5.72 2.5 2.5v4.03c0 1.78-.99 2.5-2.5 2.5h-14c-1.51 0-2.5-.72-2.5-2.5Z"/><path d="M8.44 12H8.53m3.02 0h.09m-1.63-2.91v5.82m-1.5-5.82h-1.5v5.82h1.5m6.1-5.82h-1.7c-.94 0-1.4.52-1.4 1.43v2.96c0 .9.46 1.43 1.4 1.43h1.7v-5.82Z"/></svg>
+        <h3>PS5</h3>
+        <div class="menu-data" id="ps5-data">
+          <div class="menu-item"><h4>1 Controller – ₹150</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>2 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>3 Controllers – ₹300</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>4 Controllers – ₹350</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        </div>
       </div>
+      
+      <div class="card" onclick="showMenu('ps4')">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-glow);"><path d="M21.4 12.3v-1c0-3.3-1.6-4.5-4.6-4.5h-10C3.7 6.8 2 8 2 11.3v1.3c0 3.3 1.6 4.5 4.6 4.5h10.1c3.1 0 4.7-1.2 4.7-4.5Z"/><path d="m8.8 14.5 3.3-2.5-3.3-2.5v5Z"/><path d="M14.2 14.2h-1.5V9.8h1.5l1.5 1.7v-1.7h1.4v4.4h-1.4l-1.5-1.9v1.9Z"/></svg>
+        <h3>PS4</h3>
+        <div class="menu-data" id="ps4-data">
+          <div class="menu-item"><h4>1 Controller – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>2 Controllers – ₹150</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>3 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>4 Controllers – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showMenu('ps5rw')">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M12 15a3 3 0 1 0-3-3"/><path d="M12 3V2"/><path d="M12 15v7"/><path d="M21.9 12.5h-2.1"/><path d="M4.2 12.5H2.1"/></svg>
+        <h3>PS5 Racing Wheel</h3>
+        <div class="menu-data" id="ps5rw-data">
+          <div class="menu-item"><h4>F1 (5 laps) – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+          <div class="menu-item"><h4>Forza Horizon 5 – ₹500/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showMenu('pool')">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><circle cx="12" cy="12" r="10"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+        <h3>Pool & Snooker</h3>
+        <div class="menu-data" id="pool-data">
+            <div class="menu-item"><h4>Pool Table – ₹200</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+            <div class="menu-item"><h4>Snooker Table – ₹250</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showMenu('theatre')">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><rect x="2" y="4" width="20" height="16" rx="2.18" ry="2.18"/><path d="M7 4V2m10 2V2m-5 18v-2"/></svg>
+        <h3>Private Theatre</h3>
+        <div class="menu-data" id="theatre-data">
+            <div class="menu-item"><h4>₹500/hr (up to 5 people)</h4></div>
+            <div class="menu-item"><h4>+ ₹100/person (max 10 people)</h4></div>
+            <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><path d="M12.6 3.1a1 1 0 0 0-1.2 0L3.8 8.8a1 1 0 0 0-.4 1.3 1 1 0 0 0 1.3.4l1.3-1v8.2a1 1 0 0 0 1 1h8.2a1 1 0 0 0 1-1V9.5l1.3 1a1 1 0 0 0 1.3-.4 1 1 0 0 0-.4-1.3Z"/><circle cx="12" cy="15" r="2"/></svg>
-      <h3>Fussball</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>Fussball – ₹50/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-    
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><path d="M12.5 22h-1c-2.2 0-4-1.8-4-4v-1.1c0-1 .8-1.9 1.9-1.9h5.2c1 0 1.9.8 1.9 1.9V18c0 2.2-1.8 4-4 4ZM10 13c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.4 3-3 3Zm5.6-5.4c.3-.3.4-.6.4-1 0-1-.8-1.6-1.6-1.6-.4 0-.7.1-1 .4-.3.2-.6.4-.8.7s-.3.5-.3.8c0 1 .7 1.7 1.6 1.7.4 0 .7-.2 1-.4Z"/></svg>
-      <h3>Board Games</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>Board Games – ₹25/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-
-    <div class="card" onclick="toggleMenu(this)">
-      <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="stroke: var(--primary-glow);"><rect x="2" y="4" width="20" height="16" rx="2.18" ry="2.18"/><path d="M7 4V2m10 2V2m-5 18v-2"/></svg>
-      <h3>Private Theatre</h3>
-      <div class="menu">
-        <div class="menu-item"><h4>₹500/hr (up to 5 people)</h4></div>
-        <div class="menu-item"><h4>+ ₹100/person (max 10 people)</h4></div>
-        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form>
-      </div>
-    </div>
+    <div class="menu-display-panel" id="menu-panel">
+        </div>
 
   </div>
-
+  
   <script>
-    // --- NEW & IMPROVED SCRIPT ---
-    // Stores the currently open card so we can close it later
-    let currentlyOpenCard = null;
+    // --- NEW SCRIPT FOR VERTICAL LAYOUT ---
+    const menuPanel = document.getElementById('menu-panel');
+    const allCards = document.querySelectorAll('.card');
 
-    function toggleMenu(cardElement) {
-      const targetMenu = cardElement.querySelector('.menu');
-      if (!targetMenu) return;
-
-      const isMenuOpen = targetMenu.style.display === "block";
-
-      // If there is a different card already open, close its menu
-      if (currentlyOpenCard && currentlyOpenCard !== cardElement) {
-        const otherMenu = currentlyOpenCard.querySelector('.menu');
-        otherMenu.style.display = "none";
-        currentlyOpenCard.style.aspectRatio = "1 / 1"; // Restore its aspect ratio
+    function showMenu(dataId) {
+      // Find the hidden menu data using the provided ID
+      const menuData = document.getElementById(dataId + '-data');
+      if (!menuData) {
+        console.error('Menu data not found for ID:', dataId);
+        return;
       }
+      
+      // Clear the panel of any previous content
+      menuPanel.innerHTML = '';
+      // Copy the content from the hidden div into the panel
+      menuPanel.innerHTML = menuData.innerHTML;
 
-      // Toggle the current card's menu
-      if (isMenuOpen) {
-        targetMenu.style.display = "none";
-        cardElement.style.aspectRatio = "1 / 1"; // Restore aspect ratio on close
-        currentlyOpenCard = null;
-      } else {
-        targetMenu.style.display = "block";
-        cardElement.style.aspectRatio = "auto"; // Remove aspect ratio to allow expansion
-        currentlyOpenCard = cardElement;
-      }
+      // Update the active state for the cards
+      allCards.forEach(card => {
+        // Check if the card's onclick matches the current dataId
+        if (card.getAttribute('onclick') === `showMenu('${dataId}')`) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
     }
+
+    // Optional: Show the first item by default on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        showMenu('ps5');
+    });
   </script>
 
 </body>
