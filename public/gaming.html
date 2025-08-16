@@ -56,6 +56,7 @@
     }
     .form input, .form button {
       width: 100%;
+      box-sizing: border-box; /* Ensures padding doesn't affect width */
       margin: 10px 0;
       padding: 12px;
       border-radius: 8px;
@@ -107,7 +108,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Pricing Tiles -->
     <div class="tiles">
       <div class="tile">
         <h3>PS5</h3>
@@ -177,9 +177,10 @@
       </div>
     </div>
 
-    <!-- Booking Form -->
     <div class="form">
       <h2>Book Your Slot</h2>
+      <input type="text" id="nameInput" placeholder="Your Name">
+      <input type="email" id="emailInput" placeholder="Your Email">
       <input type="text" id="gameInput" placeholder="Game" readonly>
       <input type="text" id="datepicker" placeholder="Select Date">
       <input type="text" id="timeInput" placeholder="Time Slot" readonly>
