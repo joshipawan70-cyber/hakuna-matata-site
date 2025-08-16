@@ -19,9 +19,12 @@
 
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      /* This is the key change: sets up a grid with 2 equal columns */
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       padding: 40px;
+      max-width: 900px; /* Optional: Constrains the width for a cleaner look on large screens */
+      margin: 0 auto;    /* Optional: Centers the container */
     }
 
     .card {
@@ -93,7 +96,6 @@
 
   <div class="container">
 
-    <!-- PS5 -->
     <div class="card" onclick="toggleMenu('ps5')">
       <h3>🎮 PS5 ▼</h3>
       <div class="menu" id="ps5">
@@ -104,7 +106,6 @@
       </div>
     </div>
 
-    <!-- PS4 -->
     <div class="card" onclick="toggleMenu('ps4')">
       <h3>🎮 PS4 ▼</h3>
       <div class="menu" id="ps4">
@@ -115,7 +116,22 @@
       </div>
     </div>
 
-    <!-- Pool & Snooker -->
+    <div class="card" onclick="toggleMenu('ps5rw')">
+      <h3>🏎️ PS5 Racing Wheel ▼</h3>
+      <div class="menu" id="ps5rw">
+        <div class="menu-item"><h4>F1 (5 laps) – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        <div class="menu-item"><h4>Forza Horizon 5 – ₹500/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleMenu('ps4rw')">
+      <h3>🏎️ PS4 Racing Wheel ▼</h3>
+      <div class="menu" id="ps4rw">
+        <div class="menu-item"><h4>F1 (5 laps) – ₹50</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+        <div class="menu-item"><h4>1 Hour – ₹300</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+      </div>
+    </div>
+
     <div class="card" onclick="toggleMenu('pool')">
       <h3>🎱 Pool & Snooker ▼</h3>
       <div class="menu" id="pool">
@@ -124,7 +140,13 @@
       </div>
     </div>
 
-    <!-- Board Games -->
+    <div class="card" onclick="toggleMenu('fuss')">
+      <h3>⚽ Fussball ▼</h3>
+      <div class="menu" id="fuss">
+        <div class="menu-item"><h4>Fussball – ₹50/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
+      </div>
+    </div>
+    
     <div class="card" onclick="toggleMenu('board')">
       <h3>♟️ Board Games ▼</h3>
       <div class="menu" id="board">
@@ -132,15 +154,6 @@
       </div>
     </div>
 
-    <!-- Fussball -->
-    <div class="card" onclick="toggleMenu('fuss')">
-      <h3>⚽ Fussball ▼</h3>
-      <div class="menu" id="fuss">
-        <div class="menu-item"><h4>Fussball – ₹50/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-
-    <!-- Private Theatre -->
     <div class="card" onclick="toggleMenu('theatre')">
       <h3>📽️ Private Theatre ▼</h3>
       <div class="menu" id="theatre">
@@ -150,27 +163,8 @@
       </div>
     </div>
 
-    <!-- PS4 Racing Wheel -->
-    <div class="card" onclick="toggleMenu('ps4rw')">
-      <h3>🏎️ PS4 Racing Wheel ▼</h3>
-      <div class="menu" id="ps4rw">
-        <div class="menu-item"><h4>F1 (5 laps) – ₹50</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>1 Hour – ₹300</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-
-    <!-- PS5 Racing Wheel -->
-    <div class="card" onclick="toggleMenu('ps5rw')">
-      <h3>🏎️ PS5 Racing Wheel ▼</h3>
-      <div class="menu" id="ps5rw">
-        <div class="menu-item"><h4>F1 (5 laps) – ₹100</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-        <div class="menu-item"><h4>Forza Horizon 5 – ₹500/hr</h4><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="XXXXXX" async></script></form></div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Games Available -->
   <div style="padding:40px; background:#000;">
     <h2 style="text-align:center; color:#FFD700;">🎮 Games Available</h2>
     
@@ -189,7 +183,6 @@
     </div>
   </div>
 
-  <!-- Contact Us -->
   <div class="contact">
     <h2>📍 Contact Us</h2>
     <p>📞 9348091035 | ✉️ hakunaxmatataper@gmail.com</p>
@@ -198,9 +191,8 @@
     <iframe src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Hakuna+Matata+Gaming+Cafe,SG+Palya+Bengaluru"></iframe>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
-    <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
+    <p>© 2025 Hakuna Matata Gaming Cafe</p>
     <p>
       <a href="privacy.html">Privacy Policy</a> |
       <a href="terms.html">Terms & Conditions</a>
