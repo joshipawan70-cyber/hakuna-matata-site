@@ -24,41 +24,84 @@
     </div>
   </section>
 
-  <!-- Facilities -->
+  <!-- Facilities + Menu Items -->
   <section class="facilities">
     <div class="container grid">
+      
+      <!-- Gaming -->
       <div class="card">
         <h3>🎮 Gaming</h3>
-        <p>PS5, PS4, Xbox, and more fun consoles to enjoy with your squad.</p>
+        <p>Choose your gaming package:</p>
+        <div class="item">
+          <span>1 Hour PS5</span> <span>₹150</span>
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                    async> </script>
+          </form>
+        </div>
+        <div class="item">
+          <span>1 Hour Xbox</span> <span>₹120</span>
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                    async> </script>
+          </form>
+        </div>
+        <div class="item">
+          <span>2 Hour Combo</span> <span>₹250</span>
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                    async> </script>
+          </form>
+        </div>
       </div>
+
+      <!-- Food -->
       <div class="card">
         <h3>🍔 Food</h3>
-        <p>Tasty fast food, snacks & beverages served hot and fresh.</p>
+        <p>Tasty dishes served fresh:</p>
+        <div class="item">
+          <img src="image/maggie.jpg" alt="Maggie" class="thumb"> Maggie ₹50
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                    async> </script>
+          </form>
+        </div>
+        <div class="item">
+          <img src="image/friedrice.jpg" alt="Fried Rice" class="thumb"> Fried Rice ₹120
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                    async> </script>
+          </form>
+        </div>
+        <div class="item">
+          <img src="image/manchurian.jpg" alt="Manchurian" class="thumb"> Manchurian ₹90
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                    async> </script>
+          </form>
+        </div>
       </div>
+
+      <!-- Drinks -->
       <div class="card">
         <h3>☕ Drinks</h3>
-        <p>Refreshing milkshakes, soft drinks and mocktails.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Menu -->
-  <section class="menu">
-    <div class="container">
-      <h2>Our Menu</h2>
-
-      <!-- Maggie -->
-      <div class="item">
-        <div class="left">
-          <div class="thumb">
-            <img src="image/maggie.jpg" alt="Maggie">
-          </div>
-          <div>
-            <div style="font-weight:700">Maggie</div>
-            <div class="muted" style="font-size:13px">₹50</div>
-          </div>
+        <p>Refreshing beverages:</p>
+        <div class="item">
+          <img src="image/milkshake.jpg" alt="Milkshake" class="thumb"> Milkshake ₹80
+          <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
+                    async> </script>
+          </form>
         </div>
-        <div class="pay">
+        <div class="item">
+          <img src="image/masalasoda.jpg" alt="Masala Soda" class="thumb"> Masala Soda ₹50
           <form>
             <script src="https://checkout.razorpay.com/v1/payment-button.js"
                     data-payment_button_id="pl_R5viAl9NAWaMRQ"
@@ -66,87 +109,6 @@
           </form>
         </div>
       </div>
-
-      <!-- Fried Rice -->
-      <div class="item">
-        <div class="left">
-          <div class="thumb">
-            <img src="image/friedrice.jpg" alt="Fried Rice">
-          </div>
-          <div>
-            <div style="font-weight:700">Fried Rice</div>
-            <div class="muted" style="font-size:13px">₹120</div>
-          </div>
-        </div>
-        <div class="pay">
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
-        </div>
-      </div>
-
-      <!-- Manchurian -->
-      <div class="item">
-        <div class="left">
-          <div class="thumb">
-            <img src="image/manchurian.jpg" alt="Manchurian">
-          </div>
-          <div>
-            <div style="font-weight:700">Manchurian</div>
-            <div class="muted" style="font-size:13px">₹90</div>
-          </div>
-        </div>
-        <div class="pay">
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
-        </div>
-      </div>
-
-      <!-- Milkshake -->
-      <div class="item">
-        <div class="left">
-          <div class="thumb">
-            <img src="image/milkshake.jpg" alt="Milkshake">
-          </div>
-          <div>
-            <div style="font-weight:700">Milkshake</div>
-            <div class="muted" style="font-size:13px">₹80</div>
-          </div>
-        </div>
-        <div class="pay">
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
-        </div>
-      </div>
-
-      <!-- Masala Soda -->
-      <div class="item">
-        <div class="left">
-          <div class="thumb">
-            <img src="image/masalasoda.jpg" alt="Masala Soda">
-          </div>
-          <div>
-            <div style="font-weight:700">Masala Soda</div>
-            <div class="muted" style="font-size:13px">₹50</div>
-          </div>
-        </div>
-        <div class="pay">
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                    data-payment_button_id="pl_R5viAl9NAWaMRQ"
-                    async> </script>
-          </form>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -164,7 +126,6 @@
   <section class="location">
     <div class="container">
       <h2>📍 Find Us</h2>
-      <!-- Map embed pointing to your exact address -->
       <iframe 
         src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
         width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
