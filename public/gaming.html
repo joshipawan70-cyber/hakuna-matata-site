@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaming Packages - Hakuna Matata Gaming Cafe</title>
+
+  <style>
+    /* Reuse same black+gold theme */
+    :root{
+      --bg:#0f0f0f;--card:#1a1a1a;--soft:#222;--text:#dddddd;--muted:#a9a9a9;--brand:#ffcc00;
+    }
+    *{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+    header,footer{text-align:center;background:var(--card);padding:20px;border-bottom:2px solid var(--brand)}
+    header h1{color:var(--brand);margin:0}
+    a{color:var(--brand)}footer{border-top:2px solid var(--brand);margin-top:30px}
+    main{max-width:1000px;margin:0 auto;padding:20px}
+    .package{background:var(--card);padding:20px;border-radius:12px;margin:15px 0;display:flex;justify-content:space-between;align-items:center}
+    .package h3{margin:0;color:var(--brand)}
+    .razorpay-btn{margin-left:20px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 Gaming Packages</h1>
+    <p>Choose your play time & pay securely with Razorpay</p>
+  </header>
+
+  <main>
+    <div class="package">
+      <div>
+        <h3>1 Hour PS5</h3>
+        <p>₹150</p>
+      </div>
+      <div class="razorpay-btn">
+        <form>
+          <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_xxxPS5" async></script>
+        </form>
+      </div>
+    </div>
+
+    <div class="package">
+      <div>
+        <h3>1 Hour Xbox</h3>
+        <p>₹120</p>
+      </div>
+      <div class="razorpay-btn">
+        <form>
+          <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_xxxXBOX" async></script>
+        </form>
+      </div>
+    </div>
+
+    <div class="package">
+      <div>
+        <h3>2 Hour Combo</h3>
+        <p>₹250</p>
+      </div>
+      <div class="razorpay-btn">
+        <form>
+          <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_xxxCOMBO" async></script>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
+    <p><a href="index.html">⬅ Back to Home</a></p>
+  </footer>
+</body>
+</html>
