@@ -3,70 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gaming Packages - Hakuna Matata Gaming Cafe</title>
+  <title>Gaming - Hakuna Matata Gaming Cafe</title>
 
   <style>
-    /* Reuse same black+gold theme */
     :root{
-      --bg:#0f0f0f;--card:#1a1a1a;--soft:#222;--text:#dddddd;--muted:#a9a9a9;--brand:#ffcc00;
+      --bg:#0f0f0f;--card:#1a1a1a;--soft:#222;
+      --text:#dddddd;--muted:#a9a9a9;--brand:#ffcc00;
     }
-    *{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-    header,footer{text-align:center;background:var(--card);padding:20px;border-bottom:2px solid var(--brand)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text);}
+    header,footer{text-align:center;background:var(--card);padding:20px;border-bottom:2px solid var(--brand);}
     header h1{color:var(--brand);margin:0}
-    a{color:var(--brand)}footer{border-top:2px solid var(--brand);margin-top:30px}
-    main{max-width:1000px;margin:0 auto;padding:20px}
-    .package{background:var(--card);padding:20px;border-radius:12px;margin:15px 0;display:flex;justify-content:space-between;align-items:center}
+    main{max-width:1100px;margin:0 auto;padding:20px}
+    section{margin:30px 0}
+    h2{color:var(--brand);margin-bottom:12px;border-bottom:1px solid var(--brand);padding-bottom:6px}
+    .package{background:var(--card);padding:16px;border-radius:12px;margin:10px 0;
+      display:flex;flex-direction:column;align-items:flex-start}
     .package h3{margin:0;color:var(--brand)}
-    .razorpay-btn{margin-left:20px}
+    .games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+    .games-grid div{background:var(--card);padding:10px;text-align:center;border-radius:10px}
+    .games-grid img{width:100%;border-radius:8px;margin-bottom:6px}
+    #contact{background:var(--card);border-top:2px solid var(--brand);padding:34px 20px;margin-top:30px;}
+    #contact h2{text-align:center;margin:0 0 12px;color:var(--brand);}
+    .contact-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1.4fr;gap:22px;}
+    .contact-box{background:var(--soft);border-radius:14px;padding:18px 20px;}
+    .contact-box p{margin:8px 0}
+    .map iframe{width:100%;height:300px;border:0;border-radius:12px;}
+    footer{border-top:2px solid var(--brand);margin-top:30px;text-align:center;padding:20px;color:var(--muted);}
+    /* Calendar container */
+    #ps5-calendar {background:var(--card); padding:10px; border-radius:12px; margin-top:15px;}
   </style>
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.js"></script>
 </head>
 <body>
   <header>
-    <h1>🎮 Gaming Packages</h1>
-    <p>Choose your play time & pay securely with Razorpay</p>
+    <h1>🎮 Gaming at Hakuna Matata</h1>
+    <p>Play your favourite games across consoles & activities</p>
   </header>
 
   <main>
-    <div class="package">
-      <div>
-        <h3>1 Hour PS5</h3>
-        <p>₹150</p>
+    <!-- PS5 -->
+    <section>
+      <h2>PS5</h2>
+      <div class="package">
+        <h3>1 Controller – ₹150</h3>
+        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps51" async> </script></form>
       </div>
-      <div class="razorpay-btn">
-        <form>
-          <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_xxxPS5" async></script>
-        </form>
+      <div class="package">
+        <h3>2 Controllers – ₹250</h3>
+        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps52" async> </script></form>
       </div>
-    </div>
+      <div class="package">
+        <h3>3 Controllers – ₹300</h3>
+        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps53" async> </script></form>
+      </div>
+      <div class="package">
+        <h3>4 Controllers – ₹350</h3>
+        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps54" async> </script></form>
+      </div>
 
-    <div class="package">
-      <div>
-        <h3>1 Hour Xbox</h3>
-        <p>₹120</p>
-      </div>
-      <div class="razorpay-btn">
-        <form>
-          <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_xxxXBOX" async></script>
-        </form>
-      </div>
-    </div>
+      <!-- Calendar -->
+      <h3 style="margin-top:20px;color:var(--brand)">📅 Reserve a Slot</h3>
+      <div id="ps5-calendar"></div>
+    </section>
 
-    <div class="package">
-      <div>
-        <h3>2 Hour Combo</h3>
-        <p>₹250</p>
+    <!-- PS4 -->
+    <section>
+      <h2>PS4</h2>
+      <div class="package"><h3>1 Controller – ₹100</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps41" async></script></form></div>
+      <div class="package"><h3>2 Controllers – ₹150</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps42" async></script></form></div>
+      <div class="package"><h3>3 Controllers – ₹250</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps43" async></script></form></div>
+      <div class="package"><h3>4 Controllers – ₹250</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps44" async></script></form></div>
+    </section>
+
+    <!-- Pool & Snooker -->
+    <section>
+      <h2>🎱 Pool & Snooker</h2>
+      <div class="package"><h3>Pool Table – ₹200/hr</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_pool" async></script></form></div>
+      <div class="package"><h3>Snooker Table – ₹250/hr</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_snooker" async></script></form></div>
+    </section>
+
+    <!-- Board Games -->
+    <section>
+      <h2>🎲 Board Games</h2>
+      <div class="package"><h3>Per Hour – ₹25</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_board" async></script></form></div>
+    </section>
+
+    <!-- Fussball -->
+    <section>
+      <h2>⚽ Fussball</h2>
+      <div class="package"><h3>Per Hour – ₹50</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_fussball" async></script></form></div>
+    </section>
+
+    <!-- Private Theatre -->
+    <section>
+      <h2>🎬 Private Theatre</h2>
+      <div class="package"><h3>Per Hour (up to 5 people) – ₹500</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_theatre" async></script></form></div>
+      <div class="package"><h3>Extra Person – +₹100 (max 10)</h3></div>
+    </section>
+
+    <!-- Racing Wheels -->
+    <section>
+      <h2>🏎️ Racing Wheels</h2>
+      <div class="package"><h3>PS4 F1 (5 laps) – ₹50</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps4f1" async></script></form></div>
+      <div class="package"><h3>PS4 Racing Wheel – ₹300/hr</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps4wheel" async></script></form></div>
+      <div class="package"><h3>PS5 F1 (5 laps) – ₹100</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps5f1" async></script></form></div>
+      <div class="package"><h3>PS5 Forza Horizon 5 – ₹500/hr</h3><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_ps5forza" async></script></form></div>
+    </section>
+
+    <!-- Games Available -->
+    <section>
+      <h2>🎮 Games Available</h2>
+      <div class="games-grid">
+        <div><img src="fifa.jpg" alt="FIFA"><p>FIFA 24</p></div>
+        <div><img src="spiderman2.jpg" alt="Spider-Man 2"><p>Spider-Man 2</p></div>
+        <div><img src="gta5.jpg" alt="GTA V"><p>GTA V</p></div>
+        <div><img src="cod.jpg" alt="COD"><p>Call of Duty: MW II</p></div>
+        <div><img src="forza5.jpg" alt="Forza"><p>Forza Horizon 5</p></div>
+        <div><img src="mortal_kombat.jpg" alt="MK11"><p>Mortal Kombat 11</p></div>
+        <div><img src="tekken8.jpg" alt="Tekken"><p>Tekken 8</p></div>
+        <div><img src="godofwar.jpg" alt="GoW"><p>God of War Ragnarok</p></div>
+        <div><img src="lastofus.jpg" alt="TLOU2"><p>The Last of Us Part II</p></div>
       </div>
-      <div class="razorpay-btn">
-        <form>
-          <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_xxxCOMBO" async></script>
-        </form>
-      </div>
-    </div>
+    </section>
   </main>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-grid">
+      <div class="contact-box">
+        <p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
+        <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+        <p><strong>Address:</strong><br>
+          Hakuna Matata Gaming Cafe,<br>
+          No 42 Christ Lane, Hosur Main Road,<br>
+          Near Mekeba Restaurant, SG Palya, 560029
+        </p>
+      </div>
+      <div class="contact-box map">
+        <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
+          allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
     <p><a href="index.html">⬅ Back to Home</a></p>
   </footer>
+
+  <!-- Calendar Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('ps5-calendar');
+      if(calendarEl){
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'timeGridDay',
+          slotMinTime: "10:00:00",
+          slotMaxTime: "23:00:00",
+          selectable: true,
+          select: function(info) {
+            if(confirm("Book PS5 slot on " + info.start.toLocaleString() + "?")) {
+              window.location.href = "https://rzp.io/l/demoPS5slot"; // replace with real Razorpay link
+            }
+          }
+        });
+        calendar.render();
+      }
+    });
+  </script>
 </body>
 </html>
