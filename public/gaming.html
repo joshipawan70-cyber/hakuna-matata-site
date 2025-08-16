@@ -1,285 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hakuna Matata Gaming Cafe - Booking</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #0a0f1c;
+      font-family: Arial, sans-serif;
+      background-color: #0d1117;
       color: #fff;
       margin: 0;
       padding: 0;
     }
-
+    h2, h3 {
+      color: #00f0ff;
+      margin-bottom: 10px;
+    }
     .container {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 20px;
       padding: 20px;
     }
-
-    /* Game Grid */
-    .games-grid {
+    .tiles {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
-
-    .game-card {
-      background: #111827;
-      border: 2px solid #00f7ff;
+    .tile {
+      background-color: #161b22;
       border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 0 12px rgba(0, 247, 255, 0.4);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .game-card:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 0 20px rgba(0, 247, 255, 0.8), 0 0 40px rgba(0, 247, 255, 0.5);
-    }
-
-    .game-title {
-      font-size: 1.2rem;
-      color: #00f7ff;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .price-option {
-      background: rgba(0, 247, 255, 0.1);
-      border: 1px solid #00f7ff;
-      border-radius: 10px;
-      padding: 8px;
-      margin: 6px 0;
-      text-align: center;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .price-option:hover {
-      background: #00f7ff;
-      color: #111827;
-      font-weight: bold;
-      box-shadow: 0 0 12px rgba(0, 247, 255, 0.8);
-    }
-
-    /* Booking Form */
-    .booking-form {
-      background: #111827;
       padding: 20px;
-      border-radius: 15px;
-      border: 2px solid #00f7ff;
-      box-shadow: 0 0 20px rgba(0, 247, 255, 0.4);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
     }
-
-    .booking-form h2 {
-      text-align: center;
-      color: #00f7ff;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      color: #ccc;
-    }
-
-    input, select {
+    select {
       width: 100%;
       padding: 10px;
-      border: 2px solid #00f7ff;
+      margin-top: 10px;
+      background: #0d1117;
+      color: #00f0ff;
+      border: 2px solid #00f0ff;
       border-radius: 8px;
-      background: #0a0f1c;
-      color: #fff;
+      font-size: 14px;
+    }
+    select:focus {
       outline: none;
+      box-shadow: 0 0 10px #00f0ff;
     }
-
-    input:focus, select:focus {
-      border-color: #00f7ff;
-      box-shadow: 0 0 10px rgba(0, 247, 255, 0.6);
+    .form {
+      background-color: #161b22;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
     }
-
+    .form input, .form button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #00f0ff;
+      background: #0d1117;
+      color: #00f0ff;
+      font-size: 14px;
+    }
+    .form input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #00f0ff;
+    }
+    .form button {
+      background: #00f0ff;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .form button:hover {
+      background: #00cce0;
+    }
     .time-slots {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
+      margin-top: 15px;
     }
-
-    .slot {
-      background: #111827;
-      border: 2px solid #00f7ff;
-      color: #fff;
+    .time-slots button {
       padding: 10px;
-      border-radius: 10px;
-      text-align: center;
+      border-radius: 8px;
+      border: 2px solid #00f0ff;
+      background: #0d1117;
+      color: #00f0ff;
       cursor: pointer;
+      font-size: 13px;
       transition: all 0.2s ease-in-out;
-      box-shadow: 0 0 8px rgba(0, 247, 255, 0.4);
     }
-
-    .slot:hover {
-      background: rgba(0, 247, 255, 0.2);
-      color: #00f7ff;
-      transform: scale(1.05);
+    .time-slots button:hover {
+      background: #00f0ff;
+      color: #000;
     }
-
-    .slot.selected {
-      background: #00f7ff;
-      color: #111827;
+    .time-slots button.active {
+      background: #00f0ff;
+      color: #000;
+      box-shadow: 0 0 15px #00f0ff;
       font-weight: bold;
-    }
-
-    button.submit-btn {
-      width: 100%;
-      padding: 12px;
-      background: #00f7ff;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    button.submit-btn:hover {
-      background: #00c9d8;
-      box-shadow: 0 0 15px rgba(0, 247, 255, 0.8);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Game Grid -->
-    <div class="games-grid">
-      <!-- PS5 -->
-      <div class="game-card" data-game="PS5">
-        <div class="game-title">PS5</div>
-        <div class="price-option">1 Controller - ₹150</div>
-        <div class="price-option">2 Controllers - ₹250</div>
-        <div class="price-option">3 Controllers - ₹300</div>
-        <div class="price-option">4 Controllers - ₹350</div>
+    <!-- Pricing Tiles -->
+    <div class="tiles">
+      <div class="tile">
+        <h3>PS5</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS5 - 1 Controller - ₹150</option>
+          <option>PS5 - 2 Controllers - ₹250</option>
+          <option>PS5 - 3 Controllers - ₹300</option>
+          <option>PS5 - 4 Controllers - ₹350</option>
+        </select>
       </div>
-
-      <!-- PS4 -->
-      <div class="game-card" data-game="PS4">
-        <div class="game-title">PS4</div>
-        <div class="price-option">1 Controller - ₹100</div>
-        <div class="price-option">2 Controllers - ₹150</div>
-        <div class="price-option">3 Controllers - ₹250</div>
-        <div class="price-option">4 Controllers - ₹250</div>
+      <div class="tile">
+        <h3>PS4</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS4 - 1 Controller - ₹100</option>
+          <option>PS4 - 2 Controllers - ₹150</option>
+          <option>PS4 - 3 Controllers - ₹250</option>
+          <option>PS4 - 4 Controllers - ₹250</option>
+        </select>
       </div>
-
-      <!-- Pool & Snooker -->
-      <div class="game-card" data-game="Pool & Snooker">
-        <div class="game-title">Pool & Snooker</div>
-        <div class="price-option">Pool Table - ₹200</div>
-        <div class="price-option">Snooker Table - ₹250</div>
+      <div class="tile">
+        <h3>Pool & Snooker</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Pool Table - ₹200</option>
+          <option>Snooker Table - ₹250</option>
+        </select>
       </div>
-
-      <!-- Board Games -->
-      <div class="game-card" data-game="Board Games">
-        <div class="game-title">Board Games</div>
-        <div class="price-option">₹25 per hour</div>
+      <div class="tile">
+        <h3>Board Games</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Board Games - ₹25 per hour</option>
+        </select>
       </div>
-
-      <!-- Foosball -->
-      <div class="game-card" data-game="Foosball">
-        <div class="game-title">Foosball</div>
-        <div class="price-option">₹50 per hour</div>
+      <div class="tile">
+        <h3>Foosball</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Foosball - ₹50 per hour</option>
+        </select>
       </div>
-
-      <!-- Private Theatre -->
-      <div class="game-card" data-game="Private Theatre">
-        <div class="game-title">Private Theatre</div>
-        <div class="price-option">₹500/hr (up to 5 people)</div>
-        <div class="price-option">+₹100/person (max 10)</div>
+      <div class="tile">
+        <h3>Private Theatre</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Private Theatre - ₹500/hr (up to 5 people)</option>
+          <option>Private Theatre - +₹100/person (max 10)</option>
+        </select>
       </div>
-
-      <!-- PS4 Racing Wheel -->
-      <div class="game-card" data-game="PS4 Racing Wheel">
-        <div class="game-title">PS4 Racing Wheel</div>
-        <div class="price-option">F1 (5 Laps) - ₹50</div>
-        <div class="price-option">Per Hour - ₹300</div>
+      <div class="tile">
+        <h3>PS4 Racing Wheel</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS4 Racing Wheel - F1 (5 Laps) - ₹50</option>
+          <option>PS4 Racing Wheel - Per Hour - ₹300</option>
+        </select>
       </div>
-
-      <!-- PS5 Racing Wheel -->
-      <div class="game-card" data-game="PS5 Racing Wheel">
-        <div class="game-title">PS5 Racing Wheel</div>
-        <div class="price-option">F1 (5 Laps) - ₹100</div>
-        <div class="price-option">Forza Horizon (1 Hr) - ₹500</div>
+      <div class="tile">
+        <h3>PS5 Racing Wheel</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS5 Racing Wheel - F1 (5 Laps) - ₹100</option>
+          <option>PS5 Racing Wheel - Forza Horizon (1 Hr) - ₹500</option>
+        </select>
       </div>
     </div>
 
     <!-- Booking Form -->
-    <div class="booking-form">
+    <div class="form">
       <h2>Book Your Slot</h2>
-      <form>
-        <div class="form-group">
-          <label for="game">Game</label>
-          <input type="text" id="game" name="game" readonly />
-        </div>
-
-        <div class="form-group">
-          <label for="date">Date</label>
-          <input type="date" id="date" name="date" required />
-        </div>
-
-        <div class="form-group">
-          <label>Available 1-hour slots</label>
-          <div class="time-slots" id="time-slots"></div>
-        </div>
-
-        <button type="submit" class="submit-btn">Confirm Booking</button>
-      </form>
+      <input type="text" id="gameInput" placeholder="Game" readonly>
+      <input type="text" id="datepicker" placeholder="Select Date">
+      <input type="text" id="timeInput" placeholder="Time Slot" readonly>
+      
+      <div class="time-slots">
+        <button type="button">10:00 AM - 11:00 AM</button>
+        <button type="button">11:00 AM - 12:00 PM</button>
+        <button type="button">12:00 PM - 1:00 PM</button>
+        <button type="button">1:00 PM - 2:00 PM</button>
+        <button type="button">2:00 PM - 3:00 PM</button>
+        <button type="button">3:00 PM - 4:00 PM</button>
+        <button type="button">4:00 PM - 5:00 PM</button>
+        <button type="button">5:00 PM - 6:00 PM</button>
+        <button type="button">6:00 PM - 7:00 PM</button>
+        <button type="button">7:00 PM - 8:00 PM</button>
+        <button type="button">8:00 PM - 9:00 PM</button>
+        <button type="button">9:00 PM - 10:00 PM</button>
+        <button type="button">10:00 PM - 11:00 PM</button>
+      </div>
+      <button>Confirm Booking</button>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    // Fill selected game in form
-    document.querySelectorAll('.game-card').forEach(card => {
-      card.addEventListener('click', () => {
-        document.getElementById('game').value = card.dataset.game;
-      });
+    // Initialize calendar
+    flatpickr("#datepicker", {
+      minDate: "today",
+      dateFormat: "d-m-Y",
+      disableMobile: true,
     });
 
-    // Generate slots dynamically
-    function generateSlots() {
-      const container = document.getElementById('time-slots');
-      container.innerHTML = "";
-      const today = new Date();
-      const day = today.getDay(); // 0=Sun, 6=Sat
-
-      let start = (day === 0) ? 13 : 10; // Sunday 1 PM else 10 AM
-      let end = 23; // 11 PM
-
-      for (let hour = start; hour < end; hour++) {
-        const startHour = (hour % 12) || 12;
-        const endHour = ((hour+1) % 12) || 12;
-        const startAmPm = hour < 12 ? "AM" : "PM";
-        const endAmPm = (hour+1) < 12 ? "AM" : "PM";
-        const slotText = `${startHour}:00 ${startAmPm} - ${endHour}:00 ${endAmPm}`;
-
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "slot";
-        btn.textContent = slotText;
-
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
-          btn.classList.add("selected");
-        });
-
-        container.appendChild(btn);
-      }
+    // Function to auto-fill game input
+    function setGame(selectElement) {
+      document.getElementById("gameInput").value = selectElement.value;
     }
 
-    generateSlots();
+    // Handle time slot selection
+    const timeButtons = document.querySelectorAll(".time-slots button");
+    const timeInput = document.getElementById("timeInput");
+
+    timeButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Remove active class from all
+        timeButtons.forEach(btn => btn.classList.remove("active"));
+        // Add active to clicked one
+        button.classList.add("active");
+        // Update form input
+        timeInput.value = button.textContent;
+      });
+    });
   </script>
 </body>
 </html>
