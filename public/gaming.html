@@ -1,715 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hakuna Matata Gaming Cafe - Booking</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakuna Matata Gaming Cafe – Booking</title>
   <style>
-    /* --- Color Palette & Global Styles (Blue Theme) --- */
-    :root {
-      --primary-glow: #00aaff; /* Bright Blue */
-      --secondary-glow: #0077ff; /* Deeper Electric Blue */
-      --dark-bg: #0d0d1a; /* A very dark, deep blue */
-      --card-bg: rgba(20, 25, 40, 0.6); /* Semi-transparent dark blue for "glass" effect */
-      --text-color: #f0f0f0;
-      --border-color: rgba(0, 170, 255, 0.2);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      background-color: var(--dark-bg);
-      background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
-                        radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
-      background-size: 200% 200%;
-      animation: background-pan 20s ease-in-out infinite;
-      color: var(--text-color);
-      font-family: 'Poppins', sans-serif;
-      line-height: 1.6;
-    }
-
-    @keyframes background-pan {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* --- Header & Section Styles --- */
-    header, footer, .latest-games, .ps-plus-games {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.2);
-      position: relative;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      margin: 0;
+      padding: 0;
     }
     header {
-      border-bottom: 1px solid var(--border-color);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding-top: 40px; padding-bottom: 40px;
-    }
-    footer { border-top: 1px solid var(--border-color); padding: 20px; margin-top: 40px; }
-    .latest-games, .ps-plus-games { padding: 40px 20px; }
-
-    /* --- Typography with Glow --- */
-    h1, h2, h3 {
-      font-family: 'Orbitron', sans-serif;
+      background: #00aaff;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
       color: #fff;
-      text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
     }
-    header h1 { margin-bottom: 4px; font-size: 2.2rem; }
-    header p { color: #aaa; margin: 0; }
-
-    /* --- Main Content Layout --- */
     .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #1a1a1a;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-
-    /* --- "Glassmorphism" Card Style for Tiles & Form --- */
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 25px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    label { display: block; margin-top: 1rem; }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
     }
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary-glow);
-      box-shadow: 0 0 20px var(--primary-glow);
-    }
-
-    /* --- Specific Grid Layout for Tiles --- */
-    .tiles-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    /* --- Games Section --- */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 900px;
-      margin: 20px auto 0;
-    }
-    .game-card { text-align: left; }
-    .game-card ul { list-style: none; padding: 0; margin-top: 15px; }
-    .game-card li { padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-    .game-card li:last-child { border-bottom: none; }
-
-    /* --- Form Elements Styling --- */
-    .form-card h2 { text-align: center; margin-bottom: 20px; }
-
-    .form-card input, .form-card select, .form-card button, .modal-content button, .modal-content input, .modal-content textarea {
-      width: 100%; margin: 8px 0; padding: 12px;
-      border-radius: 8px; border: 1px solid var(--border-color);
-      background: rgba(0,0,0,0.3); color: var(--text-color);
-      font-family: 'Poppins', sans-serif; font-size: 14px; transition: all 0.3s ease;
-    }
-    .form-card input:focus, .form-card select:focus, .modal-content input:focus, .modal-content textarea:focus {
-      outline: none; border-color: var(--primary-glow); box-shadow: 0 0 10px var(--primary-glow);
-    }
-    .card select { margin-top: 15px; }
-
-    /* --- Time Slots Styling --- */
     .time-slots {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px; margin: 15px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 0.5rem;
     }
-    .time-slots button { padding: 10px; cursor: pointer; }
-    .time-slots button:hover:not(:disabled) {
-      background: var(--primary-glow); color: var(--dark-bg); border-color: var(--primary-glow);
+    .time-slots button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #333;
+      color: #eee;
+      cursor: pointer;
     }
     .time-slots button.active {
-      background: var(--primary-glow); color: var(--dark-bg);
-      box-shadow: 0 0 15px var(--primary-glow); font-weight: bold; border-color: var(--primary-glow);
+      background: #00aaff;
+      color: #fff;
     }
-    .time-slots button:disabled {
-      background: rgba(30, 30, 40, 0.5); color: #666; cursor: not-allowed;
-      border-color: rgba(100, 100, 100, 0.3); text-shadow: none;
+    .confirm-btn {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 1rem;
+      background: #00aaff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
     }
-
-    /* --- Button Styling --- */
-    .confirm-btn, .my-bookings-btn, .modal-content button {
-      background: var(--primary-glow); color: var(--dark-bg);
-      cursor: pointer; font-weight: bold; font-size: 16px; border: none;
+    .confirm-btn:hover { background: #008ecc; }
+    #messageBox {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #222;
+      color: #eee;
+      display: none;
     }
-    .confirm-btn:hover, .my-bookings-btn:hover, .modal-content button:hover {
-      box-shadow: 0 0 20px var(--primary-glow); filter: brightness(1.2);
-    }
-    .my-bookings-btn {
-      position: absolute; top: 20px; right: 20px; padding: 10px 15px; font-size: 14px;
-    }
-
-    input[readonly] { background-color: rgba(0,0,0,0.5) !important; cursor: not-allowed; }
-
-    /* --- Custom Message Box --- */
-    .message-box {
-      position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
-      background-color: var(--primary-glow); color: var(--dark-bg);
-      padding: 15px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 170, 255, 0.5);
-      font-weight: bold; transition: top 0.5s ease-in-out; z-index: 1001;
-      width: 90%; max-width: 500px; text-align: center; line-height: 1.4;
-    }
-    .message-box.show { top: 20px; }
+    #messageBox.show { display: block; }
     .whatsapp-btn {
-      display: inline-block; background-color: #25D366; color: white !important;
-      padding: 10px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 10px;
-    }
-
-    /* --- Modal Styles --- */
-    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-      overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
-    .modal-content {
-      position: relative; margin: 15% auto; padding: 30px; width: 90%; max-width: 500px;
-      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;
-    }
-    .close-btn { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
-    #bookingsList { margin-top: 20px; padding-left: 0; list-style: none; }
-    #bookingsList li {
-      background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; margin-bottom: 10px;
-      border-left: 3px solid var(--primary-glow);
-    }
-
-    /* --- NEW: Mobile Responsive Styles --- */
-    @media (max-width: 800px) {
-      .container { grid-template-columns: 1fr; padding: 20px 15px; }
-      header h1 { font-size: 1.8rem; }
-      .my-bookings-btn { position: static; margin-top: 15px; width: auto; display: inline-block; }
-      .latest-games, .ps-plus-games { padding: 30px 15px; }
-      .modal-content { margin: 20% auto; }
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #25D366;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-
-  <header>
-    <h1>Hakuna Matata Gaming Cafe</h1>
-    <p>Play Eat Repeat</p>
-    <button class="my-bookings-btn" id="myBookingsBtn">My Bookings</button>
-  </header>
-
-  <main class="container">
-    <div class="tiles-container">
-      <div class="card">
-        <h3>PS5</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS5 - 1 Controller - ₹150 / hour</option>
-          <option>PS5 - 2 Controllers - ₹250 / hour</option>
-          <option>PS5 - 3 Controllers - ₹300 / hour</option>
-          <option>PS5 - 4 Controllers - ₹350 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>PS4</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS4 - 1 Controller - ₹100 / hour</option>
-          <option>PS4 - 2 Controllers - ₹150 / hour</option>
-          <option>PS4 - 3 Controllers - ₹250 / hour</option>
-          <option>PS4 - 4 Controllers - ₹250 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Pool & Snooker</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Pool Table - ₹200 / hour</option>
-          <option>Snooker Table - ₹250 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Board Games</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Board Games - ₹25 / person / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Foosball</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Foosball - ₹50 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Private Theatre</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Private Theatre - ₹500 / hour (up to 5 people)</option>
-          <option>Private Theatre - +₹100 / person / hour (max 10)</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>PS4 Racing Wheel</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS4 Racing Wheel - F1 (5 Laps) - ₹50</option>
-          <option>PS4 Racing Wheel - ₹300 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>PS5 Racing Wheel</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS5 Racing Wheel - F1 (5 Laps) - ₹100</option>
-          <option>PS5 Racing Wheel - Forza Horizon - ₹500 / hour</option>
-        </select>
-      </div>
+  <header>Hakuna Matata Gaming Cafe – Book Your Slot</header>
+  <div class="container">
+    <label>Name: <input type="text" id="nameInput"></label>
+    <label>Email: <input type="email" id="emailInput"></label>
+    <label>Phone: <input type="text" id="phoneInput"></label>
+    <label>Game:
+      <select id="gameInput">
+        <option>PS5 - F1 24</option>
+        <option>PS5 - Spider-Man 2</option>
+        <option>PS4 - Forza Horizon 4</option>
+      </select>
+    </label>
+    <label>Date: <input type="date" id="datepicker"></label>
+    <label>Time:</label>
+    <div class="time-slots">
+      <button>10:00 AM</button>
+      <button>12:00 PM</button>
+      <button>02:00 PM</button>
+      <button>04:00 PM</button>
+      <button>06:00 PM</button>
     </div>
-
-    <div class="card form-card">
-      <h2>Booking Details</h2>
-      <input type="text" id="nameInput" placeholder="Your Name" required>
-      <input type="email" id="emailInput" placeholder="Your Email" required>
-      <input type="tel" id="phoneInput" placeholder="Your Phone (e.g. 91...)" required>
-      <input type="text" id="gameInput" placeholder="Selected Game" readonly>
-      <input type="text" id="datepicker" placeholder="Select Date">
-      <input type="text" id="timeInput" placeholder="Selected Time Slot" readonly>
-
-      <div class="time-slots">
-        <button type="button">10:00-11:00</button>
-        <button type="button">11:00-12:00</button>
-        <button type="button">12:00-13:00</button>
-        <button type="button">13:00-14:00</button>
-        <button type="button">14:00-15:00</button>
-        <button type="button">15:00-16:00</button>
-        <button type="button">16:00-17:00</button>
-        <button type="button">17:00-18:00</button>
-        <button type="button">18:00-19:00</button>
-        <button type="button">19:00-20:00</button>
-        <button type="button">20:00-21:00</button>
-        <button type="button">21:00-22:00</button>
-        <button type="button">22:00-23:00</button>
-      </div>
-      <button id="suggestGameBtn">✨ Suggest a Game for Me</button>
-      <button class="confirm-btn">Pay ₹50 Advance & Book</button>
-    </div>
-  </main>
-
-  <section class="ps-plus-games">
-    <h2>Available on PS Plus</h2>
-    <div class="games-grid">
-      <div class="card game-card">
-        <h3>PlayStation 5</h3>
-        <ul>
-          <li>Mortal Kombat 1</li>
-          <li>Marvel's Spider-Man Remastered</li>
-          <li>Sword of the Sea</li>
-          <li>Indika</li>
-          <li>Harold Halibut</li>
-        </ul>
-      </div>
-      <div class="card game-card">
-        <h3>PlayStation 4</h3>
-        <ul>
-          <li>Marvel's Spider-Man</li>
-          <li>Unicorn Overlord</li>
-          <li>Lies of P</li>
-          <li>DayZ</li>
-          <li>Resident Evil 2</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="latest-games">
-    <h2>Latest Games</h2>
-    <div class="games-grid">
-      <div class="card game-card">
-        <h3>PlayStation 5</h3>
-        <ul>
-          <li>EA Sports FC 25</li>
-          <li>F1 24</li>
-          <li>WWE 2K24</li>
-          <li>Gran Turismo 7</li>
-          <li>Marvel's Wolverine</li>
-        </ul>
-      </div>
-      <div class="card game-card">
-        <h3>PlayStation 4</h3>
-        <ul>
-          <li>EA Sports FC 25</li>
-          <li>F1 24</li>
-          <li>WWE 2K24</li>
-          <li>Call of Duty: Black Ops 4</li>
-          <li>Elden Ring: Shadow of the Erdtree</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Hakuna Matata Gaming Cafe</p>
-  </footer>
-
-  <div id="messageBox" class="message-box"></div>
-
-  <div id="bookingsModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h2>My Bookings</h2>
-      <p>Enter your email to find your bookings.</p>
-      <input type="email" id="searchEmail" placeholder="Your Email">
-      <button id="findBookingsBtn">Find My Bookings</button>
-      <ul id="bookingsList"></ul>
-    </div>
+    <input type="hidden" id="timeInput">
+    <button class="confirm-btn">Pay & Confirm Booking</button>
+    <div id="messageBox"></div>
   </div>
 
-  <div id="suggestionModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h2>What are you in the mood for?</h2>
-      <p>e.g., "a fun game for two people" or "something competitive"</p>
-      <textarea id="suggestionPrompt" rows="3"></textarea>
-      <button id="getSuggestionBtn">Get Suggestion</button>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-    import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
-
-    // ==== CONFIG / ENDPOINTS ====
+  <script>
+  // --- Hotfix JS: ensures Pay button works always ---
+  (function () {
     const CF_BASE = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net";
-    const CREATE_ORDER_URL = `${CF_BASE}/createrazorpayorder`;
-    const SAVE_BOOKING_URL = `${CF_BASE}/savebooking`;
-    const RAZORPAY_KEY = "rzp_live_R6Ismz5vWsQvKg"; // public key (safe on client)
+    const CREATE_ORDER_URL = CF_BASE + "/createrazorpayorder";
+    const SAVE_BOOKING_URL  = CF_BASE + "/savebooking";
+    const RAZORPAY_KEY = "rzp_live_R6Ismz5vWsQvKg";
 
-    // Firebase config (if your env injects it; otherwise anonymous will still work if rules allow reads)
-    const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-    // --- DOM Elements ---
+    const $ = (sel) => document.querySelector(sel);
     const timeButtons = document.querySelectorAll(".time-slots button");
-    const timeInput = document.getElementById("timeInput");
-    const gameInput = document.getElementById("gameInput");
-    const datePickerInput = document.getElementById("datepicker");
-    const nameInput = document.getElementById("nameInput");
-    const emailInput = document.getElementById("emailInput");
-    const phoneInput = document.getElementById("phoneInput");
+    const timeInput = $("#timeInput");
+    const gameInput = $("#gameInput");
+    const datePickerInput = $("#datepicker");
+    const nameInput = $("#nameInput");
+    const emailInput = $("#emailInput");
+    const phoneInput = $("#phoneInput");
     const confirmBtn = document.querySelector(".confirm-btn");
-    const messageBox = document.getElementById("messageBox");
+    const messageBox = $("#messageBox");
 
-    const bookingsModal = document.getElementById("bookingsModal");
-    const myBookingsBtn = document.getElementById("myBookingsBtn");
-    const findBookingsBtn = document.getElementById("findBookingsBtn");
-    const searchEmailInput = document.getElementById("searchEmail");
-    const bookingsList = document.getElementById("bookingsList");
+    timeButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        timeButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        timeInput.value = btn.textContent.trim();
+      });
+    });
 
-    const suggestionModal = document.getElementById("suggestionModal");
-    const suggestGameBtn = document.getElementById("suggestGameBtn");
-    const getSuggestionBtn = document.getElementById("getSuggestionBtn");
-    const suggestionPrompt = document.getElementById("suggestionPrompt");
-
-    let db, auth;
-
-    // --- Helpers ---
-    function showMessage(message) {
-      messageBox.innerHTML = message;
+    function showMessage(html) {
+      if (!messageBox) return alert(html.replace(/<[^>]+>/g,""));
+      messageBox.innerHTML = html;
       messageBox.classList.add("show");
       setTimeout(() => messageBox.classList.remove("show"), 8000);
     }
 
     function getGameCategory(gameString) {
-      if (!gameString) return 'Unknown';
-      if (gameString.includes('PS5')) return 'PS5';
-      if (gameString.includes('PS4')) return 'PS4';
-      return 'Other';
+      if (!gameString) return "Unknown";
+      if (gameString.includes("PS5")) return "PS5";
+      if (gameString.includes("PS4")) return "PS4";
+      return "Other";
     }
 
-    // --- Availability ---
-    async function updateAvailableTimes() {
-      const selectedGame = gameInput.value;
-      const selectedDateStr = datePickerInput.value;
-      if (!selectedDateStr || !db) return;
+    confirmBtn.addEventListener("click", async () => {
+      const name  = (nameInput?.value || "").trim();
+      const email = (emailInput?.value || "").trim().toLowerCase();
+      const phone = (phoneInput?.value || "").trim();
+      const game  = (gameInput?.value || "").trim();
+      const date  = (datePickerInput?.value || "").trim();
+      const time  = (timeInput?.value || "").trim();
 
-      const bookingsRef = collection(db, "bookings");
-      const qSnap = await getDocs(query(bookingsRef, where("date", "==", selectedDateStr)));
-      const bookingsForDate = qSnap.docs.map(d => d.data());
-
-      const gameCategory = getGameCategory(selectedGame);
-      const now = new Date();
-      const selectedDate = flatpickr.parseDate(selectedDateStr, "d-m-Y");
-      const isToday = selectedDate.toDateString() === now.toDateString();
-      const currentHour = now.getHours();
-
-      timeButtons.forEach(button => {
-        button.disabled = false;
-        const slotTimeText = button.textContent;
-        const slotStartHour = parseInt(slotTimeText.split(':')[0], 10);
-
-        if (isToday && slotStartHour <= currentHour) {
-          button.disabled = true;
-          return;
-        }
-
-        const bookingsForSlot = bookingsForDate.filter(b => b.time === slotTimeText);
-        if (gameCategory === 'PS5') {
-          if (bookingsForSlot.filter(b => b.gameCategory === 'PS5').length >= 2) button.disabled = true;
-        } else if (gameCategory !== 'Unknown') {
-          if (bookingsForSlot.filter(b => b.gameCategory === gameCategory).length >= 1) button.disabled = true;
-        }
-      });
-    }
-
-    window.setGame = function(selectElement) {
-      if (selectElement.value) {
-        gameInput.value = selectElement.value;
-        updateAvailableTimes();
+      if (!name || !email || !phone || !game || !date || !time) {
+        showMessage("Please fill all fields before booking.");
+        return;
       }
-    }
 
-    // --- Init Firebase + main logic ---
-    (async () => {
+      if (typeof window.Razorpay === "undefined") {
+        console.error("[pay] Razorpay SDK not loaded");
+        showMessage("Payment SDK failed to load. Please refresh the page.");
+        return;
+      }
+
       try {
-        const app = initializeApp(firebaseConfig);
-        auth = getAuth(app);
-
-        onAuthStateChanged(auth, async (user) => {
-          if (user) {
-            db = getFirestore(app);
-            updateAvailableTimes();
-            mainAppLogic();
-          } else {
-            await signInAnonymously(auth);
-          }
+        const orderRes = await fetch(CREATE_ORDER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: 50, currency: "INR" })
         });
+        const order = await orderRes.json();
+        if (!order?.id) throw new Error("Create order failed");
 
-        if (initialAuthToken) {
-          await signInWithCustomToken(auth, initialAuthToken);
-        } else {
-          await signInAnonymously(auth);
-        }
-      } catch (e) {
-        console.error("Firebase initialization failed:", e);
-        showMessage("Error initializing the app. Please try again later.");
-      }
-    })();
-
-    function mainAppLogic() {
-      // Datepicker
-      const datePicker = flatpickr(datePickerInput, {
-        minDate: "today",
-        dateFormat: "d-m-Y",
-        defaultDate: "today",
-        disableMobile: true,
-        onChange: () => {
-          updateAvailableTimes();
-          timeInput.value = "";
-          timeButtons.forEach(btn => btn.classList.remove("active"));
-        },
-      });
-
-      document.addEventListener('DOMContentLoaded', updateAvailableTimes);
-
-      timeButtons.forEach(button => {
-        button.addEventListener("click", () => {
-          if (button.disabled) return;
-          timeButtons.forEach(btn => btn.classList.remove("active"));
-          button.classList.add("active");
-          timeInput.value = button.textContent;
-        });
-      });
-
-      // Modals
-      myBookingsBtn.onclick = () => { bookingsModal.style.display = "block"; };
-      document.querySelector("#bookingsModal .close-btn").onclick = () => { bookingsModal.style.display = "none"; };
-
-      suggestGameBtn.onclick = () => { suggestionModal.style.display = "block"; };
-      document.querySelector("#suggestionModal .close-btn").onclick = () => { suggestionModal.style.display = "none"; };
-
-      window.onclick = (event) => {
-        if (event.target == bookingsModal || event.target == suggestionModal) {
-          bookingsModal.style.display = "none";
-          suggestionModal.style.display = "none";
-        }
-      };
-
-      // My Bookings
-      findBookingsBtn.onclick = async () => {
-        const email = searchEmailInput.value.trim().toLowerCase();
-        bookingsList.innerHTML = "";
-
-        if (!email) {
-          bookingsList.innerHTML = "<li>Please enter an email address.</li>";
-          return;
-        }
-
-        const today = new Date();
-        const todayStr = flatpickr.formatDate(today, "d-m-Y");
-        const currentHour = today.getHours();
-
-        try {
-          if (email === "joshipawan70@gmail.com") {
-            // Admin: show all bookings for TODAY, grouped by time (current hour first)
-            const allSnap = await getDocs(collection(db, "bookings"));
-            const all = allSnap.docs.map(d => ({ id: d.id, ...d.data() }))
-              .filter(b => b.date === todayStr)
-              .sort((a,b) => {
-                const ha = parseInt(a.time.split(":")[0],10);
-                const hb = parseInt(b.time.split(":")[0],10);
-                if (ha === currentHour && hb !== currentHour) return -1;
-                if (hb === currentHour && ha !== currentHour) return 1;
-                return ha - hb;
+        const rzp = new Razorpay({
+          key: RAZORPAY_KEY,
+          order_id: order.id,
+          name: "Hakuna Matata Gaming Cafe",
+          description: `Advance for ${game.split(" - ")[0]}`,
+          prefill: { name, email, contact: phone },
+          theme: { color: "#00aaff" },
+          handler: async (resp) => {
+            try {
+              const payload = {
+                name, email, phone, date, time, game,
+                gameCategory: getGameCategory(game),
+                razorpay_order_id: resp.razorpay_order_id
+              };
+              const saveRes = await fetch(SAVE_BOOKING_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
               });
+              if (!saveRes.ok) throw new Error("Save booking failed");
 
-            if (!all.length) {
-              bookingsList.innerHTML = "<li>No bookings for today.</li>";
-              return;
+              const businessNumber = "919348091035";
+              const whatsappMessage = encodeURIComponent(
+                `Hi! I've just confirmed my booking:\n\nName: ${name}\nGame: ${game}\nDate: ${date}\nTime: ${time}`
+              );
+              const whatsappUrl = `https://wa.me/${businessNumber}?text=${whatsappMessage}`;
+
+              showMessage(`
+                <strong>Booking Confirmed, ${name}!</strong><br>
+                Game: ${game}<br>
+                Date: ${date}, Time: ${time}<br>
+                <a href="${whatsappUrl}" target="_blank" class="whatsapp-btn">Confirm on WhatsApp</a>
+              `);
+
+              if (timeInput) timeInput.value = "";
+              document.querySelectorAll(".time-slots button").forEach(btn => btn.classList.remove("active"));
+            } catch (e) {
+              console.error(e);
+              showMessage("Error: Could not save booking.");
             }
-            all.forEach(b => {
-              const status = b.paymentStatus || "pending";
-              const li = document.createElement("li");
-              li.innerHTML = `
-                <strong>${b.game}</strong><br>
-                Name: ${b.name} (${b.email})<br>
-                Date: ${b.date}, Time: ${b.time}<br>
-                Order: ${b.razorpay_order_id || "-"}<br>
-                Status: <strong>${status}</strong>
-              `;
-              bookingsList.appendChild(li);
-            });
-            return;
           }
+        });
 
-          // Regular user: show their bookings (newest first)
-          bookingsList.innerHTML = "<li>Searching...</li>";
-          const qSnap = await getDocs(query(collection(db,"bookings"), where("email","==", email)));
-          const items = qSnap.docs.map(d => ({ id: d.id, ...d.data() }))
-            .sort((a,b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+        rzp.on("payment.failed", (resp) => {
+          console.error("[payment.failed]", resp);
+          showMessage("Payment Failed: " + (resp?.error?.description || "Please try again"));
+        });
 
-          bookingsList.innerHTML = "";
-          if (!items.length) {
-            bookingsList.innerHTML = "<li>No bookings found for this email.</li>";
-            return;
-          }
-          items.forEach(b => {
-            const status = b.paymentStatus || "pending";
-            const li = document.createElement("li");
-            li.innerHTML = `
-              <strong>${b.game}</strong><br>
-              Date: ${b.date}, Time: ${b.time}<br>
-              Order: ${b.razorpay_order_id || "-"}<br>
-              Status: <strong>${status}</strong>
-            `;
-            bookingsList.appendChild(li);
-          });
-        } catch (err) {
-          console.error(err);
-          bookingsList.innerHTML = "<li>Failed to fetch bookings. Please try again.</li>";
-        }
-      };
-
-      // ---------- RAZORPAY FLOW ----------
-      confirmBtn.addEventListener('click', async () => {
-        const name  = nameInput.value.trim();
-        const email = emailInput.value.trim().toLowerCase();
-        const phone = phoneInput.value.trim();
-        const game  = gameInput.value.trim();
-        const date  = datePickerInput.value.trim();
-        const time  = timeInput.value.trim();
-
-        if (!name || !email || !phone || !game || !date || !time) {
-          showMessage("Please fill all fields before booking.");
-          return;
-        }
-
-        try {
-          // 1) Create order on backend (amount in INR, backend multiplies to paise)
-          const orderRes = await fetch(CREATE_ORDER_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount: 50, currency: "INR" }) // ₹50 advance
-          });
-          if (!orderRes.ok) throw new Error("Failed to create Razorpay order");
-          const order = await orderRes.json();
-          const orderId = order.id;
-
-          // 2) Open Razorpay checkout (order controls amount; omit amount here)
-          const rzp = new Razorpay({
-            key: RAZORPAY_KEY,
-            order_id: orderId,
-            name: "Hakuna Matata Gaming Cafe",
-            description: `Advance for ${game.split(' - ')[0]}`,
-            prefill: { name, email, contact: phone },
-            theme: { color: "#00aaff" },
-            handler: async function (response) {
-              try {
-                // 3) Save booking (webhook will update status later)
-                const payload = {
-                  name, email, phone, date, time, game,
-                  gameCategory: getGameCategory(game),
-                  razorpay_order_id: response.razorpay_order_id
-                };
-
-                const saveRes = await fetch(SAVE_BOOKING_URL, {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(payload)
-                });
-                if (!saveRes.ok) throw new Error("Failed to save booking");
-
-                const businessNumber = "919348091035";
-                const whatsappMessage = encodeURIComponent(
-                  `Hi! I've just confirmed my booking:\n\nName: ${name}\nGame: ${game}\nDate: ${date}\nTime: ${time}\n\nLooking forward to it!`
-                );
-                const whatsappUrl = `https://wa.me/${businessNumber}?text=${whatsappMessage}`;
-
-                showMessage(`
-                  <strong>Booking Confirmed, ${name}!</strong><br>
-                  Game: ${game}<br>
-                  Date: ${date}, Time: ${time}<br>
-                  <a href="${whatsappUrl}" target="_blank" class="whatsapp-btn">Confirm on WhatsApp</a>
-                `);
-
-                nameInput.value = "";
-                emailInput.value = "";
-                phoneInput.value = "";
-                timeInput.value = "";
-                timeButtons.forEach(btn => btn.classList.remove("active"));
-                updateAvailableTimes();
-
-              } catch (e) {
-                console.error(e);
-                showMessage("Error: Could not save booking.");
-              }
-            }
-          });
-
-          rzp.on('payment.failed', function (resp) {
-            showMessage("Payment Failed: " + (resp?.error?.description || "Please try again"));
-          });
-
-          rzp.open();
-
-        } catch (e) {
-          console.error("Error creating order: ", e);
-          showMessage("Error: Could not initiate payment.");
-        }
-      });
-    }
+        rzp.open();
+      } catch (e) {
+        console.error(e);
+        showMessage("Error: Could not initiate payment.");
+      }
+    });
+  })();
   </script>
 </body>
 </html>
