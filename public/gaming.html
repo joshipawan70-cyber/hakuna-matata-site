@@ -678,7 +678,7 @@
         
         if (email === "joshipawan70@gmail.com") {
             // Admin view: Show all confirmed bookings
-            const allBookingsQuery = query(collection(db, "bookings"), where("paymentStatus", "==", "captured"));
+            const allBookingsQuery = query(collection(db, "bookings"));
             const allBookingsSnapshot = await getDocs(allBookingsQuery);
             
             bookingsList.innerHTML = "";
@@ -792,7 +792,7 @@
         }
 
         try {
-            const bookingPayload = { name, email, phone, game, date, time, status: "confirmed", paymentStatus: "not_paid" };
+            const bookingPayload = { name, email, phone, game, date, time, status: "confirmed" };
             
             // First, save the booking to Firestore
             await addDoc(collection(db, "bookings"), bookingPayload);
