@@ -543,8 +543,7 @@
     // --- Cloud Function URLs ---
     const createOrderUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/createrazorpayorder";
     const saveBookingUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/savebooking";
-    const getSuggestionUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/suggestgame";
-
+    
     // --- DOM Elements ---
     const timeButtons = document.querySelectorAll(".time-slots button");
     const timeInput = document.getElementById("timeInput");
@@ -722,7 +721,7 @@
         getSuggestionBtn.disabled = true;
         getSuggestionBtn.textContent = "Thinking...";
         
-        const prompt = `You are a helpful assistant at a gaming cafe called Hakuna Matata. A customer is looking for a game recommendation. Based on their request, suggest the best option from the following list. Only return the exact name of the game from the list and a short, fun reason for your choice, separated by a pipe character (|).
+        const fullPrompt = `You are a helpful assistant at a gaming cafe called Hakuna Matata. A customer is looking for a game recommendation. Based on their request, suggest the best option from the following list. Only return the exact name of the game from the list and a short, fun reason for your choice, separated by a pipe character (|).
         
         Customer Request: "${userPrompt}"
         
@@ -731,21 +730,33 @@
         
         Example response format: PS5 - 2 Controllers - ₹250 / hour|Because it's perfect for a competitive duo!`;
 
+        // Direct call to Gemini API to fix the CORS issue
+        const apiKey = ""; // This will be handled by the execution environment
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        
+        const payload = {
+            contents: [{
+                parts: [{ text: fullPrompt }]
+            }]
+        };
+
         try {
-            const response = await fetch(getSuggestionUrl, {
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt })
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) {
-                throw new Error(`API request failed with status ${response.status}`);
+                const errorData = await response.json().catch(() => ({ error: { message: 'Unknown API error' } }));
+                throw new Error(`API request failed with status ${response.status}: ${errorData.error.message}`);
             }
 
             const result = await response.json();
+            const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
             
-            if (result.text) {
-                const [suggestedGame, reason] = result.text.split('|');
+            if (responseText) {
+                const [suggestedGame, reason] = responseText.split('|');
                 
                 if (suggestedGame && Array.from(document.querySelectorAll('.tiles-container option')).map(opt => opt.value).includes(suggestedGame.trim())) {
                     const gameToSelect = suggestedGame.trim();
@@ -761,14 +772,14 @@
                     });
                     showMessage(`I've selected ${gameToSelect} for you! ${reason || ''}`);
                 } else {
-                    showMessage("I couldn't find a perfect match. Try another description!");
+                     showMessage("I got a suggestion, but it didn't match our games. Try being more specific!");
                 }
             } else {
                 showMessage("Sorry, I couldn't come up with a suggestion right now.");
             }
         } catch (error) {
             console.error("Error with Gemini API:", error);
-            showMessage("There was an error getting a suggestion. It might be a CORS issue on the server.");
+            showMessage("There was an error getting a suggestion. Please try again later.");
         } finally {
             suggestionModal.style.display = "none";
             getSuggestionBtn.disabled = false;
@@ -792,11 +803,20 @@
         }
 
         try {
-            // Step 1: Create a Razorpay Order via your Cloud Function
+            // Step 1: Create a Razorpay Order via your Cloud Function, now with notes
+            const orderPayload = {
+                amount: 50, // 50 INR
+                name: name,
+                email: email,
+                phone: phone,
+                game: game,
+                date: date,
+                time: time
+            };
             const orderResponse = await fetch(createOrderUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ amount: 50 }) // 50 INR
+                body: JSON.stringify(orderPayload)
             });
             const orderData = await orderResponse.json();
             if (!orderData.success) {
