@@ -11,8 +11,6 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
   <style>
     /* --- Color Palette & Global Styles (Blue Theme) --- */
     :root {
@@ -435,7 +433,7 @@
         <button type="button">22:00-23:00</button>
       </div>
       <button id="suggestGameBtn">✨ Suggest a Game for Me</button>
-      <button class="confirm-btn" id="payNowBtn">Pay ₹50 Advance & Book</button>
+      <button class="confirm-btn" id="bookNowBtn">Book Now</button>
     </div>
   </main>
 
@@ -523,7 +521,7 @@
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
     // --- Firebase project's configuration ---
     const firebaseConfig = {
@@ -541,8 +539,7 @@
     const db = getFirestore(app);
 
     // --- Cloud Function URLs ---
-    const createOrderUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/createrazorpayorder";
-    const saveBookingUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/savebooking";
+    const bookNowUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/booknow";
     
     // --- DOM Elements ---
     const timeButtons = document.querySelectorAll(".time-slots button");
@@ -552,7 +549,7 @@
     const nameInput = document.getElementById("nameInput");
     const emailInput = document.getElementById("emailInput");
     const phoneInput = document.getElementById("phoneInput");
-    const payNowBtn = document.getElementById("payNowBtn");
+    const bookNowBtn = document.getElementById("bookNowBtn");
     const messageBox = document.getElementById("messageBox");
     
     const bookingsModal = document.getElementById("bookingsModal");
@@ -565,6 +562,9 @@
     const suggestGameBtn = document.getElementById("suggestGameBtn");
     const getSuggestionBtn = document.getElementById("getSuggestionBtn");
     const suggestionPrompt = document.getElementById("suggestionPrompt");
+    
+    // --- Real-time listener ---
+    let unsubscribe; // To detach the listener when the date changes
 
     // --- Helper Functions ---
     function showMessage(message) {
@@ -582,39 +582,45 @@
         return 'Other';
     }
 
-    // --- Core Logic (Now Async for Firebase) ---
-    async function updateAvailableTimes() {
-        const selectedGame = gameInput.value;
-        const selectedDateStr = datePickerInput.value;
+    // --- Core Logic (Now with Real-time listener) ---
+    function listenForBookings(selectedDateStr) {
+        // Detach any existing listener
+        if (unsubscribe) {
+            unsubscribe();
+        }
+
         if (!selectedDateStr) return;
 
         const bookingsRef = collection(db, "bookings");
         const q = query(bookingsRef, where("date", "==", selectedDateStr));
-        const querySnapshot = await getDocs(q);
-        const bookingsForDate = querySnapshot.docs.map(doc => doc.data());
 
-        const gameCategory = getGameCategory(selectedGame);
-        const now = new Date();
-        const selectedDate = flatpickr.parseDate(selectedDateStr, "d-m-Y");
-        const isToday = selectedDate.toDateString() === now.toDateString();
-        const currentHour = now.getHours();
+        // Attach the new real-time listener
+        unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const bookingsForDate = querySnapshot.docs.map(doc => doc.data());
+            const selectedGame = gameInput.value;
+            const gameCategory = getGameCategory(selectedGame);
+            const now = new Date();
+            const selectedDate = flatpickr.parseDate(selectedDateStr, "d-m-Y");
+            const isToday = selectedDate.toDateString() === now.toDateString();
+            const currentHour = now.getHours();
 
-        timeButtons.forEach(button => {
-            button.disabled = false;
-            const slotTimeText = button.textContent;
-            const slotStartHour = parseInt(slotTimeText.split(':')[0], 10);
+            timeButtons.forEach(button => {
+                button.disabled = false;
+                const slotTimeText = button.textContent;
+                const slotStartHour = parseInt(slotTimeText.split(':')[0], 10);
 
-            if (isToday && slotStartHour <= currentHour) {
-                button.disabled = true;
-                return;
-            }
+                if (isToday && slotStartHour <= currentHour) {
+                    button.disabled = true;
+                    return;
+                }
 
-            const bookingsForSlot = bookingsForDate.filter(b => b.time === slotTimeText && b.paymentStatus === 'captured');
-            if (gameCategory === 'PS5') {
-                if (bookingsForSlot.filter(b => b.gameCategory === 'PS5').length >= 2) button.disabled = true;
-            } else if (gameCategory !== 'Unknown') {
-                if (bookingsForSlot.filter(b => b.gameCategory === gameCategory).length >= 1) button.disabled = true;
-            }
+                const bookingsForSlot = bookingsForDate.filter(b => b.time === slotTimeText && b.paymentStatus === 'captured');
+                if (gameCategory === 'PS5') {
+                    if (bookingsForSlot.filter(b => getGameCategory(b.game) === 'PS5').length >= 2) button.disabled = true;
+                } else if (gameCategory !== 'Unknown') {
+                    if (bookingsForSlot.filter(b => getGameCategory(b.game) === gameCategory).length >= 1) button.disabled = true;
+                }
+            });
         });
     }
 
@@ -624,19 +630,21 @@
       dateFormat: "d-m-Y",
       defaultDate: "today",
       disableMobile: true,
-      onChange: () => {
-          updateAvailableTimes();
+      onChange: (selectedDates, dateStr) => {
+          listenForBookings(dateStr);
           timeInput.value = "";
           timeButtons.forEach(btn => btn.classList.remove("active"));
       },
     });
     
-    document.addEventListener('DOMContentLoaded', updateAvailableTimes);
+    document.addEventListener('DOMContentLoaded', () => {
+        listenForBookings(datePickerInput.value);
+    });
 
     window.setGame = function(selectElement) {
       if (selectElement.value) {
         gameInput.value = selectElement.value;
-        updateAvailableTimes();
+        listenForBookings(datePickerInput.value); // Re-check slots when game changes
 
         if (window.innerWidth <= 800) {
             document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
@@ -675,38 +683,33 @@
         
         bookingsList.innerHTML = "<li>Searching...</li>";
         
+        const bookingsRef = collection(db, "bookings");
+        let q;
+
         if (email === "joshipawan70@gmail.com") {
             // Admin view: Show all confirmed bookings
-            const allBookingsQuery = query(collection(db, "bookings"), where("paymentStatus", "==", "captured"));
-            const allBookingsSnapshot = await getDocs(allBookingsQuery);
-            
-            bookingsList.innerHTML = "";
-            if (!allBookingsSnapshot.empty) {
-                allBookingsSnapshot.forEach(doc => {
-                    const b = doc.data();
-                    const li = document.createElement('li');
-                    li.innerHTML = `<strong>${b.game}</strong><br>Booked by: ${b.name}<br>Date: ${b.date}, Time: ${b.time}`;
-                    bookingsList.appendChild(li);
-                });
-            } else {
-                bookingsList.innerHTML = "<li>No confirmed bookings found.</li>";
-            }
+            q = query(bookingsRef, where("paymentStatus", "==", "captured"));
         } else {
             // Regular user view
-            const q = query(collection(db, "bookings"), where("email", "==", email), where("paymentStatus", "==", "captured"));
-            const querySnapshot = await getDocs(q);
-            
-            bookingsList.innerHTML = "";
-            if (!querySnapshot.empty) {
-                querySnapshot.forEach(doc => {
-                    const b = doc.data();
-                    const li = document.createElement('li');
+            q = query(bookingsRef, where("email", "==", email), where("paymentStatus", "==", "captured"));
+        }
+        
+        const querySnapshot = await getDocs(q);
+        bookingsList.innerHTML = "";
+
+        if (!querySnapshot.empty) {
+            querySnapshot.forEach(doc => {
+                const b = doc.data();
+                const li = document.createElement('li');
+                if (email === "joshipawan70@gmail.com") {
+                    li.innerHTML = `<strong>${b.game}</strong><br>Booked by: ${b.name}<br>Date: ${b.date}, Time: ${b.time}`;
+                } else {
                     li.innerHTML = `<strong>${b.game}</strong><br>Date: ${b.date}, Time: ${b.time}`;
-                    bookingsList.appendChild(li);
-                });
-            } else {
-                bookingsList.innerHTML = "<li>No confirmed bookings found for this email.</li>";
-            }
+                }
+                bookingsList.appendChild(li);
+            });
+        } else {
+            bookingsList.innerHTML = "<li>No confirmed bookings found.</li>";
         }
     };
 
@@ -730,8 +733,7 @@
         
         Example response format: PS5 - 2 Controllers - ₹250 / hour|Because it's perfect for a competitive duo!`;
 
-        // Direct call to Gemini API to fix the CORS issue
-        const apiKey = ""; // This will be handled by the execution environment
+        const apiKey = ""; 
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
         
         const payload = {
@@ -766,7 +768,7 @@
                             if (option.value === gameToSelect) {
                                 select.value = gameToSelect;
                                 gameInput.value = gameToSelect;
-                                updateAvailableTimes();
+                                listenForBookings(datePickerInput.value);
                             }
                         });
                     });
@@ -788,8 +790,8 @@
         }
     };
 
-    // --- RAZORPAY INTEGRATION WITH CLOUD FUNCTIONS ---
-    payNowBtn.addEventListener('click', async () => {
+    // --- BOOK NOW (NO PAYMENT) LOGIC ---
+    bookNowBtn.addEventListener('click', async () => {
         const name = nameInput.value;
         const email = emailInput.value;
         const phone = phoneInput.value;
@@ -802,74 +804,42 @@
             return;
         }
 
-        try {
-            // Step 1: Create a Razorpay Order via your Cloud Function, now with notes
-            const orderPayload = {
-                amount: 50, // 50 INR
-                name: name,
-                email: email,
-                phone: phone,
-                game: game,
-                date: date,
-                time: time
-            };
-            const orderResponse = await fetch(createOrderUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(orderPayload)
-            });
-            const orderData = await orderResponse.json();
-            if (!orderData.success) {
-                throw new Error(orderData.error || "Failed to create Razorpay order.");
-            }
+        bookNowBtn.disabled = true;
+        bookNowBtn.textContent = "Booking...";
 
-            // Step 2: Save the initial booking record to Firestore via your Cloud Function
-            const bookingPayload = { name, email: email.toLowerCase(), phone, game, date, time, razorpay_order_id: orderData.id };
-            const saveResponse = await fetch(saveBookingUrl, {
+        try {
+            const bookingPayload = { name, email, phone, game, date, time };
+            const response = await fetch(bookNowUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bookingPayload)
             });
-            const saveData = await saveResponse.json();
-            if (!saveData.success) {
-                throw new Error(saveData.error || "Failed to save booking.");
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || "Failed to create booking.");
             }
-
-            // Step 3: Open Razorpay Checkout
-            const options = {
-                "key": "rzp_live_R6Ismz5vWsQvKg",
-                "amount": orderData.amount,
-                "currency": "INR",
-                "name": "Hakuna Matata Gaming Cafe",
-                "description": `Advance for ${game.split(' - ')[0]}`,
-                "order_id": orderData.id,
-                "handler": function (response){
-                    const confirmationMessage = `
-                        <strong>Booking Confirmed, ${name}!</strong><br>
-                        You will receive a WhatsApp confirmation shortly.
-                    `;
-                    showMessage(confirmationMessage);
-                    
-                    nameInput.value = "";
-                    emailInput.value = "";
-                    phoneInput.value = "";
-                    timeInput.value = "";
-                    timeButtons.forEach(btn => btn.classList.remove("active"));
-                    updateAvailableTimes();
-                },
-                "prefill": { "name": name, "email": email, "contact": phone },
-                "theme": { "color": "#00aaff" }
-            };
-
-            const rzp1 = new Razorpay(options);
-            rzp1.on('payment.failed', function (response){
-                    showMessage("Payment Failed: " + response.error.description);
-            });
-            rzp1.open();
+            
+            const confirmationMessage = `
+                <strong>Booking Confirmed, ${name}!</strong><br>
+                You will receive a WhatsApp confirmation shortly.
+            `;
+            showMessage(confirmationMessage);
+            
+            nameInput.value = "";
+            emailInput.value = "";
+            phoneInput.value = "";
+            timeInput.value = "";
+            timeButtons.forEach(btn => btn.classList.remove("active"));
+            // No need to call listenForBookings here, onSnapshot will handle it automatically
 
         } catch (error) {
             console.error("Booking process error:", error);
             showMessage("Error: " + error.message);
+        } finally {
+            bookNowBtn.disabled = false;
+            bookNowBtn.textContent = "Book Now";
         }
     });
   </script>
