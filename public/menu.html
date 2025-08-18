@@ -2,48 +2,414 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Food & Drinks Menu - Hakuna Matata Gaming Cafe</title>
 
-  <style>
-    :root{
-      --bg:#0f0f0f;--card:#1a1a1a;--soft:#222;
-      --text:#dddddd;--muted:#a9a9a9;--brand:#ffcc00;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text);}
-    header,footer{text-align:center;background:var(--card);padding:20px;border-bottom:2px solid var(--brand);}
-    header h1{color:var(--brand);margin:0}
-    a{color:var(--brand)}footer{border-top:2px solid var(--brand);margin-top:30px}
-    main{max-width:1000px;margin:0 auto;padding:20px}
-    .menu-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px;}
-    .menu-gallery img{width:100%;border-radius:12px;border:1px solid #333;box-shadow:0 6px 18px rgba(0,0,0,0.4)}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-    /* Contact section */
-    #contact{background:var(--card);border-top:2px solid var(--brand);padding:34px 20px;margin-top:30px;}
-    #contact h2{text-align:center;margin:0 0 12px;color:var(--brand);}
-    .contact-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1.4fr;gap:22px;}
-    .contact-box{background:var(--soft);border-radius:14px;padding:18px 20px;}
-    .contact-box p{margin:8px 0}
-    .map iframe{width:100%;height:300px;border:0;border-radius:12px;}
+  <style>
+    /* --- Color Palette & Global Styles (Fiery Orange Theme) --- */
+    :root {
+      --primary-glow: #ff9900; /* Bright Orange */
+      --secondary-glow: #ff4500; /* Deeper OrangeRed */
+      --dark-bg: #1a0d00; /* A very dark, deep orange */
+      --card-bg: rgba(40, 25, 20, 0.7); /* Semi-transparent dark orange for "glass" effect */
+      --text-color: #f0f0f0;
+      --border-color: rgba(255, 153, 0, 0.2);
+      --muted-text: #a9a9a9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--dark-bg);
+      background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
+                        radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
+      background-size: 200% 200%;
+      animation: background-pan 20s ease-in-out infinite;
+      color: var(--text-color);
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+    }
+
+    @keyframes background-pan {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    a {
+      color: var(--primary-glow);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- Header, Footer & Section Styles --- */
+    header, footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+    header {
+        border-bottom: 1px solid var(--border-color);
+    }
+    footer {
+        border-top: 1px solid var(--border-color);
+        margin-top: 40px;
+    }
+    #contact {
+      padding: 40px 20px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+
+    /* --- Typography with Glow --- */
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
+    }
+    header h1 { margin-bottom: 4px; font-size: 2.2rem; }
+    header p { color: #aaa; margin: 0; }
+    
+    /* --- Main Content Layout --- */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    /* --- Menu Grid Layout --- */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+    }
+
+    /* --- "Glassmorphism" Card Style for Menu --- */
+    .menu-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 25px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .menu-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-glow);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+    .menu-card h3 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
+
+    /* --- Menu Item Styling --- */
+    .menu-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .menu-item:last-child {
+        border-bottom: none;
+    }
+    .item-details {
+        flex: 1;
+        padding-right: 15px;
+    }
+    .item-name {
+        font-weight: 600;
+        color: var(--text-color);
+    }
+    .item-desc {
+        font-size: 0.85rem;
+        color: var(--muted-text);
+        margin-top: 4px;
+    }
+    .item-price {
+        font-weight: 600;
+        color: var(--primary-glow);
+        font-family: 'Orbitron', sans-serif;
+    }
+    
+    /* --- Contact Section Styles --- */
+    #contact h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .contact-grid {
+      max-width: 1100px;
+      margin: 20px auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .contact-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: left;
+    }
+    .contact-box p { margin: 8px 0; }
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    /* --- Policies Section --- */
+    .policies {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .policies a {
+        margin: 0 10px;
+    }
+
+    /* --- Gemini Feature Button --- */
+    .gemini-btn {
+        background: var(--primary-glow);
+        color: var(--dark-bg);
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--primary-glow);
+    }
+    .gemini-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    /* --- Modal Styles --- */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.7);
+        backdrop-filter: blur(5px);
+    }
+    .modal-content {
+        position: relative;
+        margin: 15% auto;
+        padding: 30px;
+        width: 90%;
+        max-width: 500px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+    }
+    .modal-content h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .modal-content textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: rgba(0,0,0,0.3);
+        color: var(--text-color);
+        font-family: 'Poppins', sans-serif;
+        resize: vertical;
+    }
+    .close-btn {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #suggestionResult {
+        margin-top: 20px;
+    }
+
+    /* --- Mobile Responsive Styles --- */
+    @media (max-width: 800px) {
+        header h1 {
+            font-size: 1.8rem;
+        }
+        main {
+            padding: 20px 15px;
+        }
+        .modal-content {
+            margin: 25% auto;
+        }
+    }
   </style>
 </head>
 <body>
+
   <header>
     <h1>🍴 Food & Drinks Menu</h1>
-    <p>Explore our delicious range of food and beverages</p>
+    <p>Fuel your gameplay with our delicious range of food and beverages</p>
+    <button id="showSuggestionModal" class="gemini-btn">✨ Stuck on what to order?</button>
   </header>
 
   <main>
-    <section class="menu-gallery">
-      <!-- Replace with your uploaded menu images -->
-      <img src="menu1.jpg" alt="Menu Page 1">
-      <img src="menu2.jpg" alt="Menu Page 2">
-      <img src="menu3.jpg" alt="Menu Page 3">
-    </section>
+    <div class="menu-grid">
+        <!-- Soups & Salads -->
+        <div class="menu-card">
+            <h3>Soups & Salads</h3>
+            <div class="menu-item">
+                <div class="item-details"><span class="item-name">Cream of Mushroom Soup</span></div><span class="item-price">₹149</span>
+            </div>
+            <div class="menu-item">
+                <div class="item-details"><span class="item-name">Oven Roasted Pumpkin Soup</span></div><span class="item-price">₹159</span>
+            </div>
+            <div class="menu-item">
+                <div class="item-details"><span class="item-name">Chicken Manchow Soup</span></div><span class="item-price">₹189</span>
+            </div>
+            <div class="menu-item">
+                <div class="item-details"><span class="item-name">Veg Manchow Soup</span></div><span class="item-price">₹149</span>
+            </div>
+            <div class="menu-item">
+                <div class="item-details"><span class="item-name">Spicy Natti Chicken Soup</span></div><span class="item-price">₹199</span>
+            </div>
+            <div class="menu-item">
+                <div class="item-details"><span class="item-name">Greek Salad</span></div><span class="item-price">₹199</span>
+            </div>
+            <div class="menu-item">
+                <div class="item-details"><span class="item-name">Caesars Salad (Chicken)</span></div><span class="item-price">₹249</span>
+            </div>
+             <div class="menu-item">
+                <div class="item-details"><span class="item-name">Watermelon Feta Cheese Salad</span></div><span class="item-price">₹199</span>
+            </div>
+        </div>
+
+        <!-- Veggie Bytes -->
+        <div class="menu-card">
+            <h3>Veggie Bytes</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Korean Fried Broccoli</span></div><span class="item-price">₹169</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Texas Mushroom</span></div><span class="item-price">₹189</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Japanese Tofu Teriyaki</span></div><span class="item-price">₹229</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Roasted Baby Potato</span></div><span class="item-price">₹149</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">French Fries / Peri Peri</span></div><span class="item-price">₹129 / ₹149</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Tandoori Paneer / Mushroom</span></div><span class="item-price">₹139</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Malai Paneer / Mushroom Tikka</span></div><span class="item-price">₹139</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Malai Broccoli Tikka</span></div><span class="item-price">₹159</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Hara Bhara Kebab</span></div><span class="item-price">₹159</span></div>
+        </div>
+
+        <!-- The Opening Act (Non-Veg) -->
+        <div class="menu-card">
+            <h3>The Opening Act (Non-Veg)</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Chicken Tikka</span></div><span class="item-price">₹160 / ₹240</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Chicken Sholay Kebab</span></div><span class="item-price">₹320</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Mutton Sheekh Kebab</span></div><span class="item-price">₹320</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Malai Chicken Tikka</span></div><span class="item-price">₹230</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Mutton Pepper Fry</span></div><span class="item-price">₹320</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Chicken Pepper Fry</span></div><span class="item-price">₹160 / ₹240</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Thai Fried Chicken</span></div><span class="item-price">₹270</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Crispy Calamari</span></div><span class="item-price">₹300</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Peri Peri Chicken Strips</span></div><span class="item-price">₹230</span></div>
+        </div>
+
+        <!-- Pizza -->
+        <div class="menu-card">
+            <h3>Pizza</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Call from Kerala</span><p class="item-desc">Chef's special surprise</p></div><span class="item-price">₹440</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">BBQ Chicken Pizza</span></div><span class="item-price">₹380</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Tandoori Chicken Pizza</span></div><span class="item-price">₹380</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Peri Peri Chicken Pizza</span></div><span class="item-price">₹400</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Margherita Pizza</span></div><span class="item-price">₹390</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Farmers Special</span><p class="item-desc">Roasted pumpkin, garlic, tomato and more</p></div><span class="item-price">₹300</span></div>
+        </div>
+
+        <!-- Burgers & Rolls -->
+        <div class="menu-card">
+            <h3>Between the Buns & Rolls</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Spicy Seoul Mate (Gochujang)</span></div><span class="item-price">₹350</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Flaming Clucker</span></div><span class="item-price">₹350</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Mini Chicken Burgers (3 in 1)</span></div><span class="item-price">₹419</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Groots Bite (Veg)</span></div><span class="item-price">₹250</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Chicken Tikka Roll</span></div><span class="item-price">₹149 / ₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Mutton Sheekh Kebab Roll</span></div><span class="item-price">₹199 / ₹269</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Paneer Tikka Roll</span></div><span class="item-price">₹199</span></div>
+        </div>
+
+        <!-- Biryani & Rice -->
+        <div class="menu-card">
+            <h3>Biryani & Rice</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Hyderabadi Chicken Biryani</span></div><span class="item-price">₹220</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Hyderabadi Mutton Biryani</span></div><span class="item-price">₹279</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Hyderabadi Veg Biryani</span></div><span class="item-price">₹170</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Spl. Kalyana Chicken Biryani</span></div><span class="item-price">₹260</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Executive Biryani</span><p class="item-desc">Chicken Biryani, Kebab, Juice & Dessert</p></div><span class="item-price">₹299</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Ghee Rice</span></div><span class="item-price">₹110</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Steamed Rice</span></div><span class="item-price">₹50</span></div>
+        </div>
+
+        <!-- Thick Shakes -->
+        <div class="menu-card">
+            <h3>Thick Shakes</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">White Gold</span></div><span class="item-price">₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Choco Haze</span></div><span class="item-price">₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Cookie Butter Rush</span></div><span class="item-price">₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Peanut Butter</span></div><span class="item-price">₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Hell of a Shake</span></div><span class="item-price">₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Spanish Delight</span></div><span class="item-price">₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Tender Coconut</span></div><span class="item-price">₹199</span></div>
+             <div class="menu-item"><div class="item-details"><span class="item-name">Avocado Shake</span></div><span class="item-price">₹199</span></div>
+        </div>
+        
+        <!-- Juices & Mojitos -->
+        <div class="menu-card">
+            <h3>Juices & Mojitos</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">ABC (Apple, Beet, Carrot)</span></div><span class="item-price">₹119</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Fresh Juice</span><p class="item-desc">Apple, Orange, Pineapple, etc.</p></div><span class="item-price">₹80</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Lime Juice</span><p class="item-desc">Pineapple, Grape, Mint, or Ginger</p></div><span class="item-price">₹60</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Raspberry Mojito</span></div><span class="item-price">₹119</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Passionfruit Mojito</span></div><span class="item-price">₹119</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Blood Orange Mojito</span></div><span class="item-price">₹119</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Classic Mint Mojito</span></div><span class="item-price">₹119</span></div>
+        </div>
+
+        <!-- Desserts -->
+        <div class="menu-card">
+            <h3>Desserts</h3>
+            <div class="menu-item"><div class="item-details"><span class="item-name">German Cheese Cake</span></div><span class="item-price">₹249</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Blueberry Cheese Cake</span></div><span class="item-price">₹160</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Nutella Cheese Cake</span></div><span class="item-price">₹170</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Biscoff Cheese Cake</span></div><span class="item-price">₹180</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Chocolate Brownie</span></div><span class="item-price">₹120</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Gulab Jamun with Ice Cream</span></div><span class="item-price">₹199</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Nutella Kunafa</span></div><span class="item-price">₹330</span></div>
+            <div class="menu-item"><div class="item-details"><span class="item-name">Lotus Biscoff Kunafa</span></div><span class="item-price">₹369</span></div>
+        </div>
+    </div>
   </main>
 
-  <!-- Contact section -->
   <section id="contact">
     <h2>Contact Us</h2>
     <div class="contact-grid">
@@ -59,17 +425,162 @@
       <div class="contact-box map">
         <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
           allowfullscreen loading="lazy"></iframe>
-        <p style="margin:8px 0 0;">
-          <a href="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029"
-             target="_blank" rel="noopener">Open in Google Maps ↗</a>
-        </p>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
     <p><a href="index.html">⬅ Back to Home</a></p>
+    <div class="policies">
+       <a href="privacy.html">Privacy Policy</a> | 
+       <a href="terms.html">Terms & Conditions</a> | 
+       <a href="refund.html">Refund Policy</a>
+    </div>
+    <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
   </footer>
+
+  <!-- Gemini Suggestion Modal -->
+  <div id="suggestionModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>What are you craving?</h2>
+        <p style="text-align: center; color: var(--muted-text); margin-bottom: 15px;">e.g., "something spicy", "a cheesy snack", "a cool drink"</p>
+        <textarea id="suggestionPrompt" rows="3" placeholder="Tell me what you're in the mood for..."></textarea>
+        <button id="getSuggestionBtn" class="gemini-btn" style="width: 100%;">✨ Get Suggestion</button>
+        <div id="suggestionResult"></div>
+    </div>
+  </div>
+
+  <script>
+    // --- Modal Logic ---
+    const suggestionModal = document.getElementById('suggestionModal');
+    const showSuggestionModalBtn = document.getElementById('showSuggestionModal');
+    const closeModalBtn = document.querySelector('#suggestionModal .close-btn');
+    const getSuggestionBtn = document.getElementById('getSuggestionBtn');
+    const suggestionPromptInput = document.getElementById('suggestionPrompt');
+    const suggestionResultDiv = document.getElementById('suggestionResult');
+
+    showSuggestionModalBtn.onclick = () => {
+        suggestionModal.style.display = 'block';
+    };
+    closeModalBtn.onclick = () => {
+        suggestionModal.style.display = 'none';
+    };
+    window.onclick = (event) => {
+        if (event.target == suggestionModal) {
+            suggestionModal.style.display = 'none';
+        }
+    };
+
+    // --- Gemini API Logic ---
+    
+    // Function to extract menu text from the HTML to provide context to the model
+    function getMenuText() {
+        const menuCards = document.querySelectorAll('.menu-card');
+        let menuText = '';
+        menuCards.forEach(card => {
+            const category = card.querySelector('h3').innerText;
+            menuText += `\n## ${category}\n`;
+            const items = card.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                const name = item.querySelector('.item-name').innerText;
+                const price = item.querySelector('.item-price').innerText;
+                menuText += `- ${name}: ${price}\n`;
+            });
+        });
+        return menuText;
+    }
+
+    getSuggestionBtn.addEventListener('click', async () => {
+        const userPrompt = suggestionPromptInput.value.trim();
+        if (!userPrompt) {
+            suggestionResultDiv.innerHTML = `<p style="color: var(--secondary-glow);">Please tell me what you're craving!</p>`;
+            return;
+        }
+
+        // --- Start Loading State ---
+        getSuggestionBtn.disabled = true;
+        getSuggestionBtn.textContent = 'Thinking...';
+        suggestionResultDiv.innerHTML = `<p style="text-align: center;">Let's see... 🔥</p>`;
+
+        // --- Prepare the prompt for the Gemini API ---
+        const menuContext = getMenuText();
+        const fullPrompt = `You are a friendly and enthusiastic food recommender for the Hakuna Matata Gaming Cafe. A customer is trying to decide what to order.
+
+        Their request is: "${userPrompt}"
+
+        Here is our menu:
+        ${menuContext}
+
+        Based on their request and our menu, please recommend 2 or 3 items that would be a great fit. For each item, provide a short, fun reason (less than 15 words) why it's a good choice. Only recommend items that are explicitly on the menu provided.
+
+        Provide your answer as a JSON array where each object has "name" and "reason" keys. For example: [{"name": "Spicy Seoul Mate (Gochujang)", "reason": "It's a fiery burger that will match your craving for something spicy!"}]`;
+
+        // --- Make the API Call ---
+        // IMPORTANT: When an API key is an empty string, the Canvas will provide a temporary key.
+        const apiKey = ""; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        const payload = {
+            contents: [{ parts: [{ text: fullPrompt }] }],
+            generationConfig: {
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            "name": { "type": "STRING" },
+                            "reason": { "type": "STRING" }
+                        },
+                        required: ["name", "reason"]
+                    }
+                }
+            }
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+
+            const result = await response.json();
+            const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            
+            if (responseText) {
+                const recommendations = JSON.parse(responseText);
+                let htmlResult = '<h3>Here are a few ideas for you:</h3>';
+                recommendations.forEach(rec => {
+                    htmlResult += `
+                        <div class="menu-item">
+                            <div class="item-details">
+                                <span class="item-name">${rec.name}</span>
+                                <p class="item-desc">${rec.reason}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                suggestionResultDiv.innerHTML = htmlResult;
+            } else {
+                throw new Error("Couldn't get a recommendation. Try rephrasing your request!");
+            }
+
+        } catch (error) {
+            console.error("Error with Gemini API:", error);
+            suggestionResultDiv.innerHTML = `<p style="color: var(--secondary-glow);">Sorry, I had trouble coming up with a suggestion. Please try again!</p>`;
+        } finally {
+            // --- End Loading State ---
+            getSuggestionBtn.disabled = false;
+            getSuggestionBtn.innerHTML = '✨ Get Suggestion';
+        }
+    });
+  </script>
+
 </body>
 </html>
