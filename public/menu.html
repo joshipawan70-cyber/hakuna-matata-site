@@ -492,6 +492,9 @@
     }
 
     getSuggestionBtn.addEventListener('click', async () => {
+        // --- API Key Configuration ---
+        const apiKey = "AIzaSyBrN3Rr9f1vK8bwb7eLEOeOI9Qs29hKXPw"; 
+
         const userPrompt = suggestionPromptInput.value.trim();
         if (!userPrompt) {
             suggestionResultDiv.innerHTML = `<p style="color: var(--secondary-glow);">Please tell me what you're craving!</p>`;
@@ -517,8 +520,6 @@
         Provide your answer as a JSON array where each object has "name" and "reason" keys. For example: [{"name": "Spicy Seoul Mate (Gochujang)", "reason": "It's a fiery burger that will match your craving for something spicy!"}]`;
 
         // --- Make the API Call ---
-        // IMPORTANT: When an API key is an empty string, the Canvas will provide a temporary key.
-        const apiKey = ""; 
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
         const payload = {
