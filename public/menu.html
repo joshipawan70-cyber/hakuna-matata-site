@@ -297,7 +297,6 @@
         margin-top: 20px;
     }
 
-    /* --- Mobile Responsive Styles --- */
     @media (max-width: 800px) {
         header h1 {
             font-size: 1.8rem;
@@ -320,9 +319,9 @@
     <div class="nav-container">
         <a href="index.html" class="nav-logo">Hakuna Matata</a>
         <div class="nav-links">
-            <a href="index.html#facilities">Facilities</a>
-            <a href="index.html#why-us">Why Us</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="index.html">Home</a>
+            <a href="gaming.html">Gaming</a>
+            <a href="#contact">Contact</a>
         </div>
     </div>
   </nav>
@@ -335,7 +334,6 @@
 
   <main>
     <div class="menu-grid">
-        <!-- Soups & Salads -->
         <div class="menu-card">
             <h3>Soups & Salads</h3>
             <div class="menu-item">
@@ -364,7 +362,6 @@
             </div>
         </div>
 
-        <!-- Veggie Bytes -->
         <div class="menu-card">
             <h3>Veggie Bytes</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">Korean Fried Broccoli</span></div><span class="item-price">₹169</span></div>
@@ -378,7 +375,6 @@
             <div class="menu-item"><div class="item-details"><span class="item-name">Hara Bhara Kebab</span></div><span class="item-price">₹159</span></div>
         </div>
 
-        <!-- The Opening Act (Non-Veg) -->
         <div class="menu-card">
             <h3>The Opening Act (Non-Veg)</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">Chicken Tikka</span></div><span class="item-price">₹160 / ₹240</span></div>
@@ -392,7 +388,6 @@
             <div class="menu-item"><div class="item-details"><span class="item-name">Peri Peri Chicken Strips</span></div><span class="item-price">₹230</span></div>
         </div>
 
-        <!-- Pizza -->
         <div class="menu-card">
             <h3>Pizza</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">Call from Kerala</span><p class="item-desc">Chef's special surprise</p></div><span class="item-price">₹440</span></div>
@@ -403,7 +398,6 @@
             <div class="menu-item"><div class="item-details"><span class="item-name">Farmers Special</span><p class="item-desc">Roasted pumpkin, garlic, tomato and more</p></div><span class="item-price">₹300</span></div>
         </div>
 
-        <!-- Burgers & Rolls -->
         <div class="menu-card">
             <h3>Between the Buns & Rolls</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">Spicy Seoul Mate (Gochujang)</span></div><span class="item-price">₹350</span></div>
@@ -415,7 +409,6 @@
             <div class="menu-item"><div class="item-details"><span class="item-name">Paneer Tikka Roll</span></div><span class="item-price">₹199</span></div>
         </div>
 
-        <!-- Biryani & Rice -->
         <div class="menu-card">
             <h3>Biryani & Rice</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">Hyderabadi Chicken Biryani</span></div><span class="item-price">₹220</span></div>
@@ -427,7 +420,6 @@
             <div class="menu-item"><div class="item-details"><span class="item-name">Steamed Rice</span></div><span class="item-price">₹50</span></div>
         </div>
 
-        <!-- Thick Shakes -->
         <div class="menu-card">
             <h3>Thick Shakes</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">White Gold</span></div><span class="item-price">₹199</span></div>
@@ -440,7 +432,6 @@
              <div class="menu-item"><div class="item-details"><span class="item-name">Avocado Shake</span></div><span class="item-price">₹199</span></div>
         </div>
         
-        <!-- Juices & Mojitos -->
         <div class="menu-card">
             <h3>Juices & Mojitos</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">ABC (Apple, Beet, Carrot)</span></div><span class="item-price">₹119</span></div>
@@ -452,7 +443,6 @@
             <div class="menu-item"><div class="item-details"><span class="item-name">Classic Mint Mojito</span></div><span class="item-price">₹119</span></div>
         </div>
 
-        <!-- Desserts -->
         <div class="menu-card">
             <h3>Desserts</h3>
             <div class="menu-item"><div class="item-details"><span class="item-name">German Cheese Cake</span></div><span class="item-price">₹249</span></div>
@@ -496,7 +486,6 @@
     <p>&copy; 2025 Hakuna Matata Gaming Cafe</p>
   </footer>
 
-  <!-- Gemini Suggestion Modal -->
   <div id="suggestionModal" class="modal">
     <div class="modal-content">
         <span class="close-btn">&times;</span>
@@ -509,7 +498,6 @@
   </div>
 
   <script>
-    // --- Modal Logic ---
     const suggestionModal = document.getElementById('suggestionModal');
     const showSuggestionModalBtn = document.getElementById('showSuggestionModal');
     const closeModalBtn = document.querySelector('#suggestionModal .close-btn');
@@ -529,9 +517,6 @@
         }
     };
 
-    // --- Gemini API Logic ---
-    
-    // Function to extract menu text from the HTML to provide context to the model
     function getMenuText() {
         const menuCards = document.querySelectorAll('.menu-card');
         let menuText = '';
@@ -549,7 +534,6 @@
     }
 
     getSuggestionBtn.addEventListener('click', async () => {
-        // --- API Key Configuration ---
         const apiKey = "AIzaSyBrN3Rr9f1vK8bwb7eLEOeOI9Qs29hKXPw"; 
 
         const userPrompt = suggestionPromptInput.value.trim();
@@ -558,12 +542,10 @@
             return;
         }
 
-        // --- Start Loading State ---
         getSuggestionBtn.disabled = true;
         getSuggestionBtn.textContent = 'Thinking...';
         suggestionResultDiv.innerHTML = `<p style="text-align: center;">Let's see... 🔥</p>`;
 
-        // --- Prepare the prompt for the Gemini API ---
         const menuContext = getMenuText();
         const fullPrompt = `You are a friendly and enthusiastic food recommender for the Hakuna Matata Gaming Cafe. A customer is trying to decide what to order.
 
@@ -576,7 +558,6 @@
 
         Provide your answer as a JSON array where each object has "name" and "reason" keys. For example: [{"name": "Spicy Seoul Mate (Gochujang)", "reason": "It's a fiery burger that will match your craving for something spicy!"}]`;
 
-        // --- Make the API Call ---
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
         const payload = {
@@ -633,7 +614,6 @@
             console.error("Error with Gemini API:", error);
             suggestionResultDiv.innerHTML = `<p style="color: var(--secondary-glow);">Sorry, I had trouble coming up with a suggestion. Please try again!</p>`;
         } finally {
-            // --- End Loading State ---
             getSuggestionBtn.disabled = false;
             getSuggestionBtn.innerHTML = '✨ Get Suggestion';
         }
