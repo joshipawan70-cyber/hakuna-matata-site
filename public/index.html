@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hakuna Matata Gaming Cafe</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* --- NEW: Color Palette with Neon Green & Global Styles --- */
+    /* Using a more modern approach with Tailwind CSS for base styles, but keeping custom CSS for the unique aesthetic */
     :root {
       --primary-glow: #39ff14; /* Neon Green */
       --secondary-glow: #0077ff; /* Electric Blue */
@@ -20,174 +21,103 @@
       --border-color: rgba(255, 255, 255, 0.2);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
       background-color: var(--dark-bg);
-      /* NEW: Subtle animated gradient background */
+      /* Subtle animated gradient background */
       background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
                         radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
       background-size: 200% 200%;
       animation: background-pan 20s ease-in-out infinite;
-      color: var(--text-color);
-      /* NEW: Using the imported fonts */
       font-family: 'Poppins', sans-serif;
-      line-height: 1.6;
     }
 
-    /* NEW: Animation for the background */
+    /* Animation for the background */
     @keyframes background-pan {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
     
-    a {
-      color: var(--primary-glow);
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* --- NEW: Header, Section, and Footer Styles --- */
-    header, #contact, footer, .intro {
-      text-align: center;
-      padding: 40px 20px;
-      background: rgba(0, 0, 0, 0.2);
-      border-bottom: 1px solid var(--border-color);
-    }
-    .intro {
-      border: none;
-      padding-top: 28px;
-    }
-    #contact {
-      border-top: 1px solid var(--border-color);
-    }
-    footer {
-        padding: 20px;
-    }
-
-    /* --- NEW: Header Styles with Neon Glow --- */
+    /* Header Styles with Neon Glow */
     h1, h2, h3 {
       font-family: 'Orbitron', sans-serif;
-      color: #fff;
       text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
     }
-    header h1 { margin: 0 0 8px; font-size: 2.4rem; }
-    header p { margin: 0; color: #aaa; }
-    .intro h2, #contact h2 { margin: 0 0 12px; }
-    
-    /* --- NEW: Styling for Cards Container --- */
-    .facilities {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      padding: 26px 20px 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .card-link { display: block; }
-    
-    /* --- NEW: The "Glassmorphism" Card with Glow on Hover --- */
-    .card {
+
+    /* The "Glassmorphism" Card with Glow on Hover */
+    .glass-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 22px;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
-    .card:hover {
+    .glass-card:hover {
       transform: translateY(-8px);
       border-color: var(--primary-glow);
       box-shadow: 0 0 20px var(--primary-glow);
     }
-    .card h3 { font-size: 1.4rem; margin: 0 0 8px; }
-    .card p { margin: 0; color: #aaa; }
-    
-    /* --- NEW: Styling for Contact Section --- */
-    .contact-grid {
-      max-width: 1100px;
-      margin: 20px auto 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 22px;
-    }
-    .contact-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 20px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      text-align: left;
-    }
-    .contact-box p { margin: 8px 0; }
-    .map iframe {
-      width: 100%;
-      height: 100%;
-      min-height: 250px;
-      border: 0;
-      border-radius: 12px;
-    }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Hakuna Matata Gaming Cafe</h1>
-    <p>Delicious food, cool drinks & fun gaming experience!</p>
+<body class="text-[var(--text-color)] leading-relaxed">
+
+  <!-- Header Section -->
+  <header class="text-center p-10 bg-black bg-opacity-20 border-b border-[var(--border-color)]">
+    <h1 class="text-4xl font-bold mb-2 text-white">Hakuna Matata Gaming Cafe</h1>
+    <p class="text-gray-400">Delicious food, cool drinks & fun gaming experience!</p>
   </header>
 
-  <section class="intro">
-    <h2>Welcome to Hakuna Matata</h2>
-    <p>Play, Eat & Enjoy with your friends in a fun-filled cafe!</p>
+  <!-- Intro Section -->
+  <section class="text-center py-10 px-5">
+    <h2 class="text-3xl font-bold mb-3 text-white">Welcome to Hakuna Matata</h2>
+    <p class="max-w-2xl mx-auto">Play, Eat & Enjoy with your friends in a fun-filled cafe!</p>
   </section>
 
-  <section class="facilities">
-    <a href="gaming.html" class="card-link">
-      <div class="card">
-        <h3>🎮 Gaming</h3>
-        <p>Consoles, hourly packages & tournaments.</p>
-      </div>
-    </a>
-    <a href="menu.html" class="card-link">
-      <div class="card">
-        <h3>🍴 Food & Drinks</h3>
-        <p>Tasty snacks, meals & refreshing beverages.</p>
-      </div>
-    </a>
+  <!-- Facilities Section -->
+  <section class="py-10 px-5">
+    <div class="max-w-lg mx-auto">
+      <a href="#" class="block glass-card rounded-2xl p-6 text-center no-underline">
+        <h3 class="text-2xl font-bold mb-2 text-white">🍴 Food & Drinks</h3>
+        <p class="text-gray-400">Tasty snacks, meals & refreshing beverages.</p>
+      </a>
+    </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <div class="contact-grid">
-      <div class="contact-box">
-        <p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
-        <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+  <!-- Contact Section -->
+  <section id="contact" class="py-10 px-5 bg-black bg-opacity-20 border-t border-[var(--border-color)]">
+    <h2 class="text-3xl font-bold text-center mb-8 text-white">Contact Us</h2>
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+      <!-- Contact Details Box -->
+      <div class="glass-card rounded-2xl p-6">
+        <p class="mb-2"><strong>Phone:</strong> <a href="tel:+919348091035" class="text-[var(--primary-glow)] hover:underline">9348091035</a></p>
+        <p class="mb-2"><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com" class="text-[var(--primary-glow)] hover:underline">hakunaxmatataper@gmail.com</a></p>
         <p><strong>Address:</strong><br>
           Hakuna Matata Gaming Cafe,<br>
           No 42 Christ Lane, Hosur Main Road,<br>
           Near Mekeba Restaurant, SG Palya, 560029
         </p>
       </div>
-      <div class="contact-box map">
-        <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
-          allowfullscreen loading="lazy"></iframe>
+      <!-- Map Box -->
+      <div class="glass-card rounded-2xl p-2 md:p-3">
+        <iframe 
+          src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
+          class="w-full h-full min-h-[250px] border-0 rounded-lg"
+          allowfullscreen 
+          loading="lazy">
+        </iframe>
       </div>
     </div>
   </section>
 
-  <footer>
+  <!-- Footer Section -->
+  <footer class="text-center p-5 bg-black bg-opacity-20 border-t border-[var(--border-color)] text-sm text-gray-400">
     <p>© 2025 Hakuna Matata Gaming Cafe</p>
-    <p><a href="privacy.html">Privacy Policy</a> | 
-       <a href="terms.html">Terms & Conditions</a> | 
-       <a href="refund.html">Refund Policy</a></p>
+    <p>
+      <a href="#" class="text-[var(--primary-glow)] hover:underline">Privacy Policy</a> | 
+      <a href="#" class="text-[var(--primary-glow)] hover:underline">Terms & Conditions</a> | 
+      <a href="#" class="text-[var(--primary-glow)] hover:underline">Refund Policy</a>
+    </p>
   </footer>
+
 </body>
 </html>
