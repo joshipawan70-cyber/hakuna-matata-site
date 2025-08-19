@@ -34,6 +34,7 @@
       animation: background-pan 20s ease-in-out infinite;
       color: var(--text-color-main);
       font-family: 'Poppins', sans-serif;
+      padding-top: 90px; /* Added padding for fixed header */
     }
 
     @keyframes background-pan {
@@ -46,6 +47,18 @@
       font-family: 'Orbitron', sans-serif;
       color: #fff;
       text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
+    }
+
+    .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(13, 13, 26, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 100;
+        border-bottom: 1px solid var(--border-color-main);
     }
 
     .card {
@@ -197,19 +210,21 @@
   </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col">
-  <header class="max-w-6xl mx-auto w-full px-4 py-6 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-       <img src="logo.jpeg" alt="Hakuna Matata Gaming Logo" class="w-10 h-10 rounded-xl">
-      <div>
-        <h1 class="text-xl font-bold">Hakuna Matata Gaming</h1>
-        <p class="text-sm text-slate-400">Subscriptions for PS5 & more</p>
-      </div>
+  <header class="site-header">
+    <div class="max-w-6xl mx-auto w-full px-4 py-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+        <img src="logo.jpeg" alt="Hakuna Matata Gaming Logo" class="w-10 h-10 rounded-xl">
+        <div>
+            <h1 class="text-xl font-bold">Hakuna Matata Gaming</h1>
+            <p class="text-sm text-slate-400">Subscriptions for PS5 & more</p>
+        </div>
+        </div>
+        <nav class="hidden sm:flex items-center gap-4">
+            <a href="index.html" class="text-slate-300 hover:text-white transition-colors">Home</a>
+            <a href="gaming.html" class="text-slate-300 hover:text-white transition-colors">Gaming</a>
+            <a href="menu.html" class="text-slate-300 hover:text-white transition-colors">Food</a>
+        </nav>
     </div>
-    <nav class="hidden sm:flex items-center gap-4">
-        <a href="index.html" class="text-slate-300 hover:text-white transition-colors">Home</a>
-        <a href="gaming.html" class="text-slate-300 hover:text-white transition-colors">Gaming</a>
-        <a href="menu.html" class="text-slate-300 hover:text-white transition-colors">Food</a>
-    </nav>
   </header>
 
   <!-- Main Content -->
