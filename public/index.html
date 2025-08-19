@@ -31,10 +31,22 @@
 
     body {
       background-color: var(--dark-bg);
+      /* NEW: Added animated gradient background */
+      background-image: radial-gradient(circle at top right, var(--secondary-color), transparent 40%),
+                        radial-gradient(circle at bottom left, var(--primary-color), transparent 40%);
+      background-size: 200% 200%;
+      animation: background-pan 20s ease-in-out infinite;
       color: var(--text-color);
       font-family: 'Poppins', sans-serif;
       line-height: 1.7;
       overflow-x: hidden;
+    }
+    
+    /* NEW: Animation for the background */
+    @keyframes background-pan {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     
     a {
@@ -492,7 +504,7 @@
         try {
             const response = await fetch(apiUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'x-requested-with': 'XMLHttpRequest' },
                 body: JSON.stringify(payload)
             });
 
