@@ -100,6 +100,20 @@
     }
     header {
         border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    .header-content {
+        text-align: left;
+    }
+    .header-logo {
+        max-width: 100px;
+        height: auto;
+        border-radius: 50%;
+        border: 2px solid var(--border-color);
+        box-shadow: 0 0 15px var(--primary-glow);
     }
     footer {
         border-top: 1px solid var(--border-color);
@@ -116,8 +130,8 @@
       color: #fff;
       text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
     }
-    header h1 { margin-bottom: 4px; font-size: 2.2rem; }
-    header p { color: #aaa; margin: 0; }
+    header h1 { margin-bottom: 4px; font-size: 2.2rem; text-align: left; }
+    header p { color: #aaa; margin: 0; text-align: left;}
     
     main {
       max-width: 1400px;
@@ -335,8 +349,15 @@
     }
 
     @media (max-width: 800px) {
+        header {
+            flex-direction: column;
+        }
         header h1 {
             font-size: 1.8rem;
+            text-align: center;
+        }
+        header p {
+            text-align: center;
         }
         main {
             padding: 20px 15px;
@@ -377,8 +398,11 @@
   </div>
 
   <header>
-    <h1>🍴 Food & Drinks Menu</h1>
-    <p>Fuel your gameplay with our delicious range of food and beverages</p>
+    <img src="logo.jpeg" alt="Hakuna Matata Logo" class="header-logo">
+    <div class="header-content">
+        <h1>🍴 Food & Drinks Menu</h1>
+        <p>Fuel your gameplay with our delicious range of food and beverages</p>
+    </div>
     <button id="showSuggestionModal" class="gemini-btn">✨ Stuck on what to order?</button>
   </header>
 
