@@ -194,7 +194,7 @@
     /* --- Facilities Section --- */
     .facilities-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 30px;
       margin-top: 40px;
     }
@@ -482,7 +482,7 @@
             <p>Unlock exclusive monthly plans and save big.</p>
         </div>
       </a>
-      <div class="card facility-card" id="tournamentCard">
+      <div class="card facility-card" id="tournamentCard" style="grid-column: 1 / -1;">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-color);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <h3>✨ Tournament Ideas</h3>
         <p>Get AI-powered ideas for your next competitive event.</p>
