@@ -1,385 +1,547 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Hakuna Matata Gaming Cafe</title>
-
-
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
-
-
-
-  <style>
-
-    /* --- NEW: Color Palette with Neon Green & Global Styles --- */
-
-    :root {
-
-      --primary-glow: #39ff14; /* Neon Green */
-
-      --secondary-glow: #0077ff; /* Electric Blue */
-
-      --dark-bg: #0d0d1a; /* A very dark, deep blue */
-
-      --card-bg: rgba(20, 30, 25, 0.6); /* Semi-transparent dark green for the "glass" effect */
-
-      --text-color: #f0f0f0;
-
-      --border-color: rgba(255, 255, 255, 0.2);
-
-    }
-
-
-
-    * {
-
-      box-sizing: border-box;
-
-      margin: 0;
-
-      padding: 0;
-
-    }
-
-
-
-    body {
-
-      background-color: var(--dark-bg);
-
-      /* NEW: Subtle animated gradient background */
-
-      background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
-
-                        radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
-
-      background-size: 200% 200%;
-
-      animation: background-pan 20s ease-in-out infinite;
-
-      color: var(--text-color);
-
-      /* NEW: Using the imported fonts */
-
-      font-family: 'Poppins', sans-serif;
-
-      line-height: 1.6;
-
-    }
-
-
-
-    /* NEW: Animation for the background */
-
-    @keyframes background-pan {
-
-      0% { background-position: 0% 50%; }
-
-      50% { background-position: 100% 50%; }
-
-      100% { background-position: 0% 50%; }
-
-    }
-
-    
-
-    a {
-
-      color: var(--primary-glow);
-
-      text-decoration: none;
-
-    }
-
-    a:hover {
-
-      text-decoration: underline;
-
-    }
-
-
-
-    /* --- NEW: Header, Section, and Footer Styles --- */
-
-    header, #contact, footer, .intro {
-
-      text-align: center;
-
-      padding: 40px 20px;
-
-      background: rgba(0, 0, 0, 0.2);
-
-      border-bottom: 1px solid var(--border-color);
-
-    }
-
-    .intro {
-
-      border: none;
-
-      padding-top: 28px;
-
-    }
-
-    #contact {
-
-      border-top: 1px solid var(--border-color);
-
-    }
-
-    footer {
-
-        padding: 20px;
-
-    }
-
-
-
-    /* --- NEW: Header Styles with Neon Glow --- */
-
-    h1, h2, h3 {
-
-      font-family: 'Orbitron', sans-serif;
-
-      color: #fff;
-
-      text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
-
-    }
-
-    header h1 { margin: 0 0 8px; font-size: 2.4rem; }
-
-    header p { margin: 0; color: #aaa; }
-
-    .intro h2, #contact h2 { margin: 0 0 12px; }
-
-    
-
-    /* --- NEW: Styling for Cards Container --- */
-
-    .facilities {
-
-      display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
-      gap: 25px;
-
-      padding: 26px 20px 40px;
-
-      max-width: 900px;
-
-      margin: 0 auto;
-
-    }
-
-    .card-link { display: block; }
-
-    
-
-    /* --- NEW: The "Glassmorphism" Card with Glow on Hover --- */
-
-    .card {
-
-      background: var(--card-bg);
-
-      border: 1px solid var(--border-color);
-
-      border-radius: 16px;
-
-      padding: 22px;
-
-      backdrop-filter: blur(10px);
-
-      -webkit-backdrop-filter: blur(10px);
-
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-
-    }
-
-    .card:hover {
-
-      transform: translateY(-8px);
-
-      border-color: var(--primary-glow);
-
-      box-shadow: 0 0 20px var(--primary-glow);
-
-    }
-
-    .card h3 { font-size: 1.4rem; margin: 0 0 8px; }
-
-    .card p { margin: 0; color: #aaa; }
-
-    
-
-    /* --- NEW: Styling for Contact Section --- */
-
-    .contact-grid {
-
-      max-width: 1100px;
-
-      margin: 20px auto 0;
-
-      display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-      gap: 22px;
-
-    }
-
-    .contact-box {
-
-      background: var(--card-bg);
-
-      border: 1px solid var(--border-color);
-
-      border-radius: 16px;
-
-      padding: 20px;
-
-      backdrop-filter: blur(10px);
-
-      -webkit-backdrop-filter: blur(10px);
-
-      text-align: left;
-
-    }
-
-    .contact-box p { margin: 8px 0; }
-
-    .map iframe {
-
-      width: 100%;
-
-      height: 100%;
-
-      min-height: 250px;
-
-      border: 0;
-
-      border-radius: 12px;
-
-    }
-
-  </style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hakuna Matata Gaming Cafe</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #9f55ff; /* Vibrant Purple */
+      --secondary-color: #00d9ff; /* Cyan Blue */
+      --dark-bg: #0f0f1b;
+      --card-bg: rgba(25, 25, 40, 0.7);
+      --text-color: #e0e0e0;
+      --border-color: rgba(159, 85, 255, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: var(--secondary-color);
+    }
+    
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* --- Navigation Bar --- */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px 0;
+        background: rgba(15, 15, 27, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .nav-logo {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        color: #fff;
+        text-shadow: 0 0 5px var(--primary-color);
+    }
+    .nav-links a {
+        color: var(--text-color);
+        margin-left: 25px;
+        font-weight: 600;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    .nav-links a:hover {
+        color: var(--primary-color);
+        text-shadow: 0 0 5px var(--primary-color);
+    }
+
+    /* --- Section Styles --- */
+    section {
+        padding: 80px 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    h2 { 
+        font-size: 2.5rem; 
+        text-shadow: 0 0 8px var(--primary-color), 0 0 12px var(--primary-color);
+    }
+    h3 { 
+        font-size: 1.5rem; 
+        text-shadow: 0 0 6px var(--primary-color);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 80px; /* Offset for navbar */
+        position: relative;
+        overflow: hidden;
+    }
+    #bg-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -2;
+        transform: translateX(-50%) translateY(-50%);
+        opacity: 0.15;
+    }
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 15px;
+        text-shadow: 
+            2px 2px 2px rgba(15, 15, 27, 0.7),
+            0 0 8px var(--primary-color), 
+            0 0 12px var(--primary-color);
+    }
+    .hero p {
+        font-size: 1.2rem;
+        color: #aaa;
+        max-width: 600px;
+        margin: 0 auto 30px auto;
+    }
+    .cta-button {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem;
+        padding: 15px 30px;
+        border: 2px solid var(--primary-color);
+        border-radius: 50px;
+        background: transparent;
+        color: var(--primary-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--primary-color);
+    }
+    .cta-button:hover {
+        background: var(--primary-color);
+        color: var(--dark-bg);
+        box-shadow: 0 0 25px var(--primary-color), 0 0 40px var(--primary-color);
+        transform: scale(1.05);
+    }
+
+    /* --- Facilities Section --- */
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px var(--primary-color);
+    }
+    #tournamentCard {
+        grid-column: 1 / 3; /* Span across both columns */
+    }
+    .card .icon {
+        height: 60px;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }
+    .card:hover .icon {
+        transform: scale(1.1);
+    }
+    .card p { margin: 0; color: #aaa; }
+
+    /* --- Why Choose Us Section --- */
+    .feature {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        margin-bottom: 60px;
+    }
+    .feature:last-child {
+        margin-bottom: 0;
+    }
+    .feature-text {
+        text-align: left;
+    }
+    .feature-img img {
+        width: 100%;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+    }
+    .feature:nth-child(even) .feature-img {
+        order: -1;
+    }
+
+    /* --- Contact Section --- */
+    .contact-grid {
+      max-width: 1100px;
+      margin: 40px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .contact-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      text-align: left;
+    }
+    .contact-box p { margin: 15px 0; }
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+      border-radius: 16px;
+    }
+
+    /* --- Footer --- */
+    footer {
+        text-align: center;
+        padding: 30px 20px;
+        background: rgba(15, 15, 27, 0.8);
+        border-top: 1px solid var(--border-color);
+    }
+    footer p {
+        margin: 5px 0;
+    }
+
+    /* --- Modal Styles --- */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.7);
+        backdrop-filter: blur(5px);
+    }
+    .modal-content {
+        position: relative;
+        margin: 10% auto;
+        padding: 30px;
+        width: 90%;
+        max-width: 600px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+    }
+    .close-btn {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #tournamentResults h4 {
+        color: var(--primary-color);
+        margin-top: 15px;
+    }
+    #tournamentResults p {
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links { display: none; } /* Simple hide for mobile, can be replaced with a burger menu */
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        .facilities-grid, .feature, .contact-grid {
+            grid-template-columns: 1fr;
+        }
+        #tournamentCard {
+            grid-column: auto; /* Reset for single column layout */
+        }
+        .feature:nth-child(even) .feature-img {
+            order: 1;
+        }
+        .feature-text {
+            text-align: center;
+        }
+    }
+  </style>
 </head>
-
 <body>
+  
+  <nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">Hakuna Matata</a>
+        <div class="nav-links">
+            <a href="#facilities">Facilities</a>
+            <a href="#why-us">Why Us</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+  </nav>
 
-  <header>
+  <header class="hero">
+    <video autoplay muted loop id="bg-video">
+        <source src="https://cdn.pixabay.com/video/2023/05/24/163200-82848222_large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container">
+      <h1>Hakuna Matata Gaming Cafe</h1>
+      <p>Your ultimate destination for competitive gaming, delicious food, and an electrifying atmosphere. Level up your experience!</p>
+      <a href="gaming.html" class="cta-button">Book Your Spot Now</a>
+    </div>
+  </header>
 
-    <h1>Hakuna Matata Gaming Cafe</h1>
+  <section id="facilities" class="container">
+    <h2>Our World</h2>
+    <div class="facilities-grid">
+      <a href="gaming.html" class="card-link">
+        <div class="card">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-color);"><path d="M2 12h2l2-5 4 10 4-5 2 5h2"/><path d="M5 17a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5z"/></svg>
+          <h3>🎮 Elite Gaming</h3>
+          <p>Latest consoles, racing wheels, and lightning-fast internet.</p>
+        </div>
+      </a>
+      <a href="menu.html" class="card-link">
+        <div class="card">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-color);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <h3>🍴 Fuel & Drinks</h3>
+          <p>Delicious snacks, full meals, and epic energy drinks.</p>
+        </div>
+      </a>
+      <div class="card" id="tournamentCard">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--primary-color);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h3>✨ Tournament Ideas</h3>
+        <p>Get AI-powered ideas for your next competitive event.</p>
+      </div>
+    </div>
+  </section>
 
-    <p>Delicious food, cool drinks & fun gaming experience!</p>
+  <section id="why-us" class="container">
+    <h2>Why Choose Us?</h2>
+    <div class="feature">
+        <div class="feature-text">
+            <h3>Top-Tier Equipment</h3>
+            <p>Experience zero lag and stunning graphics with our state-of-the-art consoles and peripherals. We provide everything you need to play like a pro.</p>
+        </div>
+        <div class="feature-img">
+            <img src="https://placehold.co/600x400/0f0f1b/9f55ff?text=Next-Gen+Hardware" alt="Gaming Consoles">
+        </div>
+    </div>
+    <div class="feature">
+        <div class="feature-text">
+            <h3>Vibrant Community</h3>
+            <p>Join a passionate community of gamers. Participate in regular tournaments, meet new teammates, and share your love for gaming in a friendly, inclusive space.</p>
+        </div>
+        <div class="feature-img">
+            <img src="https://placehold.co/600x400/0f0f1b/00d9ff?text=Gaming+Community" alt="Gamers playing together">
+        </div>
+    </div>
+  </section>
 
-  </header>
+  <section id="contact" class="container">
+      <h2>Find & Contact Us</h2>
+      <div class="contact-grid">
+        <div class="contact-box">
+          <p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
+          <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+          <p><strong>Address:</strong><br>
+            Hakuna Matata Gaming Cafe,<br>
+            No 42 Christ Lane, Hosur Main Road,<br>
+            Near Mekeba Restaurant, SG Palya, 560029
+          </p>
+        </div>
+        <div class="contact-box map">
+          <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+  </section>
 
+  <footer>
+    <div class="container">
+      <p>© 2025 Hakuna Matata Gaming Cafe</p>
+      <p><a href="privacy.html">Privacy Policy</a> | 
+         <a href="terms.html">Terms & Conditions</a> | 
+         <a href="refund.html">Refund Policy</a></p>
+    </div>
+  </footer>
 
+  <!-- Tournament Idea Modal -->
+  <div id="tournamentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Tournament Idea Generator</h2>
+        <p>Enter a game or genre to get ideas for your next tournament!</p>
+        <input type="text" id="gamePrompt" placeholder="e.g., FIFA, Fighting Games, Fortnite" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.3); color: var(--text-color);">
+        <button id="generateIdeasBtn" style="width: 100%; padding: 12px; border-radius: 8px; border: none; background: var(--primary-color); color: var(--dark-bg); font-weight: bold; cursor: pointer;">Generate Ideas</button>
+        <div id="tournamentResults" style="margin-top: 20px;"></div>
+    </div>
+  </div>
 
-  <section class="intro">
+  <script>
+    const tournamentCard = document.getElementById('tournamentCard');
+    const tournamentModal = document.getElementById('tournamentModal');
+    const generateIdeasBtn = document.getElementById('generateIdeasBtn');
+    const gamePromptInput = document.getElementById('gamePrompt');
+    const tournamentResults = document.getElementById('tournamentResults');
 
-    <h2>Welcome to Hakuna Matata</h2>
+    tournamentCard.onclick = () => {
+        tournamentModal.style.display = 'block';
+    };
 
-    <p>Play, Eat & Enjoy with your friends in a fun-filled cafe!</p>
+    document.querySelector('#tournamentModal .close-btn').onclick = () => {
+        tournamentModal.style.display = 'none';
+    };
 
-  </section>
+    window.onclick = (event) => {
+        if (event.target == tournamentModal) {
+            tournamentModal.style.display = 'none';
+        }
+    };
 
+    generateIdeasBtn.onclick = async () => {
+        const gamePrompt = gamePromptInput.value;
+        if (!gamePrompt) {
+            tournamentResults.innerHTML = '<p>Please enter a game or genre.</p>';
+            return;
+        }
 
+        generateIdeasBtn.disabled = true;
+        generateIdeasBtn.textContent = 'Generating...';
+        tournamentResults.innerHTML = '<p>Thinking of some cool ideas...</p>';
 
-  <section class="facilities">
+        const fullPrompt = `You are an expert event planner for a gaming cafe called Hakuna Matata. Generate 3 creative and exciting tournament ideas for the game/genre: "${gamePrompt}".
 
-    <a href="gaming.html" class="card-link">
+        For each idea, provide:
+        - A catchy "Tournament Name".
+        - A brief "Description" of the tournament format and theme.
+        - A unique "Prize Idea" that fits the theme.
 
-      <div class="card">
+        Format the output clearly with headings for each idea.`;
 
-        <h3>🎮 Gaming</h3>
+        const apiKey = ""; // This will be handled by the execution environment
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        
+        const payload = {
+            contents: [{
+                parts: [{ text: fullPrompt }]
+            }]
+        };
 
-        <p>Consoles, hourly packages & tournaments.</p>
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
 
-      </div>
+            if (!response.ok) {
+                throw new Error('API request failed');
+            }
 
-    </a>
+            const result = await response.json();
+            const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    <a href="menu.html" class="card-link">
+            if (responseText) {
+                // Simple formatting to make the output look nice
+                const formattedText = responseText
+                    .replace(/Tournament Name:/g, '<h4>')
+                    .replace(/Description:/g, '</h4><p><strong>Description:</strong>')
+                    .replace(/Prize Idea:/g, '</p><p><strong>Prize Idea:</strong>')
+                    .replace(/\n/g, '<br>');
+                tournamentResults.innerHTML = formattedText + '</p>';
+            } else {
+                tournamentResults.innerHTML = '<p>Sorry, I couldn\'t come up with any ideas right now. Try again!</p>';
+            }
+        } catch (error) {
+            console.error("Error with Gemini API:", error);
+            tournamentResults.innerHTML = '<p>There was an error generating ideas. Please try again later.</p>';
+        } finally {
+            generateIdeasBtn.disabled = false;
+            generateIdeasBtn.textContent = 'Generate Ideas';
+        }
+    };
+    
+    // Intersection Observer for scroll animations
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
 
-      <div class="card">
+    // Observe all sections except the hero
+    document.querySelectorAll('section:not(.hero)').forEach(section => {
+        observer.observe(section);
+    });
+    // Manually trigger the hero section animation
+    document.querySelector('.hero').classList.add('visible');
 
-        <h3>🍴 Food & Drinks</h3>
-
-        <p>Tasty snacks, meals & refreshing beverages.</p>
-
-      </div>
-
-    </a>
-
-  </section>
-
-
-
-  <section id="contact">
-
-    <h2>Contact Us</h2>
-
-    <div class="contact-grid">
-
-      <div class="contact-box">
-
-        <p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
-
-        <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
-
-        <p><strong>Address:</strong><br>
-
-          Hakuna Matata Gaming Cafe,<br>
-
-          No 42 Christ Lane, Hosur Main Road,<br>
-
-          Near Mekeba Restaurant, SG Palya, 560029
-
-        </p>
-
-      </div>
-
-      <div class="contact-box map">
-
-        <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
-
-          allowfullscreen loading="lazy"></iframe>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <footer>
-
-    <p>© 2025 Hakuna Matata Gaming Cafe</p>
-
-    <p><a href="privacy.html">Privacy Policy</a> | 
-
-       <a href="terms.html">Terms & Conditions</a> | 
-
-       <a href="refund.html">Refund Policy</a></p>
-
-  </footer>
+  </script>
 
 </body>
-
-</html
+</html>
