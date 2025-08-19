@@ -31,7 +31,6 @@
 
     body {
       background-color: var(--dark-bg);
-      /* NEW: Added animated gradient background */
       background-image: radial-gradient(circle at top right, var(--secondary-color), transparent 40%),
                         radial-gradient(circle at bottom left, var(--primary-color), transparent 40%);
       background-size: 200% 200%;
@@ -42,7 +41,6 @@
       overflow-x: hidden;
     }
     
-    /* NEW: Animation for the background */
     @keyframes background-pan {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -136,9 +134,8 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding-top: 80px; /* Offset for navbar */
+        padding: 80px 20px;
         position: relative;
-        overflow: hidden;
     }
     #bg-video {
         position: absolute;
@@ -207,7 +204,7 @@
       box-shadow: 0 0 20px var(--primary-color);
     }
     #tournamentCard {
-        grid-column: 1 / 3; /* Span across both columns */
+        grid-column: 1 / 3;
     }
     .card .icon {
         height: 60px;
@@ -319,15 +316,76 @@
         margin-bottom: 10px;
     }
 
+    /* --- Mobile Menu Styles --- */
+    .hamburger-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    .hamburger-btn .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: var(--text-color);
+        transition: all 0.3s ease-in-out;
+    }
+    .mobile-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 15, 27, 0.95);
+        backdrop-filter: blur(15px);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.4s ease-in-out;
+    }
+    .mobile-nav.open {
+        right: 0;
+    }
+    .mobile-nav a {
+        font-size: 1.5rem;
+        margin: 20px 0;
+        font-family: 'Orbitron', sans-serif;
+        color: var(--text-color);
+    }
+    .mobile-nav .close-mobile-nav {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 2rem;
+        color: var(--text-color);
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+
     @media (max-width: 768px) {
-        .nav-links { display: none; } /* Simple hide for mobile, can be replaced with a burger menu */
+        .nav-links { display: none; }
+        .hamburger-btn { display: block; }
+
         h1 { font-size: 2.5rem; }
         h2 { font-size: 2rem; }
+
+        .hero { min-height: 80vh; padding: 60px 20px; }
+        .hero h1 { font-size: 2.8rem; }
+        .hero p { font-size: 1.1rem; }
+        
+        section { padding: 60px 20px; }
+
         .facilities-grid, .feature, .contact-grid {
             grid-template-columns: 1fr;
         }
         #tournamentCard {
-            grid-column: auto; /* Reset for single column layout */
+            grid-column: auto;
         }
         .feature:nth-child(even) .feature-img {
             order: 1;
@@ -342,14 +400,28 @@
   
   <nav class="navbar">
     <div class="nav-container">
-        <a href="#" class="nav-logo">Hakuna Matata</a>
+        <a href="index.html" class="nav-logo">Hakuna Matata</a>
         <div class="nav-links">
             <a href="#facilities">Facilities</a>
             <a href="#why-us">Why Us</a>
             <a href="#contact">Contact</a>
         </div>
+        <button id="hamburgerBtn" class="hamburger-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
     </div>
   </nav>
+
+  <div id="mobileNav" class="mobile-nav">
+    <button id="closeMobileNav" class="close-mobile-nav">&times;</button>
+    <a href="#facilities">Facilities</a>
+    <a href="#why-us">Why Us</a>
+    <a href="#contact">Contact</a>
+    <a href="gaming.html">Book Now</a>
+    <a href="menu.html">Menu</a>
+  </div>
 
   <header class="hero">
     <video autoplay muted loop id="bg-video">
@@ -456,7 +528,24 @@
     const generateIdeasBtn = document.getElementById('generateIdeasBtn');
     const gamePromptInput = document.getElementById('gamePrompt');
     const tournamentResults = document.getElementById('tournamentResults');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeMobileNavBtn = document.getElementById('closeMobileNav');
 
+    // --- Mobile Menu Logic ---
+    hamburgerBtn.onclick = () => {
+        mobileNav.classList.add('open');
+    };
+    closeMobileNavBtn.onclick = () => {
+        mobileNav.classList.remove('open');
+    };
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNav.classList.remove('open');
+        });
+    });
+
+    // --- Modal Logic ---
     tournamentCard.onclick = () => {
         tournamentModal.style.display = 'block';
     };
@@ -516,7 +605,6 @@
             const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
             if (responseText) {
-                // Simple formatting to make the output look nice
                 const formattedText = responseText
                     .replace(/Tournament Name:/g, '<h4>')
                     .replace(/Description:/g, '</h4><p><strong>Description:</strong>')
@@ -547,7 +635,6 @@
         threshold: 0.1
     });
 
-    // Observe all sections
     document.querySelectorAll('section').forEach(section => {
         observer.observe(section);
     });
