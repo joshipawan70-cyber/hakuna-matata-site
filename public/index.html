@@ -150,12 +150,13 @@
         opacity: 0.15;
     }
     .hero-logo {
-        max-width: 250px; /* Reduced size */
+        max-width: 250px;
         width: 60%;
         height: auto;
         margin-bottom: 25px;
-        opacity: 0.8; /* Added for blending */
-        filter: drop-shadow(0 0 15px var(--primary-color)); /* Added glow */
+        border-radius: 50%; /* Makes the logo circular */
+        border: 2px solid var(--border-color); /* Adds a subtle border */
+        box-shadow: 0 0 25px var(--primary-color); /* Creates a glowing effect */
     }
     .hero p {
         font-size: 1.2rem;
@@ -375,7 +376,7 @@
         h2 { font-size: 2rem; }
 
         .hero { min-height: 80vh; padding: 60px 20px; }
-        .hero-logo { width: 90%; margin-bottom: 20px;}
+        .hero-logo { width: 70%; max-width: 200px; margin-bottom: 20px;}
         .hero p { font-size: 1rem; }
         
         section { padding: 60px 20px; }
