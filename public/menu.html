@@ -19,6 +19,10 @@
       --text-color: #f0f0f0;
       --border-color: rgba(255, 153, 0, 0.2);
       --muted-text: #a9a9a9;
+
+      /* --- Navbar Color Palette (Purple Theme from Main Page) --- */
+      --primary-color-nav: #9f55ff; /* Vibrant Purple */
+      --border-color-nav: rgba(159, 85, 255, 0.3);
     }
 
     * {
@@ -36,6 +40,7 @@
       color: var(--text-color);
       font-family: 'Poppins', sans-serif;
       line-height: 1.6;
+      padding-top: 70px; /* Added padding to prevent content from hiding behind the fixed navbar */
     }
 
     @keyframes background-pan {
@@ -50,6 +55,44 @@
     }
     a:hover {
       text-decoration: underline;
+    }
+
+    /* --- Navigation Bar --- */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px 0;
+        background: rgba(15, 15, 27, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+        border-bottom: 1px solid var(--border-color-nav);
+    }
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .nav-logo {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        color: #fff;
+        text-shadow: 0 0 5px var(--primary-color-nav);
+    }
+    .nav-links a {
+        color: var(--text-color);
+        margin-left: 25px;
+        font-weight: 600;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    .nav-links a:hover {
+        color: var(--primary-color-nav);
+        text-shadow: 0 0 5px var(--primary-color-nav);
+        text-decoration: none;
     }
 
     /* --- Header, Footer & Section Styles --- */
@@ -266,9 +309,23 @@
             margin: 25% auto;
         }
     }
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+    }
   </style>
 </head>
 <body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">Hakuna Matata</a>
+        <div class="nav-links">
+            <a href="index.html#facilities">Facilities</a>
+            <a href="index.html#why-us">Why Us</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+  </nav>
 
   <header>
     <h1>🍴 Food & Drinks Menu</h1>
