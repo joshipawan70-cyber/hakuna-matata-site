@@ -392,7 +392,6 @@
         transform: translateY(-10px);
     }
 
-
     @media (max-width: 768px) {
         .nav-links { display: none; }
         .hamburger-btn { display: block; }
@@ -400,10 +399,13 @@
         /* FIX: prevent hero/logo from being covered by fixed navbar on mobile */
         body { padding-top: 70px; }
 
-        h2 { font-size: 2rem; }
+        /* Smaller title fonts on mobile */
+        h1 { font-size: 2.2rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.2rem; }
 
         .hero { min-height: 80vh; padding: 60px 20px; }
-        .hero h1 { font-size: 2.8rem; }
+        .hero h1 { font-size: 2.4rem; }
         .hero-logo { width: 70%; max-width: 200px; margin-bottom: 20px;}
         .hero p { font-size: 1rem; }
         
@@ -608,12 +610,12 @@
 
         const fullPrompt = `You are an expert event planner for a gaming cafe called Hakuna Matata. Generate 3 creative and exciting tournament ideas for the game/genre: "${gamePrompt}".
 
-        For each idea, provide:
-        - A catchy "Tournament Name".
-        - A brief "Description" of the tournament format and theme.
-        - A unique "Prize Idea" that fits the theme.
+For each idea, provide:
+- A catchy "Tournament Name".
+- A brief "Description" of the tournament format and theme.
+- A unique "Prize Idea" that fits the theme.
 
-        Format the output clearly with headings for each idea.`;
+Format the output clearly with headings for each idea.`;
 
         const apiKey = "AIzaSyBrN3Rr9f1vK8bwb7eLEOeOI9Qs29hKXPw"; // This will be handled by the execution environment
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
