@@ -591,8 +591,7 @@
         Format the output clearly with headings for each idea.`;
 
         const apiKey = ""; // This will be handled by the execution environment
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const apiUrl = `${proxyUrl}https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
         
         const payload = {
             contents: [{
@@ -603,7 +602,7 @@
         try {
             const response = await fetch(apiUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'x-requested-with': 'XMLHttpRequest' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
