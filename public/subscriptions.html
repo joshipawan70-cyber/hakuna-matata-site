@@ -207,6 +207,39 @@
         cursor: pointer;
     }
 
+    /* -------- Polished mobile hamburger styles (added) -------- */
+    .hamburger {
+      display: inline-grid;
+      place-items: center;
+      width: 44px; height: 44px;
+      border: 1px solid var(--border-color-main);
+      border-radius: 12px;
+      background: rgba(0,0,0,0.25);
+      box-shadow: 0 4px 12px rgba(0,0,0,.25);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .hamburger:hover { box-shadow: 0 6px 16px rgba(0,0,0,.35); filter: brightness(1.05); }
+    .hamburger:active { transform: scale(0.98); }
+
+    .hamburger .line {
+      width: 22px; height: 2px; background: var(--text-color-main);
+      border-radius: 2px; transition: transform .25s ease, opacity .2s ease;
+    }
+    .hamburger .line:nth-child(2) { margin: 5px 0; }
+
+    .hamburger.open .line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open .line:nth-child(2) { opacity: 0; }
+    .hamburger.open .line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-panel {
+      transform-origin: top;
+      transform: scaleY(0); opacity: 0;
+      transition: transform .25s ease, opacity .2s ease;
+      border-top: 1px solid var(--border-color-main);
+    }
+    .mobile-panel.open { transform: scaleY(1); opacity: 1; }
+    body.menu-open { overflow: hidden; }
+    /* -------- End polished mobile hamburger styles -------- */
   </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col">
@@ -225,17 +258,22 @@
             <a href="menu.html" class="text-slate-300 hover:text-white transition-colors">Food</a>
         </nav>
 
-        <!-- Mobile Hamburger (added) -->
-        <button id="menu-btn" class="sm:hidden text-slate-300 focus:outline-none text-2xl">
-          ☰
+        <!-- Mobile Hamburger (polished - added) -->
+        <button id="menu-btn"
+                class="hamburger sm:hidden focus:outline-none"
+                aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
         </button>
     </div>
 
-    <!-- Mobile Menu (added) -->
-    <div id="mobile-menu" class="hidden sm:hidden flex-col bg-[rgba(13,13,26,0.95)] px-4 pb-4">
-      <a href="index.html" class="block py-2 text-slate-300 hover:text-white">Home</a>
-      <a href="gaming.html" class="block py-2 text-slate-300 hover:text-white">Gaming</a>
-      <a href="menu.html" class="block py-2 text-slate-300 hover:text-white">Food</a>
+    <!-- Mobile Menu (polished - added) -->
+    <div id="mobile-menu"
+         class="mobile-panel hidden sm:hidden flex flex-col bg-[rgba(13,13,26,0.95)] px-4 pb-4">
+      <a href="index.html" class="block py-3 text-slate-300 hover:text-white">Home</a>
+      <a href="gaming.html" class="block py-3 text-slate-300 hover:text-white">Gaming</a>
+      <a href="menu.html" class="block py-3 text-slate-300 hover:text-white">Food</a>
     </div>
   </header>
 
@@ -350,13 +388,32 @@
     </p>
   </footer>
 
+  <!-- Polished hamburger JS (added) -->
   <script>
-    // === Hamburger toggle (added) ===
     const menuBtn = document.getElementById("menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
+    const body = document.body;
+
+    function toggleMenu(force) {
+      const willOpen = typeof force === "boolean" ? force : !mobileMenu.classList.contains("open");
+      menuBtn.classList.toggle("open", willOpen);
+      mobileMenu.classList.toggle("open", willOpen);
+      mobileMenu.classList.toggle("hidden", !willOpen);
+      menuBtn.setAttribute("aria-expanded", String(willOpen));
+      body.classList.toggle("menu-open", willOpen);
+    }
+
     if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
+      menuBtn.addEventListener("click", () => toggleMenu());
+
+      // auto-close on link click
+      mobileMenu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => toggleMenu(false));
+      });
+
+      // close on ESC
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") toggleMenu(false);
       });
     }
   </script>
