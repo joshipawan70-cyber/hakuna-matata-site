@@ -10,6 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
     /* --- Color Palette & Global Styles (Blue Theme) --- */
@@ -472,7 +474,7 @@
         <button type="button">22:00-23:00</button>
       </div>
       <button id="suggestGameBtn">✨ Suggest a Game for Me</button>
-      <button class="confirm-btn" id="bookNowBtn">Book Now</button>
+      <button class="confirm-btn" id="payNowBtn">Pay ₹50 Advance & Book</button>
     </div>
   </main>
 
@@ -600,7 +602,8 @@
     const db = getFirestore(app);
 
     // --- Cloud Function URLs ---
-    const bookNowUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/booknow";
+    const createOrderUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/createrazorpayorder";
+    const saveBookingUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/savebooking";
     
     // --- DOM Elements ---
     const timeButtons = document.querySelectorAll(".time-slots button");
@@ -610,7 +613,7 @@
     const nameInput = document.getElementById("nameInput");
     const emailInput = document.getElementById("emailInput");
     const phoneInput = document.getElementById("phoneInput");
-    const bookNowBtn = document.getElementById("bookNowBtn");
+    const payNowBtn = document.getElementById("payNowBtn");
     const messageBox = document.getElementById("messageBox");
     
     const bookingsModal = document.getElementById("bookingsModal");
@@ -869,8 +872,8 @@
         }
     };
 
-    // --- BOOK NOW (NO PAYMENT) LOGIC ---
-    bookNowBtn.addEventListener('click', async () => {
+    // --- RAZORPAY INTEGRATION ---
+    payNowBtn.addEventListener('click', async () => {
         const name = nameInput.value;
         const email = emailInput.value;
         const phone = phoneInput.value;
@@ -883,60 +886,81 @@
             return;
         }
 
-        bookNowBtn.disabled = true;
-        bookNowBtn.textContent = "Booking...";
+        payNowBtn.disabled = true;
+        payNowBtn.textContent = "Processing...";
 
         try {
-            const bookingPayload = { name, email, phone, game, date, time };
-            const response = await fetch(bookNowUrl, {
+            // Step 1: Create a Razorpay Order via your Cloud Function
+            const orderPayload = {
+                amount: 50, // 50 INR
+                name: name,
+                email: email,
+                phone: phone,
+                game: game,
+                date: date,
+                time: time
+            };
+            const orderResponse = await fetch(createOrderUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderPayload)
+            });
+            const orderData = await orderResponse.json();
+            if (!orderData.success) {
+                throw new Error(orderData.error || "Failed to create Razorpay order.");
+            }
+
+            // Step 2: Save the initial booking record to Firestore
+            const bookingPayload = { name, email: email.toLowerCase(), phone, game, date, time, razorpay_order_id: orderData.id };
+            const saveResponse = await fetch(saveBookingUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bookingPayload)
             });
-
-            const result = await response.json();
-
-            if (!response.ok || !result.success) {
-                throw new Error(result.error || "Failed to create booking.");
+            const saveData = await saveResponse.json();
+            if (!saveData.success) {
+                throw new Error(saveData.error || "Failed to save booking.");
             }
-            
-            const confirmationMessage = `
-                <strong>Booking Confirmed, ${name}!</strong><br>
-                You will receive a WhatsApp confirmation shortly.
-            `;
-            showMessage(confirmationMessage);
-            
-            nameInput.value = "";
-            emailInput.value = "";
-            phoneInput.value = "";
-            timeInput.value = "";
-            timeButtons.forEach(btn => btn.classList.remove("active"));
-            // No need to call listenForBookings here, onSnapshot will handle it automatically
+
+            // Step 3: Open Razorpay Checkout
+            const options = {
+                "key": "rzp_live_R6Ismz5vWsQvKg", // Replace with your actual key if different
+                "amount": orderData.amount,
+                "currency": "INR",
+                "name": "Hakuna Matata Gaming Cafe",
+                "description": `Advance for ${game.split(' - ')[0]}`,
+                "order_id": orderData.id,
+                "handler": function (response){
+                    const confirmationMessage = `
+                        <strong>Booking Confirmed, ${name}!</strong><br>
+                        You will receive a WhatsApp confirmation shortly.
+                    `;
+                    showMessage(confirmationMessage);
+                    
+                    nameInput.value = "";
+                    emailInput.value = "";
+                    phoneInput.value = "";
+                    timeInput.value = "";
+                    timeButtons.forEach(btn => btn.classList.remove("active"));
+                },
+                "prefill": { "name": name, "email": email, "contact": phone },
+                "theme": { "color": "#00aaff" }
+            };
+
+            const rzp1 = new Razorpay(options);
+            rzp1.on('payment.failed', function (response){
+                    showMessage("Payment Failed: " + response.error.description);
+            });
+            rzp1.open();
 
         } catch (error) {
             console.error("Booking process error:", error);
             showMessage("Error: " + error.message);
         } finally {
-            bookNowBtn.disabled = false;
-            bookNowBtn.textContent = "Book Now";
+            payNowBtn.disabled = false;
+            payNowBtn.textContent = "Pay ₹50 Advance & Book";
         }
     });
   </script>
-
-  <!-- Floating WhatsApp Assistant Bubble (added, number: 9348091035) -->
-  <a id="hm-whatsapp-float"
-     href="https://wa.me/919348091035?text=Hi%20Hakuna%20Matata!%20Help%20me%20choose%20a%20game%20%26%20prices."
-     target="_blank" rel="noopener" aria-label="Chat on WhatsApp"
-     style="position:fixed;right:18px;bottom:18px;display:flex;align-items:center;gap:10px;
-            background:#25D366;color:#fff;padding:12px 14px;border-radius:999px;
-            box-shadow:0 10px 30px rgba(0,0,0,.18);font:600 14px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial; z-index: 1002;">
-    <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <path fill="#fff" d="M19.1 17.5c-.3-.2-1.8-.9-2-.9s-.5-.1-.7.2-.8.9-1 .9-.5 0-.8-.3-1.5-.9-2.8-2.3-2.3-3-2.3-3.4.2-.5.3-.7.1-.4 0-.6c-.1-.2-.7-1.7-.9-2.3s-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.5s-1.2 1.2-1.2 3 1.2 3.5 1.4 3.7 2.4 3.7 5.7 5.2 3.4 1.1 4 .9 2-1 2.3-2 .3-1.1.2-1.2z"/>
-      <path fill="#fff" d="M27.9 4.1C24.9 1.1 21 0 16.9 0 8 0 .8 7.2.8 16.1c0 2.8.7 5.5 2.1 7.9L0 32l8.2-2.7c2.4 1.3 5 2 7.7 2h.1c8.9 0 16.1-7.2 16.1-16.1-.1-4.1-1.7-8-4.2-11.1zm-11 25.2h-.1c-2.4 0-4.8-.6-6.9-1.8l-.5-.3-4.9 1.6 1.7-4.8-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.3 6-13.3 13.3-13.3 3.6 0 6.9 1.4 9.4 3.9s3.9 5.9 3.9 9.4c0 7.3-6 13.3-13.6 13.3z"/>
-    </svg>
-    <span>Chat on WhatsApp</span>
-  </a>
-  <!-- /Floating WhatsApp Assistant Bubble -->
-
 </body>
 </html>
