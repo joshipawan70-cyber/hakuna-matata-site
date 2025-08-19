@@ -82,8 +82,11 @@
         max-width: 1200px;
         margin: 0 auto;
     }
-    .nav-logo img {
-        height: 40px; /* Control logo size */
+    .nav-logo {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        color: #fff;
+        text-shadow: 0 0 5px var(--primary-color);
     }
     .nav-links a {
         color: var(--text-color);
@@ -108,7 +111,7 @@
         transform: translateY(0);
     }
 
-    h1, h2, h3 {
+    h2, h3 {
       font-family: 'Orbitron', sans-serif;
       color: #fff;
       margin-bottom: 20px;
@@ -146,13 +149,11 @@
         transform: translateX(-50%) translateY(-50%);
         opacity: 0.15;
     }
-    .hero h1 {
-        font-size: 3.5rem;
-        margin-bottom: 15px;
-        text-shadow: 
-            2px 2px 2px rgba(15, 15, 27, 0.7),
-            0 0 8px var(--primary-color), 
-            0 0 12px var(--primary-color);
+    .hero-logo {
+        max-width: 500px;
+        width: 80%;
+        height: auto;
+        margin-bottom: 25px;
     }
     .hero p {
         font-size: 1.2rem;
@@ -369,12 +370,11 @@
         .nav-links { display: none; }
         .hamburger-btn { display: block; }
 
-        h1 { font-size: 2.5rem; }
         h2 { font-size: 2rem; }
 
         .hero { min-height: 80vh; padding: 60px 20px; }
-        .hero h1 { font-size: 2.8rem; }
-        .hero p { font-size: 1.1rem; }
+        .hero-logo { width: 90%; margin-bottom: 20px;}
+        .hero p { font-size: 1rem; }
         
         section { padding: 60px 20px; }
 
@@ -397,9 +397,7 @@
   
   <nav class="navbar">
     <div class="nav-container">
-        <a href="index.html" class="nav-logo">
-            <img src="logo.jpeg" alt="Hakuna Matata Logo">
-        </a>
+        <a href="index.html" class="nav-logo">Hakuna Matata</a>
         <div class="nav-links">
             <a href="#facilities">Facilities</a>
             <a href="#why-us">Why Us</a>
@@ -428,7 +426,7 @@
         Your browser does not support the video tag.
     </video>
     <div class="container">
-      <h1>Hakuna Matata Gaming Cafe</h1>
+      <img src="logo.jpeg" alt="Hakuna Matata Gaming Cafe Logo" class="hero-logo">
       <p>Your ultimate destination for competitive gaming, delicious food, and an electrifying atmosphere. Level up your experience!</p>
       <a href="gaming.html" class="cta-button">Book Your Spot Now</a>
     </div>
