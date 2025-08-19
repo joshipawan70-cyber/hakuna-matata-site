@@ -15,12 +15,16 @@
 
   <style>
     :root {
-      --primary-glow: #00aaff; /* Bright Blue */
-      --secondary-glow: #0077ff; /* Deeper Electric Blue */
-      --dark-bg: #0d0d1a;
-      --card-bg: rgba(20, 25, 40, 0.6);
-      --text-color: #f0f0f0;
-      --border-color: rgba(0, 170, 255, 0.2);
+      --primary-glow: #00aaff;
+      --secondary-glow: #0077ff;
+      --dark-bg-main: #0d0d1a;
+      --card-bg-main: rgba(20, 25, 40, 0.6);
+      --text-color-main: #f0f0f0;
+      --border-color-main: rgba(0, 170, 255, 0.2);
+      
+      --primary-color-nav: #9f55ff;
+      --text-color-nav: #e0e0e0;
+      --border-color-nav: rgba(159, 85, 255, 0.3);
     }
 
     * {
@@ -29,30 +33,16 @@
       padding: 0;
     }
 
-    html {
-        scroll-behavior: smooth;
-    }
-
     body {
-      background-color: var(--dark-bg);
-      color: var(--text-color);
+      background-color: var(--dark-bg-main);
+      background-image: radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
+                        radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
+      background-size: 200% 200%;
+      animation: background-pan 20s ease-in-out infinite;
+      color: var(--text-color-main);
       font-family: 'Poppins', sans-serif;
       line-height: 1.6;
-    }
-
-    .background-animation {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background: var(--dark-bg);
-        background-image: 
-            radial-gradient(circle at top right, var(--secondary-glow), transparent 40%),
-            radial-gradient(circle at bottom left, var(--primary-glow), transparent 40%);
-        background-size: 200% 200%;
-        animation: background-pan 20s ease-in-out infinite;
+      padding-top: 70px;
     }
 
     @keyframes background-pan {
@@ -69,82 +59,104 @@
       text-decoration: underline;
     }
 
-    .container {
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px 0;
+        background: rgba(15, 15, 27, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+        border-bottom: 1px solid var(--border-color-nav);
+    }
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 90%;
         max-width: 1200px;
         margin: 0 auto;
     }
-    
-    /* --- Page Header --- */
-    .page-header {
-        position: relative;
-        text-align: center;
-        padding: 40px 20px;
-        border-bottom: 1px solid var(--border-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
+    .nav-logo {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        color: #fff;
+        text-shadow: 0 0 5px var(--primary-color-nav);
     }
-    .header-logo img {
-        height: 60px;
-        width: 60px;
-        filter: drop-shadow(0 0 8px var(--primary-glow));
+    .nav-links a {
+        color: var(--text-color-nav);
+        margin-left: 25px;
+        font-weight: 600;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
     }
-    .header-text {
-        text-align: left;
-    }
-    .my-bookings-btn {
-        position: absolute;
-        top: 50%;
-        right: 30px;
-        transform: translateY(-50%);
-        padding: 10px 15px;
-        font-size: 1rem;
-        background: none;
-        border: 1px solid var(--border-color);
-        color: var(--text-color);
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .my-bookings-btn:hover {
-        background: var(--primary-glow);
-        color: var(--dark-bg);
-        border-color: var(--primary-glow);
+    .nav-links a:hover {
+        color: var(--primary-color-nav);
+        text-shadow: 0 0 5px var(--primary-color-nav);
+        text-decoration: none;
     }
 
-    h2, h3 {
+    header, footer, .latest-games, .ps-plus-games, #contact {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+    header {
+        border-bottom: 1px solid var(--border-color-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 40px; 
+        padding-bottom: 40px;
+        gap: 20px;
+    }
+    .header-content {
+        text-align: left;
+    }
+    .header-logo {
+        max-width: 100px;
+        height: auto;
+        border-radius: 50%;
+        border: 2px solid var(--border-color-main);
+        box-shadow: 0 0 15px var(--primary-glow);
+    }
+    footer {
+        border-top: 1px solid var(--border-color-main);
+        padding: 20px;
+        margin-top: 40px;
+    }
+    .latest-games, .ps-plus-games, #contact {
+        padding: 40px 20px;
+    }
+     #contact {
+      border-top: 1px solid var(--border-color-main);
+    }
+
+    h1, h2, h3 {
       font-family: 'Orbitron', sans-serif;
       color: #fff;
       text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
     }
-    .header-text h2 { font-size: 2.2rem; margin: 0; text-align: left; }
-    .header-text p { color: #aaa; margin: 0; text-align: left; }
-    h3 { font-size: 1.2rem; }
+    header h1 { margin-bottom: 4px; font-size: 2.2rem; text-align: left;}
+    header p { color: #aaa; margin: 0; text-align: left;}
     
-    /* --- Main Content Layout --- */
-    .main-container {
+    .container {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 30px;
       padding: 40px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
     
-    .content-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 30px;
-    }
-    
     .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
+      background-color: var(--card-bg-main);
+      border: 1px solid var(--border-color-main);
       border-radius: 16px;
       padding: 25px;
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .card:hover {
@@ -159,19 +171,47 @@
         gap: 20px;
     }
 
-    .form-card input, .form-card select, .form-card button {
+    .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 900px;
+        margin: 20px auto 0;
+    }
+    .game-card {
+        text-align: left;
+    }
+    .game-card ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 15px;
+    }
+    .game-card li {
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .game-card li:last-child {
+        border-bottom: none;
+    }
+
+    .form-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .form-card input, .form-card select, .form-card button, .modal-content button, .modal-content input, .modal-content textarea {
       width: 100%;
       margin: 8px 0;
       padding: 12px;
       border-radius: 8px;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-color-main);
       background: rgba(0,0,0,0.3);
-      color: var(--text-color);
+      color: var(--text-color-main);
       font-family: 'Poppins', sans-serif;
       font-size: 14px;
       transition: all 0.3s ease;
     }
-    .form-card input:focus, .form-card select:focus {
+    .form-card input:focus, .form-card select:focus, .modal-content input:focus, .modal-content textarea:focus {
       outline: none;
       border-color: var(--primary-glow);
       box-shadow: 0 0 10px var(--primary-glow);
@@ -183,7 +223,7 @@
 
     .time-slots {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 10px;
       margin: 15px 0;
     }
@@ -193,12 +233,12 @@
     }
     .time-slots button:hover:not(:disabled) {
       background: var(--primary-glow);
-      color: var(--dark-bg);
+      color: var(--dark-bg-main);
       border-color: var(--primary-glow);
     }
     .time-slots button.active {
       background: var(--primary-glow);
-      color: var(--dark-bg);
+      color: var(--dark-bg-main);
       box-shadow: 0 0 15px var(--primary-glow);
       font-weight: bold;
       border-color: var(--primary-glow);
@@ -212,23 +252,38 @@
         text-shadow: none;
     }
 
-    .confirm-btn {
+    .confirm-btn, .my-bookings-btn, .modal-content button {
       background: var(--primary-glow);
-      color: var(--dark-bg);
+      color: var(--dark-bg-main);
       cursor: pointer;
       font-weight: bold;
       font-size: 16px;
       border: none;
-      animation: flash 2s infinite ease-in-out;
     }
-    .confirm-btn:hover {
+    .confirm-btn:hover, .my-bookings-btn:hover, .modal-content button:hover {
       box-shadow: 0 0 20px var(--primary-glow);
       filter: brightness(1.2);
     }
+    .my-bookings-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
     
     @keyframes flash {
-        0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--primary-glow); }
-        50% { transform: scale(1.03); box-shadow: 0 0 25px var(--primary-glow); }
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+        50% {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+    }
+    .confirm-btn {
+        animation: flash 2s infinite ease-in-out;
     }
     
     input[readonly] {
@@ -236,11 +291,32 @@
         cursor: not-allowed;
     }
 
-    /* --- Modal Styles --- */
+    .message-box {
+        position: fixed;
+        top: -200px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--primary-glow);
+        color: var(--dark-bg-main);
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 170, 255, 0.5);
+        font-weight: bold;
+        transition: top 0.5s ease-in-out;
+        z-index: 1001;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        line-height: 1.4;
+    }
+    .message-box.show {
+        top: 20px;
+    }
+
     .modal {
         display: none;
         position: fixed;
-        z-index: 1001;
+        z-index: 1000;
         left: 0;
         top: 0;
         width: 100%;
@@ -255,8 +331,8 @@
         padding: 30px;
         width: 90%;
         max-width: 500px;
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
+        background: var(--card-bg-main);
+        border: 1px solid var(--border-color-main);
         border-radius: 16px;
     }
     .close-btn {
@@ -281,142 +357,320 @@
         border-left: 3px solid var(--primary-glow);
     }
     
-    footer {
-        text-align: center;
-        padding: 30px 20px;
-        background: rgba(13, 13, 26, 0.8);
-        border-top: 1px solid var(--border-color);
+    .contact-grid {
+      max-width: 1100px;
+      margin: 20px auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .contact-box {
+      background: var(--card-bg-main);
+      border: 1px solid var(--border-color-main);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: left;
+    }
+    .contact-box p { margin: 8px 0; }
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    .hamburger-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    .hamburger-btn .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: var(--text-color-nav);
+        transition: all 0.3s ease-in-out;
+    }
+    .mobile-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 15, 27, 0.95);
+        backdrop-filter: blur(15px);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.4s ease-in-out;
+    }
+    .mobile-nav.open {
+        right: 0;
+    }
+    .mobile-nav a {
+        font-size: 1.5rem;
+        margin: 20px 0;
+        font-family: 'Orbitron', sans-serif;
+        color: var(--text-color-nav);
+    }
+    .mobile-nav .close-mobile-nav {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 2rem;
+        color: var(--text-color-nav);
+        background: none;
+        border: none;
+        cursor: pointer;
     }
 
     @media (max-width: 800px) {
-        .content-grid {
+        .container {
             grid-template-columns: 1fr;
+            padding: 20px 15px;
+        }
+        header {
+            flex-direction: column;
+        }
+        header h1 {
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        header p {
+            text-align: center;
         }
         .my-bookings-btn {
             position: static;
-            transform: none;
-            margin-top: 20px;
+            margin-top: 15px;
+            width: auto;
+            display: inline-block;
         }
-        .page-header {
-            flex-direction: column;
+        .latest-games, .ps-plus-games, #contact {
+            padding: 30px 15px;
         }
+        .modal-content {
+            margin: 20% auto;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .hamburger-btn { display: block; }
     }
 
   </style>
 </head>
 <body>
-  <div class="background-animation"></div>
 
-  <header class="page-header">
-    <a href="index.html" class="header-logo">
-        <img src="https://www.svgrepo.com/show/499834/game.svg" alt="Hakuna Matata Logo">
-    </a>
-    <div class="header-text">
-        <h2>Book Your Game</h2>
+  <nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">Hakuna Matata</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button id="hamburgerBtn" class="hamburger-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+  </nav>
+  
+  <div id="mobileNav" class="mobile-nav">
+    <button id="closeMobileNav" class="close-mobile-nav">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <header>
+    <img src="logo.jpeg" alt="Hakuna Matata Logo" class="header-logo">
+    <div class="header-content">
+        <h1>Book Your Game</h1>
         <p>Select your game, pick a date and time, and get ready to play!</p>
     </div>
     <button class="my-bookings-btn" id="myBookingsBtn">My Bookings</button>
   </header>
 
-  <main class="main-container">
-    <div class="content-grid">
-      <div class="tiles-container">
-        <div class="card">
-          <h3>PS5</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>PS5 - 1 Controller - ₹150 / hour</option>
-            <option>PS5 - 2 Controllers - ₹250 / hour</option>
-            <option>PS5 - 3 Controllers - ₹300 / hour</option>
-            <option>PS5 - 4 Controllers - ₹350 / hour</option>
-          </select>
-        </div>
-        <div class="card">
-          <h3>PS4</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>PS4 - 1 Controller - ₹100 / hour</option>
-            <option>PS4 - 2 Controllers - ₹150 / hour</option>
-            <option>PS4 - 3 Controllers - ₹250 / hour</option>
-            <option>PS4 - 4 Controllers - ₹250 / hour</option>
-          </select>
-        </div>
-        <div class="card">
-          <h3>Pool & Snooker</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>Pool Table - ₹200 / hour</option>
-            <option>Snooker Table - ₹250 / hour</option>
-          </select>
-        </div>
-        <div class="card">
-          <h3>Board Games</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>Board Games - ₹25 / person / hour</option>
-          </select>
-        </div>
-        <div class="card">
-          <h3>Foosball</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>Foosball - ₹50 / hour</option>
-          </select>
-        </div>
-        <div class="card">
-          <h3>Private Theatre</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>Private Theatre - ₹500 / hour (up to 5 people)</option>
-            <option>Private Theatre - +₹100 / person / hour (max 10)</option>
-          </select>
-        </div>
-         <div class="card">
-          <h3>PS4 Racing Wheel</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>PS4 Racing Wheel - F1 (5 Laps) - ₹50</option>
-            <option>PS4 Racing Wheel - ₹300 / hour</option>
-          </select>
-        </div>
-        <div class="card">
-          <h3>PS5 Racing Wheel</h3>
-          <select onchange="setGame(this)">
-            <option value="">-- Select Option --</option>
-            <option>PS5 Racing Wheel - F1 (5 Laps) - ₹100</option>
-            <option>PS5 Racing Wheel - Forza Horizon - ₹500 / hour</option>
-          </select>
-        </div>
+  <main class="container">
+    <div class="tiles-container">
+      <div class="card">
+        <h3>PS5</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS5 - 1 Controller - ₹150 / hour</option>
+          <option>PS5 - 2 Controllers - ₹250 / hour</option>
+          <option>PS5 - 3 Controllers - ₹300 / hour</option>
+          <option>PS5 - 4 Controllers - ₹350 / hour</option>
+        </select>
       </div>
-
-      <div class="card form-card">
-        <h3>Booking Details</h3>
-        <input type="text" id="nameInput" placeholder="Your Name" required>
-        <input type="email" id="emailInput" placeholder="Your Email" required>
-        <input type="tel" id="phoneInput" placeholder="Your Phone (e.g. 91...)" required>
-        <input type="text" id="gameInput" placeholder="Selected Game" readonly>
-        <input type="text" id="datepicker" placeholder="Select Date">
-        <input type="text" id="timeInput" placeholder="Selected Time Slot" readonly>
-        
-        <div class="time-slots">
-          <button type="button">10:00-11:00</button>
-          <button type="button">11:00-12:00</button>
-          <button type="button">12:00-13:00</button>
-          <button type="button">13:00-14:00</button>
-          <button type="button">14:00-15:00</button>
-          <button type="button">15:00-16:00</button>
-          <button type="button">16:00-17:00</button>
-          <button type="button">17:00-18:00</button>
-          <button type="button">18:00-19:00</button>
-          <button type="button">19:00-20:00</button>
-          <button type="button">20:00-21:00</button>
-          <button type="button">21:00-22:00</button>
-          <button type="button">22:00-23:00</button>
-        </div>
-        <button class="confirm-btn" id="payNowBtn">Pay ₹50 Advance & Book</button>
+      <div class="card">
+        <h3>PS4</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS4 - 1 Controller - ₹100 / hour</option>
+          <option>PS4 - 2 Controllers - ₹150 / hour</option>
+          <option>PS4 - 3 Controllers - ₹250 / hour</option>
+          <option>PS4 - 4 Controllers - ₹250 / hour</option>
+        </select>
+      </div>
+      <div class="card">
+        <h3>Pool & Snooker</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Pool Table - ₹200 / hour</option>
+          <option>Snooker Table - ₹250 / hour</option>
+        </select>
+      </div>
+      <div class="card">
+        <h3>Board Games</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Board Games - ₹50 / person / hour</option>
+        </select>
+      </div>
+      <div class="card">
+        <h3>Foosball</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Foosball - ₹100 / hour</option>
+        </select>
+      </div>
+      <div class="card">
+        <h3>Private Theatre</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>Private Theatre - ₹500 / hour (up to 5 people)</option>
+          <option>Private Theatre - +₹100 / person / hour (max 10)</option>
+        </select>
+      </div>
+       <div class="card">
+        <h3>PS4 Racing Wheel</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS4 Racing Wheel - F1 (5 Laps) - ₹50</option>
+          <option>PS4 Racing Wheel - ₹300 / hour</option>
+        </select>
+      </div>
+      <div class="card">
+        <h3>PS5 Racing Wheel</h3>
+        <select onchange="setGame(this)">
+          <option value="">-- Select Option --</option>
+          <option>PS5 Racing Wheel - F1 (5 Laps) - ₹100</option>
+          <option>PS5 Racing Wheel - Forza Horizon - ₹500 / hour</option>
+        </select>
       </div>
     </div>
+
+    <div class="card form-card">
+      <h2>Booking Details</h2>
+      <input type="text" id="nameInput" placeholder="Your Name" required>
+      <input type="email" id="emailInput" placeholder="Your Email" required>
+      <input type="tel" id="phoneInput" placeholder="Your Phone (e.g. 91...)" required>
+      <input type="text" id="gameInput" placeholder="Selected Game" readonly>
+      <input type="text" id="datepicker" placeholder="Select Date">
+      <input type="text" id="timeInput" placeholder="Selected Time Slot" readonly>
+      
+      <div class="time-slots">
+        <button type="button">10:00-11:00</button>
+        <button type="button">11:00-12:00</button>
+        <button type="button">12:00-13:00</button>
+        <button type="button">13:00-14:00</button>
+        <button type="button">14:00-15:00</button>
+        <button type="button">15:00-16:00</button>
+        <button type="button">16:00-17:00</button>
+        <button type="button">17:00-18:00</button>
+        <button type="button">18:00-19:00</button>
+        <button type="button">19:00-20:00</button>
+        <button type="button">20:00-21:00</button>
+        <button type="button">21:00-22:00</button>
+        <button type="button">22:00-23:00</button>
+      </div>
+      <button id="suggestGameBtn">✨ Suggest a Game for Me</button>
+      <button class="confirm-btn" id="payNowBtn">Pay ₹50 Advance & Book</button>
+    </div>
   </main>
+
+  <section class="latest-games">
+    <h2>Latest Games</h2>
+    <div class="games-grid">
+        <div class="card game-card">
+            <h3>PlayStation 5</h3>
+            <ul>
+                <li>EA Sports FC 25</li>
+                <li>F1 24</li>
+                <li>WWE 2K24</li>
+                <li>Gran Turismo 7</li>
+                <li>Marvel's Wolverine</li>
+            </ul>
+        </div>
+        <div class="card game-card">
+            <h3>PlayStation 4</h3>
+            <ul>
+                <li>EA Sports FC 25</li>
+                <li>F1 24</li>
+                <li>WWE 2K24</li>
+                <li>Call of Duty: Black Ops 4</li>
+                <li>Elden Ring: Shadow of the Erdtree</li>
+            </ul>
+        </div>
+    </div>
+  </section>
+
+  <section class="ps-plus-games">
+    <h2>Available on PS Plus</h2>
+    <div class="games-grid">
+        <div class="card game-card">
+            <h3>PlayStation 5</h3>
+            <ul>
+                <li>Mortal Kombat 1</li>
+                <li>Marvel's Spider-Man Remastered</li>
+                <li>Sword of the Sea</li>
+                <li>Indika</li>
+                <li>Harold Halibut</li>
+            </ul>
+        </div>
+        <div class="card game-card">
+            <h3>PlayStation 4</h3>
+            <ul>
+                <li>Marvel's Spider-Man</li>
+                <li>Unicorn Overlord</li>
+                <li>Lies of P</li>
+                <li>DayZ</li>
+                <li>Resident Evil 2</li>
+            </ul>
+        </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-grid">
+      <div class="contact-box">
+        <p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
+        <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+        <p><strong>Address:</strong><br>
+          Hakuna Matata Gaming Cafe,<br>
+          No 42 Christ Lane, Hosur Main Road,<br>
+          Near Mekeba Restaurant, SG Palya, 560029
+        </p>
+      </div>
+      <div class="contact-box map">
+        <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
+          allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <p>© 2025 Hakuna Matata Gaming Cafe</p>
@@ -435,6 +689,16 @@
         <input type="email" id="searchEmail" placeholder="Your Email">
         <button id="findBookingsBtn">Find My Bookings</button>
         <ul id="bookingsList"></ul>
+    </div>
+  </div>
+
+  <div id="suggestionModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>What are you in the mood for?</h2>
+        <p>e.g., "a fun game for two people" or "something competitive"</p>
+        <textarea id="suggestionPrompt" rows="3"></textarea>
+        <button id="getSuggestionBtn">Get Suggestion</button>
     </div>
   </div>
 
@@ -475,6 +739,27 @@
     const findBookingsBtn = document.getElementById("findBookingsBtn");
     const searchEmailInput = document.getElementById("searchEmail");
     const bookingsList = document.getElementById("bookingsList");
+
+    const suggestionModal = document.getElementById("suggestionModal");
+    const suggestGameBtn = document.getElementById("suggestGameBtn");
+    const getSuggestionBtn = document.getElementById("getSuggestionBtn");
+    const suggestionPrompt = document.getElementById("suggestionPrompt");
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeMobileNavBtn = document.getElementById('closeMobileNav');
+
+    // --- Mobile Menu Logic ---
+    hamburgerBtn.onclick = () => {
+        mobileNav.classList.add('open');
+    };
+    closeMobileNavBtn.onclick = () => {
+        mobileNav.classList.remove('open');
+    };
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNav.classList.remove('open');
+        });
+    });
     
     let unsubscribe;
 
@@ -494,7 +779,10 @@
     }
 
     function listenForBookings(selectedDateStr) {
-        if (unsubscribe) unsubscribe();
+        if (unsubscribe) {
+            unsubscribe();
+        }
+
         if (!selectedDateStr) return;
 
         const bookingsRef = collection(db, "bookings");
@@ -533,6 +821,7 @@
       minDate: "today",
       dateFormat: "d-m-Y",
       defaultDate: "today",
+      disableMobile: true,
       onChange: (selectedDates, dateStr) => {
           listenForBookings(dateStr);
           timeInput.value = "";
@@ -548,6 +837,10 @@
       if (selectElement.value) {
         gameInput.value = selectElement.value;
         listenForBookings(datePickerInput.value);
+
+        if (window.innerWidth <= 800) {
+            document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
 
@@ -563,12 +856,15 @@
     myBookingsBtn.onclick = () => { bookingsModal.style.display = "block"; };
     document.querySelector("#bookingsModal .close-btn").onclick = () => { bookingsModal.style.display = "none"; };
     
+    suggestGameBtn.onclick = () => { suggestionModal.style.display = "block"; };
+    document.querySelector("#suggestionModal .close-btn").onclick = () => { suggestionModal.style.display = "none"; };
+
     window.onclick = (event) => {
-        if (event.target == bookingsModal) {
+        if (event.target == bookingsModal || event.target == suggestionModal) {
             bookingsModal.style.display = "none";
+            suggestionModal.style.display = "none";
         }
     };
-    
     findBookingsBtn.onclick = async () => {
         const email = searchEmailInput.value.trim().toLowerCase();
         if (!email) {
@@ -594,7 +890,11 @@
             const bookings = querySnapshot.docs.map(doc => doc.data());
 
             if (email === "joshipawan70@gmail.com") {
-                bookings.sort((a, b) => a.time.localeCompare(b.time));
+                bookings.sort((a, b) => {
+                    if (a.time < b.time) return -1;
+                    if (a.time > b.time) return 1;
+                    return 0;
+                });
             }
 
             bookings.forEach(b => {
@@ -608,6 +908,89 @@
             });
         } else {
             bookingsList.innerHTML = "<li>No confirmed bookings found.</li>";
+        }
+    };
+
+    getSuggestionBtn.onclick = async () => {
+        const userPrompt = suggestionPrompt.value;
+        if (!userPrompt) {
+            showMessage("Please tell me what you're looking for.");
+            return;
+        }
+
+        getSuggestionBtn.disabled = true;
+        getSuggestionBtn.textContent = "Thinking...";
+        
+        const fullPrompt = `You are a helpful assistant at a gaming cafe called Hakuna Matata. A customer is looking for a game recommendation. Based on their request, suggest the best option from the following list. Only return the exact name of the game from the list and a short, fun reason for your choice, separated by a pipe character (|).
+        
+        Customer Request: "${userPrompt}"
+        
+        Available Games:
+        ${Array.from(document.querySelectorAll('.tiles-container option')).map(opt => opt.value).filter(Boolean).join('\n')}
+        
+        Example response format: PS5 - 2 Controllers - ₹250 / hour|Because it's perfect for a competitive duo!`;
+
+        const apiKey = "AIzaSyBrN3Rr9f1vK8bwb7eLEOeOI9Qs29hKXPw"; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        
+        if (apiKey === "YOUR_API_KEY_HERE") {
+            showMessage("Please add your Gemini API Key to the code.");
+            getSuggestionBtn.disabled = false;
+            getSuggestionBtn.textContent = "Get Suggestion";
+            return;
+        }
+
+        const payload = {
+            contents: [{
+                parts: [{ text: fullPrompt }]
+            }]
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: { message: 'Unknown API error' } }));
+                throw new Error(`API request failed with status ${response.status}: ${errorData.error.message}`);
+            }
+
+            const result = await response.json();
+            const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            
+            if (responseText) {
+                const [suggestedGame, reason] = responseText.split('|');
+                
+                if (suggestedGame && Array.from(document.querySelectorAll('.tiles-container option')).map(opt => opt.value).includes(suggestedGame.trim())) {
+                    const gameToSelect = suggestedGame.trim();
+                    const allSelects = document.querySelectorAll('.tiles-container select');
+                    allSelects.forEach(select => {
+                        Array.from(select.options).forEach(option => {
+                            if (option.value === gameToSelect) {
+                                select.value = gameToSelect;
+                                gameInput.value = gameToSelect;
+                                listenForBookings(datePickerInput.value);
+                            }
+                        });
+                    });
+                    showMessage(`I've selected ${gameToSelect} for you! ${reason || ''}`);
+                } else {
+                     showMessage("I got a suggestion, but it didn't match our games. Try being more specific!");
+                }
+            } else {
+                showMessage("Sorry, I couldn't come up with a suggestion right now.");
+            }
+        } catch (error) {
+            console.error("Error with Gemini API:", error);
+            showMessage("There was an error getting a suggestion. Please try again later.");
+        } finally {
+            suggestionModal.style.display = "none";
+            getSuggestionBtn.disabled = false;
+            getSuggestionBtn.textContent = "Get Suggestion";
+            suggestionPrompt.value = "";
         }
     };
 
@@ -628,14 +1011,24 @@
         payNowBtn.textContent = "Processing...";
 
         try {
-            const orderPayload = { amount: 50, name, email, phone, game, date, time };
+            const orderPayload = {
+                amount: 50,
+                name: name,
+                email: email,
+                phone: phone,
+                game: game,
+                date: date,
+                time: time
+            };
             const orderResponse = await fetch(createOrderUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderPayload)
             });
             const orderData = await orderResponse.json();
-            if (!orderData.success) throw new Error(orderData.error || "Failed to create Razorpay order.");
+            if (!orderData.success) {
+                throw new Error(orderData.error || "Failed to create Razorpay order.");
+            }
 
             const bookingPayload = { name, email: email.toLowerCase(), phone, game, date, time, razorpay_order_id: orderData.id };
             const saveResponse = await fetch(saveBookingUrl, {
@@ -644,25 +1037,32 @@
                 body: JSON.stringify(bookingPayload)
             });
             const saveData = await saveResponse.json();
-            if (!saveData.success) throw new Error(saveData.error || "Failed to save booking.");
+            if (!saveData.success) {
+                throw new Error(saveData.error || "Failed to save booking.");
+            }
 
             const options = {
-                key: "rzp_live_R6Ismz5vWsQvKg",
-                amount: orderData.amount,
-                currency: "INR",
-                name: "Hakuna Matata Gaming Cafe",
-                description: `Advance for ${game.split(' - ')[0]}`,
-                order_id: orderData.id,
-                handler: function (response){
-                    showMessage(`<strong>Booking Confirmed, ${name}!</strong><br>You will receive a WhatsApp confirmation shortly.`);
+                "key": "rzp_live_R6Ismz5vWsQvKg",
+                "amount": orderData.amount,
+                "currency": "INR",
+                "name": "Hakuna Matata Gaming Cafe",
+                "description": `Advance for ${game.split(' - ')[0]}`,
+                "order_id": orderData.id,
+                "handler": function (response){
+                    const confirmationMessage = `
+                        <strong>Booking Confirmed, ${name}!</strong><br>
+                        You will receive a WhatsApp confirmation shortly.
+                    `;
+                    showMessage(confirmationMessage);
+                    
                     nameInput.value = "";
                     emailInput.value = "";
                     phoneInput.value = "";
                     timeInput.value = "";
                     timeButtons.forEach(btn => btn.classList.remove("active"));
                 },
-                prefill: { name, email, contact: phone },
-                theme: { color: "#00aaff" }
+                "prefill": { "name": name, "email": email, "contact": phone },
+                "theme": { "color": "#00aaff" }
             };
 
             const rzp1 = new Razorpay(options);
@@ -681,4 +1081,4 @@
     });
   </script>
 </body>
-</html>
+</ht
