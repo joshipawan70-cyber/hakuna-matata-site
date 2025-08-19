@@ -224,6 +224,18 @@
             <a href="gaming.html" class="text-slate-300 hover:text-white transition-colors">Gaming</a>
             <a href="menu.html" class="text-slate-300 hover:text-white transition-colors">Food</a>
         </nav>
+
+        <!-- Mobile Hamburger (added) -->
+        <button id="menu-btn" class="sm:hidden text-slate-300 focus:outline-none text-2xl">
+          ☰
+        </button>
+    </div>
+
+    <!-- Mobile Menu (added) -->
+    <div id="mobile-menu" class="hidden sm:hidden flex-col bg-[rgba(13,13,26,0.95)] px-4 pb-4">
+      <a href="index.html" class="block py-2 text-slate-300 hover:text-white">Home</a>
+      <a href="gaming.html" class="block py-2 text-slate-300 hover:text-white">Gaming</a>
+      <a href="menu.html" class="block py-2 text-slate-300 hover:text-white">Food</a>
     </div>
   </header>
 
@@ -337,6 +349,17 @@
        <a href="refund.html" class="hover:text-white">Refund Policy</a>
     </p>
   </footer>
+
+  <script>
+    // === Hamburger toggle (added) ===
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    }
+  </script>
 
   <script>
     const RZP_KEY_ID = "rzp_live_R6Ismz5vWsQvKg"; 
