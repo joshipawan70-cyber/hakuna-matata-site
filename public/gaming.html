@@ -299,7 +299,7 @@
     /* --- Custom Message Box --- */
     .message-box {
         position: fixed;
-        top: -200px; /* Adjusted for taller box */
+        top: -200px;
         left: 50%;
         transform: translateX(-50%);
         background-color: var(--primary-glow);
@@ -390,8 +390,6 @@
       border-radius: 12px;
     }
 
-
-    /* --- Mobile Responsive Styles --- */
     @media (max-width: 800px) {
         .container {
             grid-template-columns: 1fr;
@@ -415,21 +413,20 @@
     }
     
     @media (max-width: 768px) {
-        .nav-links { display: none; } /* Simple hide for mobile, can be replaced with a burger menu */
+        .nav-links { display: none; }
     }
 
   </style>
 </head>
 <body>
 
-  <!-- NEW: Navigation bar from the main page -->
   <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="nav-logo">Hakuna Matata</a>
         <div class="nav-links">
-            <a href="index.html#facilities">Facilities</a>
-            <a href="index.html#why-us">Why Us</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="#contact">Contact</a>
         </div>
     </div>
   </nav>
@@ -643,11 +640,9 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   
   <script type="module">
-    // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getFirestore, collection, getDocs, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
-    // --- Firebase project's configuration ---
     const firebaseConfig = {
       apiKey: "AIzaSyDfADa9RTVszFMV0wTc9q07c95pJt7qbF8",
       authDomain: "hakuna-matata-gaming-website.firebaseapp.com",
@@ -658,15 +653,12 @@
       measurementId: "G-MYNV158TKH"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // --- Cloud Function URLs ---
     const createOrderUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/createrazorpayorder";
     const saveBookingUrl = "https://europe-west1-hakuna-matata-gaming-website.cloudfunctions.net/savebooking";
     
-    // --- DOM Elements ---
     const timeButtons = document.querySelectorAll(".time-slots button");
     const timeInput = document.getElementById("timeInput");
     const gameInput = document.getElementById("gameInput");
@@ -688,10 +680,8 @@
     const getSuggestionBtn = document.getElementById("getSuggestionBtn");
     const suggestionPrompt = document.getElementById("suggestionPrompt");
     
-    // --- Real-time listener ---
-    let unsubscribe; // To detach the listener when the date changes
+    let unsubscribe;
 
-    // --- Helper Functions ---
     function showMessage(message) {
         messageBox.innerHTML = message;
         messageBox.classList.add("show");
@@ -707,9 +697,7 @@
         return 'Other';
     }
 
-    // --- Core Logic (Now with Real-time listener) ---
     function listenForBookings(selectedDateStr) {
-        // Detach any existing listener
         if (unsubscribe) {
             unsubscribe();
         }
@@ -719,7 +707,6 @@
         const bookingsRef = collection(db, "bookings");
         const q = query(bookingsRef, where("date", "==", selectedDateStr));
 
-        // Attach the new real-time listener
         unsubscribe = onSnapshot(q, (querySnapshot) => {
             const bookingsForDate = querySnapshot.docs.map(doc => doc.data());
             const selectedGame = gameInput.value;
@@ -749,7 +736,6 @@
         });
     }
 
-    // --- Event Listeners ---
     const datePicker = flatpickr(datePickerInput, {
       minDate: "today",
       dateFormat: "d-m-Y",
@@ -769,7 +755,7 @@
     window.setGame = function(selectElement) {
       if (selectElement.value) {
         gameInput.value = selectElement.value;
-        listenForBookings(datePickerInput.value); // Re-check slots when game changes
+        listenForBookings(datePickerInput.value);
 
         if (window.innerWidth <= 800) {
             document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
@@ -786,7 +772,6 @@
       });
     });
 
-    // --- Modal Listeners ---
     myBookingsBtn.onclick = () => { bookingsModal.style.display = "block"; };
     document.querySelector("#bookingsModal .close-btn").onclick = () => { bookingsModal.style.display = "none"; };
     
@@ -812,10 +797,8 @@
         let q;
 
         if (email === "joshipawan70@gmail.com") {
-            // Admin view: Show all confirmed bookings
             q = query(bookingsRef, where("paymentStatus", "==", "captured"));
         } else {
-            // Regular user view
             q = query(bookingsRef, where("email", "==", email), where("paymentStatus", "==", "captured"));
         }
         
@@ -825,7 +808,6 @@
         if (!querySnapshot.empty) {
             const bookings = querySnapshot.docs.map(doc => doc.data());
 
-            // Sort bookings by time for the admin view
             if (email === "joshipawan70@gmail.com") {
                 bookings.sort((a, b) => {
                     if (a.time < b.time) return -1;
@@ -848,7 +830,6 @@
         }
     };
 
-    // --- Gemini API Suggestion Logic ---
     getSuggestionBtn.onclick = async () => {
         const userPrompt = suggestionPrompt.value;
         if (!userPrompt) {
@@ -932,7 +913,6 @@
         }
     };
 
-    // --- RAZORPAY INTEGRATION ---
     payNowBtn.addEventListener('click', async () => {
         const name = nameInput.value;
         const email = emailInput.value;
@@ -950,9 +930,8 @@
         payNowBtn.textContent = "Processing...";
 
         try {
-            // Step 1: Create a Razorpay Order via your Cloud Function
             const orderPayload = {
-                amount: 50, // 50 INR
+                amount: 50,
                 name: name,
                 email: email,
                 phone: phone,
@@ -970,7 +949,6 @@
                 throw new Error(orderData.error || "Failed to create Razorpay order.");
             }
 
-            // Step 2: Save the initial booking record to Firestore
             const bookingPayload = { name, email: email.toLowerCase(), phone, game, date, time, razorpay_order_id: orderData.id };
             const saveResponse = await fetch(saveBookingUrl, {
                 method: 'POST',
@@ -982,9 +960,8 @@
                 throw new Error(saveData.error || "Failed to save booking.");
             }
 
-            // Step 3: Open Razorpay Checkout
             const options = {
-                "key": "rzp_live_R6Ismz5vWsQvKg", // Replace with your actual key if different
+                "key": "rzp_live_R6Ismz5vWsQvKg",
                 "amount": orderData.amount,
                 "currency": "INR",
                 "name": "Hakuna Matata Gaming Cafe",
