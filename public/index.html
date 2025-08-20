@@ -423,16 +423,34 @@
         }
     }
 
-    /* Extra-small phones: make layout a bit more compact */
+    /* Extra compact for small phones */
+    @media (max-width: 480px) {
+        .hero-logo {
+            width: 55%;
+            max-width: 140px;
+            margin-bottom: 10px;
+            margin-top: -10px; /* nudge up */
+        }
+        .hero { min-height: 70vh; padding: 40px 15px; }
+        .hero h1 { font-size: 1.8rem; }
+        .hero p { font-size: 0.9rem; }
+    }
+
+    /* Even smaller phones */
     @media (max-width: 380px) {
+        .hero-logo {
+            width: 50%;
+            max-width: 120px;
+            margin-bottom: 8px;
+            margin-top: -12px; /* a touch higher */
+        }
         h1 { font-size: 1.9rem; }
         h2 { font-size: 1.5rem; }
         h3 { font-size: 1.05rem; }
 
-        .hero { min-height: 72vh; padding: 48px 16px; }
-        .hero h1 { font-size: 2rem; }
-        .hero p { font-size: 0.95rem; }
-        .hero-logo { width: 60%; max-width: 160px; margin-bottom: 16px; }
+        .hero { min-height: 68vh; padding: 40px 14px; }
+        .hero h1 { font-size: 1.9rem; }
+        .hero p { font-size: 0.9rem; }
 
         .cta-button { font-size: 1rem; padding: 12px 22px; }
         section { padding: 48px 16px; }
