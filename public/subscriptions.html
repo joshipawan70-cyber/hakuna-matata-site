@@ -1,18 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hakuna Matata Gaming Cafe — Subscriptions</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-  <!-- Fonts & Razorpay -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
+<!-- Fonts & Razorpay -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
     :root {
       --primary-glow: #c0c0c0;      /* Silver */
       --secondary-glow: #a9a9a9;    /* Darker silver for background */
@@ -241,155 +240,151 @@
     body.menu-open { overflow: hidden; }
     /* -------- End polished mobile hamburger styles -------- */
   </style>
+
+<title>Gaming Subscriptions | Hakuna Matata Gaming Cafe</title>
+<meta content="Get exclusive gaming subscriptions at Hakuna Matata Gaming Cafe. Enjoy PS5, PS4, snooker and pool packages in Bangalore with great value deals." name="description"/>
+<meta content="gaming subscriptions, PS5 subscription, PS4 packages, snooker membership, pool membership, Hakuna Matata Gaming Cafe Bangalore" name="keywords"/>
+<!-- Open Graph -->
+<meta content="Hakuna Matata Gaming Cafe | Gaming Subscriptions" property="og:title"/>
+<meta content="Save with monthly PS5, snooker &amp; pool packages at Hakuna Matata Gaming Cafe, Bangalore. Play, Eat, Repeat!" property="og:description"/>
+<meta content="https://hakunamatatagamingcafe.site/logo.jpeg" property="og:image"/>
+<meta content="https://hakunamatatagamingcafe.site/subscriptions.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Hakuna Matata Gaming Cafe - Subscriptions" name="twitter:title"/>
+<meta content="Get exclusive PS5, snooker &amp; pool gaming packages at Hakuna Matata Gaming Cafe in Bangalore." name="twitter:description"/>
+<meta content="https://hakunamatatagamingcafe.site/logo.jpeg" name="twitter:image"/>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col">
-  <header class="site-header">
-    <div class="max-w-6xl mx-auto w-full px-4 py-6 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-        <img src="logo.jpeg" alt="Hakuna Matata Gaming Logo" class="w-10 h-10 rounded-xl">
-        <div>
-            <h1 class="text-xl font-bold">Hakuna Matata Gaming</h1>
-            <p class="text-sm text-slate-400">Subscriptions for PS5 & more</p>
-        </div>
-        </div>
-        <nav class="hidden sm:flex items-center gap-4">
-            <a href="index.html" class="text-slate-300 hover:text-white transition-colors">Home</a>
-            <a href="gaming.html" class="text-slate-300 hover:text-white transition-colors">Gaming</a>
-            <a href="menu.html" class="text-slate-300 hover:text-white transition-colors">Food</a>
-        </nav>
-
-        <!-- Mobile Hamburger (polished - added) -->
-        <button id="menu-btn"
-                class="hamburger sm:hidden focus:outline-none"
-                aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </button>
-    </div>
-
-    <!-- Mobile Menu (polished - added) -->
-    <div id="mobile-menu"
-         class="mobile-panel hidden sm:hidden flex flex-col bg-[rgba(13,13,26,0.95)] px-4 pb-4">
-      <a href="index.html" class="block py-3 text-slate-300 hover:text-white">Home</a>
-      <a href="gaming.html" class="block py-3 text-slate-300 hover:text-white">Gaming</a>
-      <a href="menu.html" class="block py-3 text-slate-300 hover:text-white">Food</a>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main class="max-w-6xl mx-auto w-full px-4 flex-grow">
-    <!-- Customer details -->
-    <section id="details-card">
-      <div class="card p-6 md:p-8">
-        <h2 class="text-2xl font-bold mb-1 text-center">Your Details</h2>
-        <p class="text-slate-400 mb-5 text-center">We’ll send your payment confirmation and booking help on WhatsApp.</p>
-
-        <form class="grid md:grid-cols-2 gap-4">
-          <div>
-            <label for="name" class="text-sm text-slate-300">Full name</label>
-            <input id="name" class="input mt-1" placeholder="e.g., Priya Sharma" required />
-          </div>
-          <div>
-            <label for="wa" class="text-sm text-slate-300">WhatsApp (India)</label>
-            <div class="mt-1 flex gap-2">
-              <span class="px-3 grid place-items-center rounded-lg border border-[var(--border-color-main)] text-slate-300 bg-black/30">+91</span>
-              <input id="wa" class="input" inputmode="numeric" maxlength="10" placeholder="9876543210" required />
-            </div>
-            <p class="text-xs text-slate-500 mt-2">Enter a 10-digit Indian mobile number.</p>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- Plan Advisor -->
-    <section class="mt-8 text-center">
-        <button id="planAdvisorBtn" class="btn text-lg px-6 py-3">✨ Get a Plan Recommendation</button>
-    </section>
-
-    <!-- Plans -->
-    <section class="mt-8 text-center">
-      <h2 class="text-2xl font-bold mb-6">Available Plans</h2>
-
-      <!-- Plan Selector Flowchart -->
-      <div class="grid sm:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
-        <a href="#silver-plans" class="card p-8 flex flex-col items-center justify-center text-center no-underline plan-selector-card">
-          <h3 class="text-xl font-bold">Silver Plan</h3>
-          <p class="text-slate-400 text-sm mt-1">7 Days Access</p>
-        </a>
-        <a href="#gold-plans" id="gold-selector" class="card p-8 flex flex-col items-center justify-center text-center no-underline plan-selector-card">
-          <h3 class="text-xl font-bold">Gold Plan</h3>
-          <p class="text-slate-400 text-sm mt-1">14 Days Access</p>
-        </a>
-        <a href="#diamond-plans" id="diamond-selector" class="card p-8 flex flex-col items-center justify-center text-center no-underline plan-selector-card">
-          <h3 class="text-xl font-bold">Diamond Plan</h3>
-          <p class="text-slate-400 text-sm mt-1">21 Days Access</p>
-        </a>
-      </div>
-
-      <div id="silver-plans" class="pt-8">
-        <h3 class="text-lg font-semibold text-slate-300 mb-6" style="text-shadow: none;">7 Days Plan (Silver)</h3>
-        <div id="plans-grid-silver" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 text-left mb-12"></div>
-        <p class="text-xs text-slate-500 mt-4">All plans valid for one month from payment date. Plans once subscribed cannot be cancelled.</p>
-      </div>
-
-      <div id="gold-plans" class="pt-8">
-        <h3 class="text-lg font-semibold text-slate-300 mb-6" style="text-shadow: none;">14 Days Plan (Gold)</h3>
-        <div id="plans-grid-gold" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 text-left mb-12"></div>
-         <p class="text-xs text-slate-500 mt-4">All plans valid for one month from payment date. Plans once subscribed cannot be cancelled.</p>
-      </div>
-
-      <div id="diamond-plans" class="pt-8">
-        <h3 class="text-lg font-semibold text-slate-300 mb-6" style="text-shadow: none;">21 Days Plan (Diamond)</h3>
-        <div id="plans-grid-diamond" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 text-left"></div>
-         <p class="text-xs text-slate-500 mt-4">All plans valid for one month from payment date. Plans once subscribed cannot be cancelled.</p>
-      </div>
-    </section>
-  </main>
-  
-  <div id="toast" class="toast"></div>
-
-  <!-- Advisor Modal -->
-  <div id="advisorModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>Plan Advisor</h2>
-        <p>Describe your gaming habits, and we'll suggest the best plan for you!</p>
-        <textarea id="advisorPrompt" class="input mt-4" rows="4" placeholder="e.g., 'I play a couple of times a week with friends' or 'I'm a hardcore gamer who needs a lot of hours'"></textarea>
-        <button id="getAdvisorBtn" class="btn mt-4 w-full">Get Recommendation</button>
-    </div>
-  </div>
-
-  <section id="contact" class="max-w-6xl mx-auto w-full px-4 py-10 mt-8">
-    <h2 class="text-2xl font-bold mb-6 text-center">Contact Us</h2>
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="card p-6">
-        <p><strong>Phone:</strong> <a href="tel:+919348091035" class="text-[var(--primary-glow)] hover:underline">9348091035</a></p>
-        <p class="mt-2"><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com" class="text-[var(--primary-glow)] hover:underline">hakunaxmatataper@gmail.com</a></p>
-        <p class="mt-2"><strong>Address:</strong><br>
-          Hakuna Matata Gaming Cafe,<br>
-          No 42 Christ Lane, Hosur Main Road,<br>
+<header class="site-header">
+<div class="max-w-6xl mx-auto w-full px-4 py-6 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Hakuna Matata Gaming Logo" class="w-10 h-10 rounded-xl" src="logo.jpeg"/>
+<div>
+<h1 class="text-xl font-bold">Hakuna Matata Gaming</h1>
+<p class="text-sm text-slate-400">Subscriptions for PS5 &amp; more</p>
+</div>
+</div>
+<nav class="hidden sm:flex items-center gap-4">
+<a class="text-slate-300 hover:text-white transition-colors" href="index.html">Home</a>
+<a class="text-slate-300 hover:text-white transition-colors" href="gaming.html">Gaming</a>
+<a class="text-slate-300 hover:text-white transition-colors" href="menu.html">Food</a>
+</nav>
+<!-- Mobile Hamburger (polished - added) -->
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="hamburger sm:hidden focus:outline-none" id="menu-btn">
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+</button>
+</div>
+<!-- Mobile Menu (polished - added) -->
+<div class="mobile-panel hidden sm:hidden flex flex-col bg-[rgba(13,13,26,0.95)] px-4 pb-4" id="mobile-menu">
+<a class="block py-3 text-slate-300 hover:text-white" href="index.html">Home</a>
+<a class="block py-3 text-slate-300 hover:text-white" href="gaming.html">Gaming</a>
+<a class="block py-3 text-slate-300 hover:text-white" href="menu.html">Food</a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-6xl mx-auto w-full px-4 flex-grow">
+<!-- Customer details -->
+<section id="details-card">
+<div class="card p-6 md:p-8">
+<h2 class="text-2xl font-bold mb-1 text-center">Your Details</h2>
+<p class="text-slate-400 mb-5 text-center">We’ll send your payment confirmation and booking help on WhatsApp.</p>
+<form class="grid md:grid-cols-2 gap-4">
+<div>
+<label class="text-sm text-slate-300" for="name">Full name</label>
+<input class="input mt-1" id="name" placeholder="e.g., Priya Sharma" required=""/>
+</div>
+<div>
+<label class="text-sm text-slate-300" for="wa">WhatsApp (India)</label>
+<div class="mt-1 flex gap-2">
+<span class="px-3 grid place-items-center rounded-lg border border-[var(--border-color-main)] text-slate-300 bg-black/30">+91</span>
+<input class="input" id="wa" inputmode="numeric" maxlength="10" placeholder="9876543210" required=""/>
+</div>
+<p class="text-xs text-slate-500 mt-2">Enter a 10-digit Indian mobile number.</p>
+</div>
+</form>
+</div>
+</section>
+<!-- Plan Advisor -->
+<section class="mt-8 text-center">
+<button class="btn text-lg px-6 py-3" id="planAdvisorBtn">✨ Get a Plan Recommendation</button>
+</section>
+<!-- Plans -->
+<section class="mt-8 text-center">
+<h2 class="text-2xl font-bold mb-6">Available Plans</h2>
+<!-- Plan Selector Flowchart -->
+<div class="grid sm:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
+<a class="card p-8 flex flex-col items-center justify-center text-center no-underline plan-selector-card" href="#silver-plans">
+<h3 class="text-xl font-bold">Silver Plan</h3>
+<p class="text-slate-400 text-sm mt-1">7 Days Access</p>
+</a>
+<a class="card p-8 flex flex-col items-center justify-center text-center no-underline plan-selector-card" href="#gold-plans" id="gold-selector">
+<h3 class="text-xl font-bold">Gold Plan</h3>
+<p class="text-slate-400 text-sm mt-1">14 Days Access</p>
+</a>
+<a class="card p-8 flex flex-col items-center justify-center text-center no-underline plan-selector-card" href="#diamond-plans" id="diamond-selector">
+<h3 class="text-xl font-bold">Diamond Plan</h3>
+<p class="text-slate-400 text-sm mt-1">21 Days Access</p>
+</a>
+</div>
+<div class="pt-8" id="silver-plans">
+<h3 class="text-lg font-semibold text-slate-300 mb-6" style="text-shadow: none;">7 Days Plan (Silver)</h3>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 text-left mb-12" id="plans-grid-silver"></div>
+<p class="text-xs text-slate-500 mt-4">All plans valid for one month from payment date. Plans once subscribed cannot be cancelled.</p>
+</div>
+<div class="pt-8" id="gold-plans">
+<h3 class="text-lg font-semibold text-slate-300 mb-6" style="text-shadow: none;">14 Days Plan (Gold)</h3>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 text-left mb-12" id="plans-grid-gold"></div>
+<p class="text-xs text-slate-500 mt-4">All plans valid for one month from payment date. Plans once subscribed cannot be cancelled.</p>
+</div>
+<div class="pt-8" id="diamond-plans">
+<h3 class="text-lg font-semibold text-slate-300 mb-6" style="text-shadow: none;">21 Days Plan (Diamond)</h3>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 text-left" id="plans-grid-diamond"></div>
+<p class="text-xs text-slate-500 mt-4">All plans valid for one month from payment date. Plans once subscribed cannot be cancelled.</p>
+</div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<!-- Advisor Modal -->
+<div class="modal" id="advisorModal">
+<div class="modal-content">
+<span class="close-btn">×</span>
+<h2>Plan Advisor</h2>
+<p>Describe your gaming habits, and we'll suggest the best plan for you!</p>
+<textarea class="input mt-4" id="advisorPrompt" placeholder="e.g., 'I play a couple of times a week with friends' or 'I'm a hardcore gamer who needs a lot of hours'" rows="4"></textarea>
+<button class="btn mt-4 w-full" id="getAdvisorBtn">Get Recommendation</button>
+</div>
+</div>
+<section class="max-w-6xl mx-auto w-full px-4 py-10 mt-8" id="contact">
+<h2 class="text-2xl font-bold mb-6 text-center">Contact Us</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="card p-6">
+<p><strong>Phone:</strong> <a class="text-[var(--primary-glow)] hover:underline" href="tel:+919348091035">9348091035</a></p>
+<p class="mt-2"><strong>Email:</strong> <a class="text-[var(--primary-glow)] hover:underline" href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+<p class="mt-2"><strong>Address:</strong><br/>
+          Hakuna Matata Gaming Cafe,<br/>
+          No 42 Christ Lane, Hosur Main Road,<br/>
           Near Mekeba Restaurant, SG Palya, 560029
         </p>
-      </div>
-      <div class="card p-2">
-        <iframe class="w-full h-full rounded-lg" src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
-          allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <footer class="max-w-6xl mx-auto w-full px-4 py-10 text-sm text-slate-400 text-center mt-auto border-t border-[var(--border-color-main)]">
-    <p>© <span id="year"></span> Hakuna Matata Gaming Cafe</p>
-    <p class="mt-2">
-       <a href="privacy.html" class="hover:text-white">Privacy Policy</a> |
-       <a href="terms.html" class="hover:text-white">Terms & Conditions</a> |
-       <a href="refund.html" class="hover:text-white">Refund Policy</a>
-    </p>
-  </footer>
-
-  <!-- Polished hamburger JS (added) -->
-  <script>
+</div>
+<div class="card p-2">
+<iframe allowfullscreen="" class="w-full h-full rounded-lg" loading="lazy" src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&amp;output=embed"></iframe>
+</div>
+</div>
+</section>
+<footer class="max-w-6xl mx-auto w-full px-4 py-10 text-sm text-slate-400 text-center mt-auto border-t border-[var(--border-color-main)]">
+<p>© <span id="year"></span> Hakuna Matata Gaming Cafe</p>
+<p class="mt-2">
+<a class="hover:text-white" href="privacy.html">Privacy Policy</a> |
+       <a class="hover:text-white" href="terms.html">Terms &amp; Conditions</a> |
+       <a class="hover:text-white" href="refund.html">Refund Policy</a>
+</p>
+</footer>
+<!-- Polished hamburger JS (added) -->
+<script>
     const menuBtn = document.getElementById("menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
     const body = document.body;
@@ -417,8 +412,7 @@
       });
     }
   </script>
-
-  <script>
+<script>
     const RZP_KEY_ID = "rzp_live_R6Ismz5vWsQvKg"; 
 
     const PLANS_DIAMOND = [
