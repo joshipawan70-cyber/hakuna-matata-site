@@ -1,19 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hakuna Matata Gaming Cafe - Booking</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-  <style>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
     :root {
       --primary-glow: #00aaff;
       --secondary-glow: #0077ff;
@@ -467,246 +464,245 @@
     }
 
   </style>
+
+<title>Book PS5, Snooker &amp; Pool | Hakuna Matata Gaming Cafe</title>
+<meta content="Reserve your gaming slot at Hakuna Matata Gaming Cafe in SG Palya, Bangalore. Book PS5, PS4, snooker or pool table online and enjoy gaming with friends." name="description"/>
+<meta content="gaming booking, PS5 booking Bangalore, snooker table booking, pool table booking, Hakuna Matata Gaming Cafe SG Palya" name="keywords"/>
+<!-- Open Graph -->
+<meta content="Hakuna Matata Gaming Cafe | Gaming Bookings" property="og:title"/>
+<meta content="Book PS5, snooker &amp; pool sessions online at Hakuna Matata Gaming Cafe, Bangalore. Play, Eat &amp; Repeat!" property="og:description"/>
+<meta content="https://hakunamatatagamingcafe.site/logo.jpeg" property="og:image"/>
+<meta content="https://hakunamatatagamingcafe.site/gaming.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Hakuna Matata Gaming Cafe - Gaming Bookings" name="twitter:title"/>
+<meta content="Reserve your PS5, snooker &amp; pool slots online in Bangalore. Play, Eat, Repeat at Hakuna Matata Gaming Cafe." name="twitter:description"/>
+<meta content="https://hakunamatatagamingcafe.site/logo.jpeg" name="twitter:image"/>
 </head>
 <body>
-
-  <nav class="navbar">
-    <div class="nav-container">
-        <a href="index.html" class="nav-logo">Hakuna Matata</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="menu.html">Menu</a>
-            <a href="subscriptions.html">Subscriptions</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <button id="hamburgerBtn" class="hamburger-btn">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-    </div>
-  </nav>
-  
-  <div id="mobileNav" class="mobile-nav">
-    <button id="closeMobileNav" class="close-mobile-nav">&times;</button>
-    <a href="index.html">Home</a>
-    <a href="menu.html">Menu</a>
-    <a href="subscriptions.html">Subscriptions</a>
-    <a href="#contact">Contact</a>
-  </div>
-
-  <header>
-    <img src="logo.jpeg" alt="Hakuna Matata Logo" class="header-logo">
-    <div class="header-content">
-        <h1>Book Your Game</h1>
-        <p>Select your game, pick a date and time, and get ready to play!</p>
-    </div>
-    <button class="my-bookings-btn" id="myBookingsBtn">My Bookings</button>
-  </header>
-
-  <main class="container">
-    <div class="tiles-container">
-      <div class="card">
-        <h3>PS5</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS5 - 1 Controller - ₹150 / hour</option>
-          <option>PS5 - 2 Controllers - ₹250 / hour</option>
-          <option>PS5 - 3 Controllers - ₹300 / hour</option>
-          <option>PS5 - 4 Controllers - ₹350 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>PS4</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS4 - 1 Controller - ₹100 / hour</option>
-          <option>PS4 - 2 Controllers - ₹150 / hour</option>
-          <option>PS4 - 3 Controllers - ₹250 / hour</option>
-          <option>PS4 - 4 Controllers - ₹250 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Pool & Snooker</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Pool Table - ₹200 / hour</option>
-          <option>Snooker Table - ₹250 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Board Games</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Board Games - ₹50 / person / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Foosball</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Foosball - ₹100 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>Private Theatre</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>Private Theatre - ₹500 / hour (up to 5 people)</option>
-          <option>Private Theatre - +₹100 / person / hour (max 10)</option>
-        </select>
-      </div>
-       <div class="card">
-        <h3>PS4 Racing Wheel</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS4 Racing Wheel - F1 (5 Laps) - ₹50</option>
-          <option>PS4 Racing Wheel - ₹300 / hour</option>
-        </select>
-      </div>
-      <div class="card">
-        <h3>PS5 Racing Wheel</h3>
-        <select onchange="setGame(this)">
-          <option value="">-- Select Option --</option>
-          <option>PS5 Racing Wheel - F1 (5 Laps) - ₹100</option>
-          <option>PS5 Racing Wheel - Forza Horizon - ₹500 / hour</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="card form-card">
-      <h2>Booking Details</h2>
-      <input type="text" id="nameInput" placeholder="Your Name" required>
-      <input type="email" id="emailInput" placeholder="Your Email" required>
-      <input type="tel" id="phoneInput" placeholder="Your Phone (e.g. 91...)" required>
-      <input type="text" id="gameInput" placeholder="Selected Game" readonly>
-      <input type="text" id="datepicker" placeholder="Select Date">
-      <input type="text" id="timeInput" placeholder="Selected Time Slot" readonly>
-      
-      <div class="time-slots">
-        <button type="button">10:00-11:00</button>
-        <button type="button">11:00-12:00</button>
-        <button type="button">12:00-13:00</button>
-        <button type="button">13:00-14:00</button>
-        <button type="button">14:00-15:00</button>
-        <button type="button">15:00-16:00</button>
-        <button type="button">16:00-17:00</button>
-        <button type="button">17:00-18:00</button>
-        <button type="button">18:00-19:00</button>
-        <button type="button">19:00-20:00</button>
-        <button type="button">20:00-21:00</button>
-        <button type="button">21:00-22:00</button>
-        <button type="button">22:00-23:00</button>
-      </div>
-      <button id="suggestGameBtn">✨ Suggest a Game for Me</button>
-      <button class="confirm-btn" id="payNowBtn">Pay ₹50 Advance & Book</button>
-    </div>
-  </main>
-
-  <section class="latest-games">
-    <h2>Latest Games</h2>
-    <div class="games-grid">
-        <div class="card game-card">
-            <h3>PlayStation 5</h3>
-            <ul>
-                <li>EA Sports FC 25</li>
-                <li>F1 24</li>
-                <li>WWE 2K24</li>
-                <li>Gran Turismo 7</li>
-                <li>Marvel's Wolverine</li>
-            </ul>
-        </div>
-        <div class="card game-card">
-            <h3>PlayStation 4</h3>
-            <ul>
-                <li>EA Sports FC 25</li>
-                <li>F1 24</li>
-                <li>WWE 2K24</li>
-                <li>Call of Duty: Black Ops 4</li>
-                <li>Elden Ring: Shadow of the Erdtree</li>
-            </ul>
-        </div>
-    </div>
-  </section>
-
-  <section class="ps-plus-games">
-    <h2>Available on PS Plus</h2>
-    <div class="games-grid">
-        <div class="card game-card">
-            <h3>PlayStation 5</h3>
-            <ul>
-                <li>Mortal Kombat 1</li>
-                <li>Marvel's Spider-Man Remastered</li>
-                <li>Sword of the Sea</li>
-                <li>Indika</li>
-                <li>Harold Halibut</li>
-            </ul>
-        </div>
-        <div class="card game-card">
-            <h3>PlayStation 4</h3>
-            <ul>
-                <li>Marvel's Spider-Man</li>
-                <li>Unicorn Overlord</li>
-                <li>Lies of P</li>
-                <li>DayZ</li>
-                <li>Resident Evil 2</li>
-            </ul>
-        </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <div class="contact-grid">
-      <div class="contact-box">
-        <p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
-        <p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
-        <p><strong>Address:</strong><br>
-          Hakuna Matata Gaming Cafe,<br>
-          No 42 Christ Lane, Hosur Main Road,<br>
+<nav class="navbar">
+<div class="nav-container">
+<a class="nav-logo" href="index.html">Hakuna Matata</a>
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="menu.html">Menu</a>
+<a href="subscriptions.html">Subscriptions</a>
+<a href="#contact">Contact</a>
+</div>
+<button class="hamburger-btn" id="hamburgerBtn">
+<span class="bar"></span>
+<span class="bar"></span>
+<span class="bar"></span>
+</button>
+</div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+<button class="close-mobile-nav" id="closeMobileNav">×</button>
+<a href="index.html">Home</a>
+<a href="menu.html">Menu</a>
+<a href="subscriptions.html">Subscriptions</a>
+<a href="#contact">Contact</a>
+</div>
+<header>
+<img alt="Hakuna Matata Logo" class="header-logo" src="logo.jpeg"/>
+<div class="header-content">
+<h1>Book Your Game</h1>
+<p>Select your game, pick a date and time, and get ready to play!</p>
+</div>
+<button class="my-bookings-btn" id="myBookingsBtn">My Bookings</button>
+</header>
+<main class="container">
+<div class="tiles-container">
+<div class="card">
+<h3>PS5</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>PS5 - 1 Controller - ₹150 / hour</option>
+<option>PS5 - 2 Controllers - ₹250 / hour</option>
+<option>PS5 - 3 Controllers - ₹300 / hour</option>
+<option>PS5 - 4 Controllers - ₹350 / hour</option>
+</select>
+</div>
+<div class="card">
+<h3>PS4</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>PS4 - 1 Controller - ₹100 / hour</option>
+<option>PS4 - 2 Controllers - ₹150 / hour</option>
+<option>PS4 - 3 Controllers - ₹250 / hour</option>
+<option>PS4 - 4 Controllers - ₹250 / hour</option>
+</select>
+</div>
+<div class="card">
+<h3>Pool &amp; Snooker</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>Pool Table - ₹200 / hour</option>
+<option>Snooker Table - ₹250 / hour</option>
+</select>
+</div>
+<div class="card">
+<h3>Board Games</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>Board Games - ₹50 / person / hour</option>
+</select>
+</div>
+<div class="card">
+<h3>Foosball</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>Foosball - ₹100 / hour</option>
+</select>
+</div>
+<div class="card">
+<h3>Private Theatre</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>Private Theatre - ₹500 / hour (up to 5 people)</option>
+<option>Private Theatre - +₹100 / person / hour (max 10)</option>
+</select>
+</div>
+<div class="card">
+<h3>PS4 Racing Wheel</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>PS4 Racing Wheel - F1 (5 Laps) - ₹50</option>
+<option>PS4 Racing Wheel - ₹300 / hour</option>
+</select>
+</div>
+<div class="card">
+<h3>PS5 Racing Wheel</h3>
+<select onchange="setGame(this)">
+<option value="">-- Select Option --</option>
+<option>PS5 Racing Wheel - F1 (5 Laps) - ₹100</option>
+<option>PS5 Racing Wheel - Forza Horizon - ₹500 / hour</option>
+</select>
+</div>
+</div>
+<div class="card form-card">
+<h2>Booking Details</h2>
+<input id="nameInput" placeholder="Your Name" required="" type="text"/>
+<input id="emailInput" placeholder="Your Email" required="" type="email"/>
+<input id="phoneInput" placeholder="Your Phone (e.g. 91...)" required="" type="tel"/>
+<input id="gameInput" placeholder="Selected Game" readonly="" type="text"/>
+<input id="datepicker" placeholder="Select Date" type="text"/>
+<input id="timeInput" placeholder="Selected Time Slot" readonly="" type="text"/>
+<div class="time-slots">
+<button type="button">10:00-11:00</button>
+<button type="button">11:00-12:00</button>
+<button type="button">12:00-13:00</button>
+<button type="button">13:00-14:00</button>
+<button type="button">14:00-15:00</button>
+<button type="button">15:00-16:00</button>
+<button type="button">16:00-17:00</button>
+<button type="button">17:00-18:00</button>
+<button type="button">18:00-19:00</button>
+<button type="button">19:00-20:00</button>
+<button type="button">20:00-21:00</button>
+<button type="button">21:00-22:00</button>
+<button type="button">22:00-23:00</button>
+</div>
+<button id="suggestGameBtn">✨ Suggest a Game for Me</button>
+<button class="confirm-btn" id="payNowBtn">Pay ₹50 Advance &amp; Book</button>
+</div>
+</main>
+<section class="latest-games">
+<h2>Latest Games</h2>
+<div class="games-grid">
+<div class="card game-card">
+<h3>PlayStation 5</h3>
+<ul>
+<li>EA Sports FC 25</li>
+<li>F1 24</li>
+<li>WWE 2K24</li>
+<li>Gran Turismo 7</li>
+<li>Marvel's Wolverine</li>
+</ul>
+</div>
+<div class="card game-card">
+<h3>PlayStation 4</h3>
+<ul>
+<li>EA Sports FC 25</li>
+<li>F1 24</li>
+<li>WWE 2K24</li>
+<li>Call of Duty: Black Ops 4</li>
+<li>Elden Ring: Shadow of the Erdtree</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="ps-plus-games">
+<h2>Available on PS Plus</h2>
+<div class="games-grid">
+<div class="card game-card">
+<h3>PlayStation 5</h3>
+<ul>
+<li>Mortal Kombat 1</li>
+<li>Marvel's Spider-Man Remastered</li>
+<li>Sword of the Sea</li>
+<li>Indika</li>
+<li>Harold Halibut</li>
+</ul>
+</div>
+<div class="card game-card">
+<h3>PlayStation 4</h3>
+<ul>
+<li>Marvel's Spider-Man</li>
+<li>Unicorn Overlord</li>
+<li>Lies of P</li>
+<li>DayZ</li>
+<li>Resident Evil 2</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="contact">
+<h2>Contact Us</h2>
+<div class="contact-grid">
+<div class="contact-box">
+<p><strong>Phone:</strong> <a href="tel:+919348091035">9348091035</a></p>
+<p><strong>Email:</strong> <a href="mailto:hakunaxmatataper@gmail.com">hakunaxmatataper@gmail.com</a></p>
+<p><strong>Address:</strong><br/>
+          Hakuna Matata Gaming Cafe,<br/>
+          No 42 Christ Lane, Hosur Main Road,<br/>
           Near Mekeba Restaurant, SG Palya, 560029
         </p>
-      </div>
-      <div class="contact-box map">
-        <iframe src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&output=embed"
-          allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Hakuna Matata Gaming Cafe</p>
-    <p><a href="privacy.html">Privacy Policy</a> | 
-       <a href="terms.html">Terms & Conditions</a> | 
+</div>
+<div class="contact-box map">
+<iframe allowfullscreen="" loading="lazy" src="https://www.google.com/maps?q=Hakuna%20matata%20gaming%20cafe,%20no%2042%20christ%20lane%20hosur%20main%20road%20near%20mekeba%20restaurant,%20sg%20palya,%20560029&amp;output=embed"></iframe>
+</div>
+</div>
+</section>
+<footer>
+<p>© 2025 Hakuna Matata Gaming Cafe</p>
+<p><a href="privacy.html">Privacy Policy</a> | 
+       <a href="terms.html">Terms &amp; Conditions</a> | 
        <a href="refund.html">Refund Policy</a></p>
-  </footer>
-
-  <div id="messageBox" class="message-box"></div>
-
-  <div id="bookingsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>My Bookings</h2>
-        <p>Enter your email to find your bookings.</p>
-        <input type="email" id="searchEmail" placeholder="Your Email">
-        <button id="findBookingsBtn">Find My Bookings</button>
-        <ul id="bookingsList"></ul>
-    </div>
-  </div>
-
-  <div id="suggestionModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>What are you in the mood for?</h2>
-        <p>e.g., "a fun game for two people" or "something competitive"</p>
-        <textarea id="suggestionPrompt" rows="3"></textarea>
-        <button id="getSuggestionBtn">Get Suggestion</button>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  
-  <script type="module">
+</footer>
+<div class="message-box" id="messageBox"></div>
+<div class="modal" id="bookingsModal">
+<div class="modal-content">
+<span class="close-btn">×</span>
+<h2>My Bookings</h2>
+<p>Enter your email to find your bookings.</p>
+<input id="searchEmail" placeholder="Your Email" type="email"/>
+<button id="findBookingsBtn">Find My Bookings</button>
+<ul id="bookingsList"></ul>
+</div>
+</div>
+<div class="modal" id="suggestionModal">
+<div class="modal-content">
+<span class="close-btn">×</span>
+<h2>What are you in the mood for?</h2>
+<p>e.g., "a fun game for two people" or "something competitive"</p>
+<textarea id="suggestionPrompt" rows="3"></textarea>
+<button id="getSuggestionBtn">Get Suggestion</button>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getFirestore, collection, getDocs, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
@@ -1083,4 +1079,5 @@
     });
   </script>
 </body>
-</ht
+&lt;/ht
+</html>
