@@ -392,6 +392,7 @@
         transform: translateY(-10px);
     }
 
+    /* Mobile: up to tablets */
     @media (max-width: 768px) {
         .nav-links { display: none; }
         .hamburger-btn { display: block; }
@@ -420,6 +421,24 @@
         .feature-text {
             text-align: center;
         }
+    }
+
+    /* Extra-small phones: make layout a bit more compact */
+    @media (max-width: 380px) {
+        h1 { font-size: 1.9rem; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.05rem; }
+
+        .hero { min-height: 72vh; padding: 48px 16px; }
+        .hero h1 { font-size: 2rem; }
+        .hero p { font-size: 0.95rem; }
+        .hero-logo { width: 60%; max-width: 160px; margin-bottom: 16px; }
+
+        .cta-button { font-size: 1rem; padding: 12px 22px; }
+        section { padding: 48px 16px; }
+        .card { padding: 22px; }
+
+        .mobile-nav a { font-size: 1.25rem; margin: 14px 0; }
     }
   </style>
 </head>
