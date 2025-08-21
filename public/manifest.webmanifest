@@ -10,65 +10,19 @@
   "theme_color": "#0d0d1a",
   "orientation": "portrait",
   "icons": [
-    {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/maskable-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icons/maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icons/apple-touch-icon-120.png",
-      "sizes": "120x120",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/apple-touch-icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/apple-touch-icon-180.png",
-      "sizes": "180x180",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
-    }
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/apple-touch-icon-120.png", "sizes": "120x120", "type": "image/png" },
+    { "src": "/icons/apple-touch-icon-152.png", "sizes": "152x152", "type": "image/png" },
+    { "src": "/icons/apple-touch-icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
   ],
   "shortcuts": [
-    {
-      "name": "Book a slot",
-      "short_name": "Book",
-      "url": "/gaming.html"
-    },
-    {
-      "name": "Pricing",
-      "short_name": "Pricing",
-      "url": "/#pricing"
-    },
-    {
-      "name": "Contact",
-      "short_name": "Contact",
-      "url": "/#contact"
-    }
+    { "name": "Book a slot", "short_name": "Book", "url": "/gaming.html" },
+    { "name": "Pricing", "short_name": "Pricing", "url": "/#pricing" },
+    { "name": "Contact", "short_name": "Contact", "url": "/#contact" }
   ],
   "prefer_related_applications": false
 }
