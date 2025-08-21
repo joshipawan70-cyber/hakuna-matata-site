@@ -792,5 +792,12 @@ Format the output clearly with headings for each idea.`;
     });
 
   </script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(console.error);
+  });
+}
+</script>
 </body>
 </html>
